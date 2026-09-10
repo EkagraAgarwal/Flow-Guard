@@ -1,0 +1,5 @@
+# Local-only source material retained for reference
+/local-reference-artifacts/
+/.banyancode
+/.venv/
+/designs/*/runs/
