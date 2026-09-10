@@ -13,6 +13,24 @@ Status audited against the repository on 2026-09-11.
   completed all 80 stages with timing, DRC, and LVS checks passing.
 - Immediate blocker: none for local baseline execution.
 
+## FIR Hardware
+
+**[In Progress] `designs/flowguard_fir/`**
+
+- Done: synthesizable signed 8-tap FIR, eight programmable coefficients,
+  parallel registered multipliers, balanced registered adder tree, signed
+  saturation, valid pipeline, and asynchronous active-low reset.
+- Done: self-checking Icarus simulation (46 checked outputs), Verilator RTL
+  lint, and a full LibreLane flow with timing, DRC, and LVS passing.
+- Measured: 4,375 synthesized standard cells and 50,155.6 square micrometers
+  of cell area. The fixed `160 x 100` micrometer config has 443.2% effective
+  core utilization. An unconstrained reference run required 7,214 placed cells
+  and an automatically sized `389.59 x 400.31` micrometer die.
+- Blocker: eight parallel programmable 8x8 multipliers cannot meet the stated
+  400-750-cell target or `160 x 100` micrometer tile. Meeting that envelope
+  requires relaxing the parallel-tree/throughput requirement and sharing a
+  multiplier across taps, or reducing coefficient precision.
+
 ## Software Stack
 
 ### 1. Orchestration Runner

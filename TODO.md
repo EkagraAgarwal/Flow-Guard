@@ -26,7 +26,8 @@ This roadmap implements the Gemini FlowGuard concept: a calibrated, failure-awar
 
 ## Phase 2 — Design and experiment contract
 
-- [x] Choose and validate the Tiny Tapeout-compatible `flowguard_counter` RTL baseline (394 placed devices in the first full run).
+- [x] Implement and functionally validate the `flowguard_fir` RTL and retain `flowguard_counter` as the environment smoke baseline.
+- [ ] Resolve the measured FIR size conflict: the parallel programmable design synthesizes to 4,375 cells (443.2% tile-core utilization) and cannot fit the declared 1x1 tile without an architecture/specification change.
 - [ ] Freeze exactly four bounded knobs after the pilot: clock period, core utilization, placement density, and either global-routing adjustment or one synthesis-effort control.
 - [ ] Document legal ranges, defaults, candidate encoding, fixed candidate pool, per-run timeout, concurrency, seeds, and a 24–30-call budget per method.
 - [ ] Pre-register eight initialization trials (including default) and 16–22 sequential trials; count crashes, timeouts, and unroutable designs against budget.
