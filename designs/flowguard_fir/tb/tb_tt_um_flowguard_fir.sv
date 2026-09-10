@@ -11,7 +11,7 @@ module tb_tt_um_flowguard_fir;
     integer due_cycle [0:255];
     integer coefficient [0:7];
     integer history [0:7];
-    integer cycle, queued, checked, errors, i, acc;
+    integer enabled_cycle, queued, checked, errors, i, acc;
 
     tt_um_flowguard_fir dut (
         .ui_in(ui_in), .uo_out(uo_out), .uio_in(uio_in),
@@ -61,12 +61,12 @@ module tb_tt_um_flowguard_fir;
     always @(posedge clk) begin
         #1;
         if (!rst_n) begin
-            cycle = 0;
+            enabled_cycle = 0;
             queued = 0;
             checked = 0;
-        end else begin
-            cycle = cycle + 1;
-            if (ena && !uio_in[7]) begin
+        end else if (ena) begin
+            enabled_cycle = enabled_cycle + 1;
+            if (!uio_in[7]) begin
                 acc = signed8(ui_in) * coefficient[0];
                 // Tap zero uses this sample; the remaining taps use history.
                 for (i = 1; i < 8; i = i + 1)
@@ -75,21 +75,21 @@ module tb_tt_um_flowguard_fir;
                     history[i] = history[i-1];
                 history[0] = signed8(ui_in);
                 expected[queued] = sat8(acc);
-                due_cycle[queued] = cycle + 4;
+                due_cycle[queued] = enabled_cycle + 4;
                 queued = queued + 1;
             end
             if (uio_out[0]) begin
-                if (checked >= queued || due_cycle[checked] != cycle) begin
-                    $display("FAIL unexpected valid at cycle %0d", cycle);
+                if (checked >= queued || due_cycle[checked] != enabled_cycle) begin
+                    $display("FAIL unexpected valid at enabled cycle %0d", enabled_cycle);
                     errors = errors + 1;
                 end else if (signed8(uo_out) !== expected[checked]) begin
-                    $display("FAIL cycle %0d got %0d expected %0d", cycle,
+                    $display("FAIL enabled cycle %0d got %0d expected %0d", enabled_cycle,
                              signed8(uo_out), expected[checked]);
                     errors = errors + 1;
                 end
                 checked = checked + 1;
-            end else if (checked < queued && due_cycle[checked] == cycle) begin
-                $display("FAIL missing valid at cycle %0d", cycle);
+            end else if (checked < queued && due_cycle[checked] == enabled_cycle) begin
+                $display("FAIL missing valid at enabled cycle %0d", enabled_cycle);
                 errors = errors + 1;
             end
         end
@@ -97,7 +97,7 @@ module tb_tt_um_flowguard_fir;
 
     initial begin
         clk = 0; ena = 0; rst_n = 0; ui_in = 0; uio_in = 0;
-        cycle = 0; queued = 0; checked = 0; errors = 0;
+        enabled_cycle = 0; queued = 0; checked = 0; errors = 0;
         coefficient[0]=1; coefficient[1]=2; coefficient[2]=3; coefficient[3]=4;
         coefficient[4]=4; coefficient[5]=3; coefficient[6]=2; coefficient[7]=1;
         for (i = 0; i < 8; i = i + 1) history[i] = 0;
@@ -130,23 +130,25 @@ module tb_tt_um_flowguard_fir;
         drive_sample(0); drive_sample(0); drive_sample(0); drive_sample(0);
         drive_sample(0); drive_sample(0);
 
-        // ena freezes both pipeline and valid state; no transaction is accepted.
-        // Drain the final accepted sample with write cycles; writes advance the
-        // existing pipeline but are not themselves valid sample transactions.
+        // Write cycles advance the existing pipeline but do not accept samples.
         repeat (5) write_coefficient(3'd7, 1);
+
+        // Pause a transaction in flight. Disabled clocks must not consume
+        // latency, accept data, or alter the held output/valid state.
+        drive_sample(9);
+        drive_sample(0);
         @(negedge clk); ena = 0; ui_in = 8'h55; uio_in = 0;
         repeat (3) @(posedge clk);
         #1;
         if (uio_out[0] !== 0) begin
-            $display("FAIL ena low changed valid state"); errors = errors + 1;
+            $display("FAIL ena low advanced in-flight valid"); errors = errors + 1;
         end
-        drive_sample(0);
-        repeat (8) drive_sample(0);
+        repeat (10) drive_sample(0);
         repeat (5) write_coefficient(3'd7, 1);
         @(negedge clk); ena = 0;
         @(posedge clk);
         if (errors == 0 && checked == queued)
-            $display("PASS: %0d FIR results checked; latency is four enabled sample clocks", checked);
+            $display("PASS: %0d FIR results checked; latency is four enabled pipeline clocks", checked);
         else begin
             $display("FAIL: %0d errors, checked %0d of %0d", errors, checked, queued);
             $fatal(1);
