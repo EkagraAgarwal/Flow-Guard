@@ -84,8 +84,9 @@ RESULTS="$ROOT/results"
 MANIFEST="$RESULTS/${EXPERIMENT_ID}_manifest.csv"
 CONFIG_ROOT="$RESULTS/${EXPERIMENT_ID}_configs"
 RUNS_ROOT="$RESULTS/${EXPERIMENT_ID}_runs"
+AGGREGATE_ROOT="$RESULTS/${EXPERIMENT_ID}_aggregates"
 LOCK="$RESULTS/.server_experiment.lock"
-mkdir -p "$RESULTS" "$CONFIG_ROOT" "$RUNS_ROOT"
+mkdir -p "$RESULTS" "$CONFIG_ROOT" "$RUNS_ROOT" "$AGGREGATE_ROOT"
 mkdir "$LOCK" 2>/dev/null || die "another server matrix launcher is active"
 trap 'rmdir "$LOCK"' EXIT
 
@@ -181,7 +182,7 @@ PY
   parser_status=NO_METRICS
   parsed_record=""
   if [[ -n $metrics_file ]]; then
-    if parsed_record=$(python3 -m src.parser --trial-id "$trial_id" --metrics "$metrics_file" --status "$status_file" --config "$trial_config" --output-root "$RESULTS"); then
+    if parsed_record=$(python3 -m src.parser --trial-id "$trial_id" --metrics "$metrics_file" --status "$status_file" --config "$trial_config" --output-root "$AGGREGATE_ROOT"); then
       parser_status=PARSED
     else
       parser_status=PARSER_FAILED
