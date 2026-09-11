@@ -1,9 +1,9 @@
 {
   "manifest": "/home/ubuntu/Flow-Guard/results/recovery_5h_v3/manifest.jsonl",
-  "message": "completed=fixed-13-safe runner=SUCCESS parser=PARSED",
+  "message": "completed=fixed-13-middle runner=SUCCESS parser=PARSED",
   "namespace": "recovery_5h_v3",
   "stage": "fixed_clock",
   "state": "RUNNING",
   "summary": "/home/ubuntu/Flow-Guard/results/recovery_5h_v3/summary.json",
-  "updated_at": "2026-09-11T10:23:12.875591Z"
+  "updated_at": "2026-09-11T10:25:49.766010Z"
 }
