@@ -64,6 +64,25 @@ while IFS= read -r trial_dir; do
   if [[ -z "$config_file" || ! -f "$config_file" ]]; then
     while IFS= read -r candidate; do config_file=$candidate; break; done < <(find "$trial_dir" -type f -path '*/config.json' -print)
   fi
+  if [[ -n "$config_file" && -f "$config_file" ]]; then
+    if ! python3 - "$config_file" <<'PY'
+import json, sys
+config = json.load(open(sys.argv[1], encoding="utf-8"))
+required = {"FP_CORE_UTIL", "PL_TARGET_DENSITY_PCT", "GPL_CELL_PADDING", "SYNTH_STRATEGY"}
+raise SystemExit(0 if required.intersection(config) else 1)
+PY
+    then
+      while IFS= read -r candidate; do
+        if python3 - "$candidate" <<'PY'
+import json, sys
+config = json.load(open(sys.argv[1], encoding="utf-8"))
+required = {"FP_CORE_UTIL", "PL_TARGET_DENSITY_PCT", "GPL_CELL_PADDING", "SYNTH_STRATEGY"}
+raise SystemExit(0 if required.intersection(config) else 1)
+PY
+        then config_file=$candidate; break; fi
+      done < <(find "$trial_dir" -type f -path '*/config.json' -print)
+    fi
+  fi
   metrics_file=""
   while IFS= read -r candidate; do
     metrics_file=$candidate
