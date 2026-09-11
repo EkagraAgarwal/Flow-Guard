@@ -1,0 +1,2 @@
+2026-09-11T15:40:40Z [recovery_5h_v6] preflight: checking repository, runner/parser, config, and push target
+2026-09-11T15:40:41Z [recovery_5h_v6] [fixed_clock] start fixed-17-safe clock=17ns profile=safe timeout=7200s
