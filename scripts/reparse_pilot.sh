@@ -36,6 +36,7 @@ configs_root="$source_root/configs"
 output_root=${output_root:-"$source_root/v3_corrected_aggregates"}
 python_bin="$root/.venv/openlane/bin/python"
 [[ -x "$python_bin" ]] || python_bin=python3
+mkdir -p "$output_root/configs"
 
 [[ -d "$runs_root" ]] || {
   printf 'missing raw run directory: %s\n' "$runs_root" >&2
@@ -72,12 +73,39 @@ while IFS= read -r trial_dir; do
     continue
   fi
 
+  probe="$(python3 - "$source_root/manifest.csv" "$trial_id" <<'PY'
+import csv, sys
+with open(sys.argv[1], newline="", encoding="utf-8") as handle:
+    rows = [row for row in csv.DictReader(handle) if row.get("trial_id") == sys.argv[2]]
+print(rows[-1].get("probe", "") if rows else "")
+PY
+)"
+  effective_config="$output_root/configs/$trial_id.json"
+  python3 - "$config_file" "$effective_config" "$probe" <<'PY'
+import json, pathlib, sys
+source, destination, probe = sys.argv[1:]
+config = json.loads(pathlib.Path(source).read_text(encoding="utf-8"))
+parts = [part.strip().strip('"') for part in probe.split(",", 4)] if probe else []
+if len(parts) == 5:
+    # The manifest probe is stage-independent in this pilot:
+    # util,density,padding,adjustment,strategy.
+    fields = parts
+    config.update({
+        "FP_CORE_UTIL": int(fields[0]),
+        "PL_TARGET_DENSITY_PCT": int(fields[1]),
+        "GPL_CELL_PADDING": int(fields[2]),
+        "GRT_ADJUSTMENT": float(fields[3]),
+        "SYNTH_STRATEGY": fields[4].strip().strip('"'),
+    })
+pathlib.Path(destination).write_text(json.dumps(config, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+PY
+
   printf 'PARSE %s\n' "$trial_id"
   "$python_bin" -m src.parser \
     --trial-id "$trial_id" \
     --metrics "$metrics_file" \
     --status "$status_file" \
-    --config "$config_file" \
+    --config "$effective_config" \
     --output-root "$output_root" >/dev/null
   parsed=$((parsed + 1))
 done < <(find "$runs_root" -mindepth 1 -maxdepth 1 -type d -name 'trial_*' -print | sort)
