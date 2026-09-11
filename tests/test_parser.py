@@ -31,6 +31,15 @@ class ParserTests(unittest.TestCase):
             with self.assertRaises(FileExistsError):
                 append_record(record, root)
 
+    def test_appends_runner_failure_stage_column(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            status = root / "status.json"
+            status.write_text(json.dumps({"status": "SUCCESS", "terminal_status": "SUCCESS", "failure_stage": None, "runtime_s": 2.0}))
+            record = build_record("stage", FIXTURES / "metrics_success.json", status_path=status)
+            append_record(record, root)
+            self.assertIn("failure_stage", (root / "aggregated.csv").read_text())
+
 
 if __name__ == "__main__":
     unittest.main()

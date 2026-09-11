@@ -94,7 +94,10 @@ def append_record(record: Mapping[str, Any], output_root: str | Path) -> None:
         with csv_path.open(newline="", encoding="utf-8") as handle:
             if any(row.get("trial_id") == trial_id for row in csv.DictReader(handle)):
                 raise FileExistsError(f"trial already aggregated: {trial_id}")
-    fields = ["trial_id", "knobs", "feasible", "area", "WNS", "runtime_s", "TNS", "DRC", "wirelength", "status"]
+    fields = [
+        "trial_id", "knobs", "feasible", "area", "WNS", "runtime_s",
+        "TNS", "DRC", "wirelength", "status", "failure_stage",
+    ]
     write_header = not csv_path.exists()
     with csv_path.open("a", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields)
