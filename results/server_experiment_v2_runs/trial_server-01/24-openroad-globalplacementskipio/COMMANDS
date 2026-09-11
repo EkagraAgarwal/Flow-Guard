@@ -1,1 +1,0 @@
-openroad -exit -no_splash -metrics /home/ubuntu/Flow-Guard/results/server_experiment_v2_configs/server-01/runs/trial_server-01/24-openroad-globalplacementskipio/or_metrics_out.json /nix/store/f8bhalkl3s4vjwd7g271xz92bra8yrm5-python3-3.13.9-env/lib/python3.13/site-packages/librelane/scripts/openroad/gpl.tcl

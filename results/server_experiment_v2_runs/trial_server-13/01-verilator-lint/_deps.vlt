@@ -1,5 +1,0 @@
-`verilator_config
-lint_off -rule DECLFILENAME
-lint_off -rule EOFNEWLINE
-lint_off -rule UNDRIVEN -file "/home/ubuntu/Flow-Guard/results/server_experiment_v2_configs/server-13/runs/trial_server-13/tmp/1e91f028f19542da8e6133f39d4d11e9.bb.v"
-lint_off -rule UNUSEDSIGNAL -file "/home/ubuntu/Flow-Guard/results/server_experiment_v2_configs/server-13/runs/trial_server-13/tmp/1e91f028f19542da8e6133f39d4d11e9.bb.v"
