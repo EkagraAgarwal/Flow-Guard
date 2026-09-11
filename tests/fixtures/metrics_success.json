@@ -1,0 +1,8 @@
+{
+  "design__instance__area__stdcell": 1234.5,
+  "timing__setup__wns": 0.12,
+  "timing__setup__tns": 0.0,
+  "drc__violations": 0,
+  "route__wirelength": 4567.0,
+  "status": "success"
+}
