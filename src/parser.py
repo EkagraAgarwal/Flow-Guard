@@ -120,12 +120,15 @@ def _report_evidence(metrics_path: str | Path, result: dict[str, Any]) -> None:
             result["lvs_passed"] = "Final result:" in text and "Circuits match uniquely" in text
 
     if result.get("signoff_passed") is None:
-        reports = list(run_root.glob("*-misc-reportmanufacturability/*.log"))
+        reports = list(run_root.glob("*-misc-reportmanufacturability/manufacturability.rpt"))
+        reports += list(run_root.glob("*-misc-reportmanufacturability/*.log"))
         if reports:
             text = reports[0].read_text(encoding="utf-8", errors="replace")
-            result["signoff_passed"] = all(
-                marker in text for marker in ("* LVS", "Passed", "* DRC")
-            ) and result.get("lvs_passed") is True and result.get("drc_violations") == 0
+            lvs_passed = "* LVS" in text and "Passed" in text
+            drc_passed = "* DRC" in text and "Passed" in text
+            if result.get("lvs_passed") is None:
+                result["lvs_passed"] = lvs_passed
+            result["signoff_passed"] = lvs_passed and drc_passed and result.get("drc_violations") == 0
 
 
 def parse_metrics(metrics_path: str | Path, status_path: str | Path | None = None) -> dict[str, Any]:
