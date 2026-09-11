@@ -55,6 +55,7 @@ done
 
 RESULTS="$ROOT/results/$NAMESPACE"
 RUNS_ROOT="$RESULTS/runs"
+CONFIG_ROOT="$RESULTS/configs"
 MANIFEST="$RESULTS/manifest.jsonl"
 TRIALS="$RESULTS/trials.jsonl"
 STATUS_LOG="$RESULTS/status.log"
@@ -146,7 +147,9 @@ checkpoint() {
 refresh_summary() {
   python3 - "$TRIALS" "$SUMMARY" "$NAMESPACE" <<'PY'
 import json, pathlib, sys
-trials, summary, namespace = map(pathlib.Path, sys.argv[1:])
+trials = pathlib.Path(sys.argv[1])
+summary = pathlib.Path(sys.argv[2])
+namespace = sys.argv[3]
 rows = [json.loads(line) for line in trials.read_text(encoding="utf-8").splitlines() if line.strip()]
 fixed = [r for r in rows if r.get("stage") == "fixed_clock"]
 boundary = None
@@ -178,14 +181,14 @@ PY
 run_trial() {
   local trial_id=$1 stage=$2 clock=$3 profile=$4 util=$5 density=$6 padding=$7 adjustment=$8 strategy=$9
   local trial_dir="$RUNS_ROOT/trial_$trial_id"
-  local config="$trial_dir/config.json" status_file="$trial_dir/status.json"
+  local config="$CONFIG_ROOT/$trial_id/config.json" status_file="$trial_dir/status.json"
   if (( RESUME )) && completed "$trial_id"; then status "resume: skipping completed $trial_id"; return 0; fi
   if [[ -e $trial_dir ]]; then die "immutable raw trial already exists without a completed manifest record: $trial_id"; fi
   local remaining_ns=$((DEADLINE_NS - $(mono_ns)))
   local remaining=$((remaining_ns / 1000000000))
   (( remaining > SAFETY_MARGIN_S )) || return 3
   local timeout=$((remaining - SAFETY_MARGIN_S)); (( timeout > 7200 )) && timeout=7200
-  mkdir -p "$trial_dir"
+  mkdir -p "$(dirname "$config")"
   python3 - "$CONFIG" "$config" "$clock" "$util" "$density" "$padding" "$adjustment" "$strategy" <<'PY'
 import json, pathlib, sys
 source, destination, clock, util, density, padding, adjustment, strategy = sys.argv[1:]
@@ -204,6 +207,7 @@ PY
   status "[$stage] start $trial_id clock=${clock}ns profile=$profile timeout=${timeout}s"
   local runner_status=FAILED metrics_file="" parser_status=NO_METRICS parsed="" feasible=false
   if "$PYTHON" -m src.runner --trial-id "$trial_id" --config "$config" --timeout "$timeout" --runs-root "$RUNS_ROOT"; then runner_status=SUCCESS; fi
+  if [[ -d "$trial_dir" ]]; then cp "$config" "$trial_dir/effective_config.json"; fi
   metrics_file=$(find "$trial_dir" -name metrics.json -type f -print -quit 2>/dev/null || true)
   if [[ $runner_status == SUCCESS && -n $metrics_file ]]; then
     if parsed=$(python3 -m src.parser --trial-id "$trial_id" --metrics "$metrics_file" --status "$status_file" --config "$config" --output-root "$trial_dir/aggregate"); then
