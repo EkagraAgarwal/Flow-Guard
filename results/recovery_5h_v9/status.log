@@ -1,0 +1,16 @@
+2026-09-11T16:48:39Z [recovery_5h_v9] preflight: checking repository, runner/parser, and config
+2026-09-11T16:48:40Z [recovery_5h_v9] [fixed_clock] start fixed-17-safe clock=17ns profile=safe timeout=7200s
+2026-09-11T16:51:11Z [recovery_5h_v9] [fixed_clock] start fixed-17-middle clock=17ns profile=middle timeout=7200s
+2026-09-11T16:53:47Z [recovery_5h_v9] [fixed_clock] start fixed-17-aggressive clock=17ns profile=aggressive timeout=7200s
+2026-09-11T16:56:18Z [recovery_5h_v9] [fixed_clock] start fixed-15-safe clock=15ns profile=safe timeout=7200s
+2026-09-11T16:58:49Z [recovery_5h_v9] [fixed_clock] start fixed-15-middle clock=15ns profile=middle timeout=7200s
+2026-09-11T17:01:24Z [recovery_5h_v9] [fixed_clock] start fixed-15-aggressive clock=15ns profile=aggressive timeout=7200s
+2026-09-11T17:03:55Z [recovery_5h_v9] [fixed_clock] start fixed-13-safe clock=13ns profile=safe timeout=7200s
+2026-09-11T17:06:24Z [recovery_5h_v9] [fixed_clock] start fixed-13-middle clock=13ns profile=middle timeout=7200s
+2026-09-11T17:09:09Z [recovery_5h_v9] [fixed_clock] start fixed-13-aggressive clock=13ns profile=aggressive timeout=7200s
+2026-09-11T17:11:42Z [recovery_5h_v9] [fixed_clock] start fixed-11-safe clock=11ns profile=safe timeout=7200s
+2026-09-11T17:14:20Z [recovery_5h_v9] [fixed_clock] start fixed-11-middle clock=11ns profile=middle timeout=7200s
+2026-09-11T17:17:14Z [recovery_5h_v9] [fixed_clock] start fixed-11-aggressive clock=11ns profile=aggressive timeout=7200s
+2026-09-11T17:20:04Z [recovery_5h_v9] fixed-clock characterization complete: selected_clock=none
+2026-09-11T17:20:04Z [recovery_5h_v9] no boundary: safe pass plus aggressive failure was not observed
+2026-09-11T17:20:04Z [recovery_5h_v9] campaign complete: summary=/home/ubuntu/FlowGuard-recovery/results/recovery_5h_v9/summary.json
