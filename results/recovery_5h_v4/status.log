@@ -1,0 +1,4 @@
+2026-09-11T15:20:50Z [recovery_5h_v4] preflight: checking repository, runner/parser, config, and push target
+2026-09-11T15:20:51Z [recovery_5h_v4] preflight complete: no trials launched
+2026-09-11T15:21:40Z [recovery_5h_v4] preflight: checking repository, runner/parser, config, and push target
+2026-09-11T15:21:41Z [recovery_5h_v4] [fixed_clock] start fixed-17-safe clock=17ns profile=safe timeout=7200s
