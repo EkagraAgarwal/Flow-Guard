@@ -20,6 +20,24 @@ ROOT = Path(__file__).resolve().parents[1]
 PINNED_ENV = ROOT / "environment" / "openlane-baseline.env"
 
 
+def _failure_stage(output: str) -> str | None:
+    """Classify a failed LibreLane run from its structured stage/error text."""
+    text = output.upper()
+    markers = (
+        ("SYNTH_FAIL", ("SYNTHESIS FAILED", "YOSYS FAILED", "SYNTH_FAIL")),
+        ("PLACEMENT_FAIL", ("GPL-", "GLOBALPLACEMENT", "PLACEMENT FAILED")),
+        ("CTS_FAIL", ("CLOCK TREE SYNTHESIS", "CTS_FAIL")),
+        ("TIMING_FAIL", ("SETUP VIOLATIONS", "HOLD VIOLATIONS", "TIMING_FAIL")),
+        ("ROUTING_FAIL", ("DETAILED ROUTING", "GLOBAL ROUTING", "ROUTING_FAIL")),
+        ("DRC_FAIL", ("MAGIC DRC", "KLAYOUT DRC", "DRC_FAIL")),
+        ("LVS_FAIL", ("NETGEN LVS", "LVS_FAIL")),
+    )
+    for stage, needles in markers:
+        if any(needle in text for needle in needles):
+            return stage
+    return "TOOL_CRASH" if text else "INFRASTRUCTURE_FAIL"
+
+
 def _utc_now() -> str:
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
@@ -87,7 +105,7 @@ def run_trial(
     env = _pinned_environment()
     executable = ROOT / ".venv" / "openlane" / "bin" / "python"
     command = [
-        str(executable if executable.is_file() else Path(sys.executable)),
+        str(executable if executable.is_file() and os.access(executable, os.X_OK) else Path(sys.executable)),
         "-m", "librelane", "--docker-no-tty", "--dockerized",
         "--pdk-root", env["PDK_ROOT"], "--pdk", env["PDK"],
         "--scl", env["STD_CELL_LIBRARY"], "--run-tag", run_tag,
@@ -111,6 +129,8 @@ def run_trial(
         stdout = error.stdout or ""
         stderr = error.stderr or ""
     runtime_s = time.monotonic() - begun
+    combined_output = f"{stdout}\n{stderr}"
+    terminal_status = "FEASIBLE" if status == "SUCCESS" else _failure_stage(combined_output)
 
     # LibreLane creates runs beneath the config; move its isolated tag only
     # when callers selected a different root.
@@ -123,6 +143,8 @@ def run_trial(
     result: dict[str, Any] = {
         "trial_id": trial_id,
         "status": status,
+        "terminal_status": terminal_status,
+        "failure_stage": None if status == "SUCCESS" else terminal_status,
         "runtime_s": runtime_s,
         "started_at": started,
         "finished_at": _utc_now(),

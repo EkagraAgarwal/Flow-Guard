@@ -41,6 +41,22 @@ class RunnerTests(unittest.TestCase):
             self.assertEqual(result["status"], "CRASH")
             self.assertEqual(result["exit_code"], 7)
 
+    def test_classifies_librelane_placement_failure(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            config = root / "config.json"
+            config.write_text("{}")
+            completed = type("Completed", (), {
+                "returncode": 2,
+                "stdout": "[GPL-0301] Utilization exceeds 100%",
+                "stderr": "",
+            })()
+            with patch("src.runner.subprocess.run", return_value=completed):
+                result = run_trial("placement", config, 1, root / "runs")
+            self.assertEqual(result["status"], "CRASH")
+            self.assertEqual(result["terminal_status"], "PLACEMENT_FAIL")
+            self.assertEqual(result["failure_stage"], "PLACEMENT_FAIL")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -65,14 +65,16 @@ def parse_metrics(metrics_path: str | Path, status_path: str | Path | None = Non
         value = next((flat[alias.lower()] for alias in aliases if alias.lower() in flat), None)
         result[field] = _canonical_status(value) if field == "status" else _number(value)
     if status_path:
-        runner_status = json.loads(Path(status_path).read_text(encoding="utf-8")).get("status")
+        runner_record = json.loads(Path(status_path).read_text(encoding="utf-8"))
+        runner_status = runner_record.get("terminal_status") or runner_record.get("status")
         result["status"] = _canonical_status(runner_status) or result["status"]
+        result["failure_stage"] = runner_record.get("failure_stage")
     return result
 
 
 def is_feasible(status: str | None, drc: float | int | None, wns: float | int | None) -> bool:
     """Feasible means a successful run with zero DRC violations and nonnegative WNS."""
-    return status == "SUCCESS" and drc == 0 and wns is not None and wns >= 0
+    return status in {"SUCCESS", "FEASIBLE"} and drc == 0 and wns is not None and wns >= 0
 
 
 def _knobs(config: str | Path | None) -> dict[str, Any]:
