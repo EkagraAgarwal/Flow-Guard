@@ -4,10 +4,8 @@ module tb_tt_um_flowguard_fir;
     reg [7:0] ui_in, uio_in;
     wire [7:0] uo_out, uio_out, uio_oe;
     reg ena, clk, rst_n;
-    integer coefficient [0:7];
-    integer history [0:7];
-    integer enabled_cycle, expected, due_cycle, errors, i, acc;
-    reg model_busy;
+    integer history [0:6];
+    integer enabled_cycle, expected, errors, i, acc;
 
     tt_um_flowguard_fir dut (
         .ui_in(ui_in), .uo_out(uo_out), .uio_in(uio_in),
@@ -30,74 +28,46 @@ module tb_tt_um_flowguard_fir;
         end
     endfunction
 
-    task write_coefficient;
-        input [2:0] address;
-        input integer value;
-        begin
-            @(negedge clk);
-            ena = 1'b1; ui_in = value[7:0]; uio_in = {1'b1, 4'b0, address};
-            coefficient[address] = value;
-        end
-    endtask
-
-    // The port has no ready signal: issue one sample, then reserve 64
-    // enabled shift/add clocks for it. Low-write-enable values during that interval
-    // are deliberately ignored by the folded DUT.
-    task drive_and_wait_sample;
-        input integer value;
-        begin
-            @(negedge clk);
-            ena = 1'b1; ui_in = value[7:0]; uio_in = 8'b0;
-            @(posedge clk);                    // sample acceptance
-            repeat (64) begin
-                @(negedge clk);
-                ena = 1'b1; ui_in = 8'sd0; uio_in = 8'b0;
-                @(posedge clk);
-            end
-        end
-    endtask
-
     always @(posedge clk) begin
         #1;
         if (!rst_n) begin
             enabled_cycle = 0;
-            model_busy = 0;
         end else if (ena) begin
             enabled_cycle = enabled_cycle + 1;
-            if (!model_busy && !uio_in[7]) begin
-                acc = signed8(ui_in) * coefficient[0];
-                for (i = 1; i < 8; i = i + 1)
-                    acc = acc + history[i-1] * coefficient[i];
-                for (i = 7; i > 0; i = i - 1)
-                    history[i] = history[i-1];
-                history[0] = signed8(ui_in);
-                expected = sat8(acc);
-                due_cycle = enabled_cycle + 64;
-                model_busy = 1'b1;
-            end
-            if (uio_out[0]) begin
-                if (!model_busy || due_cycle != enabled_cycle) begin
-                    $display("FAIL unexpected valid at enabled cycle %0d", enabled_cycle);
-                    errors = errors + 1;
-                end else if (signed8(uo_out) !== expected) begin
-                    $display("FAIL enabled cycle %0d got %0d expected %0d", enabled_cycle,
-                             signed8(uo_out), expected);
-                    errors = errors + 1;
-                end
-                model_busy = 1'b0;
-            end else if (model_busy && due_cycle == enabled_cycle) begin
+            acc = signed8(ui_in) + 2 * history[0] + 4 * history[1] +
+                  8 * history[2] + 8 * history[3] + 4 * history[4] +
+                  2 * history[5] + history[6];
+            expected = sat8(acc >>> 5);
+            if (!uio_out[0]) begin
                 $display("FAIL missing valid at enabled cycle %0d", enabled_cycle);
                 errors = errors + 1;
+            end else if (signed8(uo_out) !== expected) begin
+                $display("FAIL enabled cycle %0d got %0d expected %0d", enabled_cycle,
+                         signed8(uo_out), expected);
+                errors = errors + 1;
             end
+            for (i = 6; i > 0; i = i - 1) history[i] = history[i-1];
+            history[0] = signed8(ui_in);
+        end else if (uio_out[0] !== 0) begin
+            $display("FAIL valid asserted while ena is low");
+            errors = errors + 1;
         end
     end
 
+    task drive_sample;
+        input integer value;
+        input [7:0] sideband;
+        begin
+            @(negedge clk);
+            ena = 1'b1; ui_in = value[7:0]; uio_in = sideband;
+            @(posedge clk);
+        end
+    endtask
+
     initial begin
         clk = 0; ena = 0; rst_n = 0; ui_in = 0; uio_in = 0;
-        enabled_cycle = 0; expected = 0; due_cycle = 0; errors = 0; model_busy = 0;
-        coefficient[0]=1; coefficient[1]=2; coefficient[2]=3; coefficient[3]=4;
-        coefficient[4]=4; coefficient[5]=3; coefficient[6]=2; coefficient[7]=1;
-        for (i = 0; i < 8; i = i + 1) history[i] = 0;
+        enabled_cycle = 0; expected = 0; errors = 0;
+        for (i = 0; i < 7; i = i + 1) history[i] = 0;
         repeat (2) @(posedge clk);
         #1;
         if (uio_out[0] !== 0 || uio_oe !== 8'b00000001 || signed8(uo_out) !== 0) begin
@@ -105,42 +75,31 @@ module tb_tt_um_flowguard_fir;
         end
         @(negedge clk); rst_n = 1;
 
-        // Default impulse response, serialized for the folded MAC.
-        drive_and_wait_sample(1);
-        repeat (8) drive_and_wait_sample(0);
+        // The fixed symmetric impulse response is [1,2,4,8,8,4,2,1]/32.
+        drive_sample(127, 8'b0);
+        repeat (7) drive_sample(0, 8'b0);
 
-        // Signed coefficient writes and signed sample operation.
-        write_coefficient(3'd0, -2);
-        drive_and_wait_sample(-10);
+        // Signed arithmetic and fixed sideband behavior: uio_in cannot write taps.
+        drive_sample(-128, 8'hff);
+        repeat (7) drive_sample(0, 8'h80);
 
-        // Coefficient writes accept no sample; use the updated value for the
-        // next full serial transaction.
-        write_coefficient(3'd0, 9);
-        drive_and_wait_sample(7);
-        drive_and_wait_sample(0);
+        // Full-scale steady-state inputs exercise the normalized endpoints.
+        repeat (8) drive_sample(127, 8'b0);
+        repeat (8) drive_sample(-128, 8'b0);
 
-        // Positive and negative signed saturation.
-        write_coefficient(3'd0, 127); write_coefficient(3'd1, 127);
-        drive_and_wait_sample(127); drive_and_wait_sample(127);
-        write_coefficient(3'd0, -128); write_coefficient(3'd1, -128);
-        drive_and_wait_sample(127); drive_and_wait_sample(127);
-
-        // ena pauses the MAC state and therefore extends wall-clock latency.
-        @(negedge clk); ena = 1; ui_in = 8'd9; uio_in = 0;
-        @(posedge clk);
-        repeat (3) begin @(negedge clk); ena = 1; ui_in = 8'h55; uio_in = 0; @(posedge clk); end
-        @(negedge clk); ena = 0; ui_in = 8'h55; uio_in = 0;
+        // ena pauses history and suppresses valid until the next accepted sample.
+        @(negedge clk); ena = 0; ui_in = 8'h55; uio_in = 8'hff;
         repeat (3) @(posedge clk);
         #1;
         if (uio_out[0] !== 0) begin
-            $display("FAIL ena low advanced in-flight valid"); errors = errors + 1;
+            $display("FAIL ena low advanced FIR"); errors = errors + 1;
         end
-        repeat (61) begin @(negedge clk); ena = 1; ui_in = 0; uio_in = 0; @(posedge clk); end
+        drive_sample(9, 8'b0);
 
         @(negedge clk); ena = 0;
         @(posedge clk);
-        if (errors == 0 && !model_busy)
-            $display("PASS: bit-serial FIR latency is 64 enabled shift/add clocks");
+        if (errors == 0)
+            $display("PASS: fixed CSD FIR latency is one enabled clock");
         else begin
             $display("FAIL: %0d errors", errors);
             $fatal(1);

@@ -15,18 +15,24 @@ Status audited against the repository on 2026-09-11.
 
 ## FIR Hardware
 
-**[In Progress] `designs/flowguard_fir/`**
+**[Done] CSD FIR sizing**
 
-- Done: synthesizable signed 8-tap folded FIR with one 8x8 arithmetic unit,
-  eight-cycle accumulation, eight programmable coefficients, saturation,
-  valid output, and asynchronous active-low reset.
-- Done: self-checking Icarus simulation and Verilator RTL lint.
-- Measured: the 64-cycle bit-serial reduction synthesizes to 806 cells,
-  11,198.24 square micrometers, and 99.0% effective utilization on the fixed
-  tile; global placement reaches 114.789% and stops. The strict 400-750-cell
-  and `<60%` gate remains unmet.
-- Blocker: fitting the exact tile requires further reducing state/control or
-  relaxing coefficient precision, reset, or throughput requirements.
+- Fixed coefficients are `[1, 2, 4, 8, 8, 4, 2, 1] / 32`; runtime coefficient
+  storage and multiplier logic were removed.
+- Measured: 428 synthesized cells, 5,438.97 square micrometers of area, and
+  the full LibreLane 80-stage flow passed timing, DRC, and LVS. Fixed-tile
+  utilization is below the 45% target.
+
+## Stress Hardware
+
+**[In Progress] `designs/flowguard_stress/`**
+
+- Done: Tiny Tapeout wrapper, sensor window buffer, coefficient loading,
+  signed MAC, four-stage carry-lookahead reduction pipeline, testbench, and
+  fixed-tile config.
+- Measured after folding: 728 synthesized cells and 95.5% effective tile
+  utilization; global placement reaches 109.884% and stops (`GPL-0301`). This
+  is a deliberate borderline stress target, slightly below the 800-900 intent.
 
 ## Data and Optimization Stack
 
@@ -43,48 +49,9 @@ Status audited against the repository on 2026-09-11.
 - Immediate blocker: no blocker for the core data pipeline; real adaptive
   optimization still needs varied trial knobs and a curated experiment set.
 
-## Software Stack
+## Remaining Stretch Stack
 
-### 1. Orchestration Runner
-
-**[Not Started] `src/runner.py`**
-
-- Active paths: no implementation exists. `scripts/openlane-run.sh` is only a
-  single-design baseline launcher.
-- Missing: trial IDs, isolated work directories, timeout enforcement, resume
-  behavior, exit-code capture, and structured crash logs.
-- Immediate blocker: define the frozen trial manifest and evidence schema.
-
-### 2. Metrics and Failure Extraction
-
-**[Not Started] `src/parser.py`**
-
-- Active paths: no implementation or parser fixtures exist.
-- Missing: final `metrics.json` ingestion, DRC rule extraction, OpenSTA path
-  extraction, and failure-stage classification.
-- Immediate blocker: collect and freeze representative success, timing-fail,
-  routing-fail, timeout, and missing-metric fixtures.
-
-### 3. Surrogate ML Models
-
-**[Not Started] `src/models.py`**
-
-- Active paths: no implementation or model artifacts exist.
-- Missing: calibrated feasibility classifier, feasible-only QoR regressors,
-  Brier score, and calibration diagnostics.
-- Immediate blocker: runner/parser trial records and enough labeled attempts.
-
-### 4. Constrained Acquisition Engine
-
-**[Not Started] `src/acquire.py`**
-
-- Active paths: no implementation exists.
-- Missing: expected improvement, feasibility-weighted scoring, minimum
-  feasibility threshold, deterministic candidate selection, and budget/seed
-  accounting.
-- Immediate blocker: freeze the four-knob search space and model interfaces.
-
-### 5. Interactive Dashboard
+### Interactive Dashboard
 
 **[Not Started] `dashboard/`**
 
@@ -94,7 +61,7 @@ Status audited against the repository on 2026-09-11.
 - Immediate blocker: define the parser output schema and produce curated trial
   evidence.
 
-### 6. Agentic DRC Triage Helper
+### Agentic DRC Triage Helper
 
 **[Not Started] `src/triage_agent.py`**
 

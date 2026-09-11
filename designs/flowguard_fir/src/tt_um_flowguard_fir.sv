@@ -11,26 +11,28 @@ module tt_um_flowguard_fir (
     input  logic       clk,
     input  logic       rst_n
 );
-    // Coefficients are stored tap-zero first, at the least-significant end.
-    logic [63:0] coefficient_ring;
-    logic signed [7:0] samples [0:7];
-    logic signed [7:0] active_sample;
-    logic signed [18:0] accumulator, mac_sum, shifted_addend;
-    logic [15:0] multiplicand;
-    logic [7:0] multiplier;
+    logic signed [7:0] samples [0:6];
+    logic signed [18:0] fir_sum;
+    logic signed [18:0] sample_in_ext;
+    logic signed [18:0] sample_ext [0:6];
     logic signed [7:0] output_sample;
-    logic [2:0] tap_index, bit_index;
-    logic product_negative, busy, valid_output, _unused;
+    logic valid_output;
     integer i;
 
-    assign _unused = &{1'b0, uio_in[6:3]};
-    assign shifted_addend = product_negative ? -$signed({3'b0, multiplicand}) :
-                                                $signed({3'b0, multiplicand});
-    assign mac_sum = accumulator + (multiplier[0] ? shifted_addend : 19'sd0);
+    assign sample_in_ext = {{11{ui_in[7]}}, ui_in};
+    generate
+        genvar j;
+        for (j = 0; j < 7; j = j + 1) begin : gen_sample_extensions
+            assign sample_ext[j] = {{11{samples[j][7]}}, samples[j]};
+        end
+    endgenerate
 
-    function automatic logic [7:0] abs8(input logic signed [7:0] value);
-        begin abs8 = value[7] ? (~value + 8'd1) : value; end
-    endfunction
+    // h = [1, 2, 4, 8, 8, 4, 2, 1] / 32.  Every term is a signed shift,
+    // eliminating coefficient storage, writes, and general multiplication.
+    assign fir_sum = sample_in_ext + (sample_ext[0] <<< 1) +
+                     (sample_ext[1] <<< 2) + (sample_ext[2] <<< 3) +
+                     (sample_ext[3] <<< 3) + (sample_ext[4] <<< 2) +
+                     (sample_ext[5] <<< 1) + sample_ext[6];
 
     function automatic logic signed [7:0] saturate8(input logic signed [18:0] value);
         begin
@@ -42,73 +44,16 @@ module tt_um_flowguard_fir (
 
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            coefficient_ring <= 64'h0102030404030201;
-            for (i = 0; i < 8; i = i + 1) samples[i] <= 8'sd0;
-            active_sample <= 8'sd0;
-            accumulator <= 19'sd0;
-            multiplicand <= 16'd0;
-            multiplier <= 8'd0;
+            for (i = 0; i < 7; i = i + 1) samples[i] <= 8'sd0;
             output_sample <= 8'sd0;
-            tap_index <= 3'd0;
-            bit_index <= 3'd0;
-            product_negative <= 1'b0;
-            busy <= 1'b0;
             valid_output <= 1'b0;
         end else if (ena) begin
+            for (i = 6; i > 0; i = i - 1) samples[i] <= samples[i-1];
+            samples[0] <= $signed(ui_in);
+            output_sample <= saturate8(fir_sum >>> 5);
+            valid_output <= 1'b1;
+        end else begin
             valid_output <= 1'b0;
-            if (uio_in[7]) begin
-                // A write is accepted on any enabled clock and pauses an
-                // in-flight MAC, keeping the coefficient ring coherent.
-                case (uio_in[2:0])
-                    3'd0: coefficient_ring[7:0]   <= ui_in;
-                    3'd1: coefficient_ring[15:8]  <= ui_in;
-                    3'd2: coefficient_ring[23:16] <= ui_in;
-                    3'd3: coefficient_ring[31:24] <= ui_in;
-                    3'd4: coefficient_ring[39:32] <= ui_in;
-                    3'd5: coefficient_ring[47:40] <= ui_in;
-                    3'd6: coefficient_ring[55:48] <= ui_in;
-                    3'd7: coefficient_ring[63:56] <= ui_in;
-                endcase
-            end else if (busy) begin
-                if (bit_index == 3'd7) begin
-                    accumulator <= mac_sum;
-                    if (tap_index == 3'd7) begin
-                        output_sample <= saturate8(mac_sum);
-                        valid_output <= 1'b1;
-                        busy <= 1'b0;
-                        coefficient_ring <= {coefficient_ring[7:0], coefficient_ring[63:8]};
-                        // Seven rotations leave h7,h0,...,h6. Replace h7.
-                        samples[0] <= active_sample;
-                    end else begin
-                        // Rotate both serial operand stores. The next tap is
-                        // now at bit zero without an area-costly indexed mux.
-                        coefficient_ring <= {coefficient_ring[7:0], coefficient_ring[63:8]};
-                        for (i = 0; i < 7; i = i + 1)
-                            samples[i] <= samples[i+1];
-                        samples[7] <= samples[0];
-                        multiplicand <= {8'd0, abs8(samples[0])};
-                        multiplier <= abs8($signed(coefficient_ring[15:8]));
-                        product_negative <= samples[0][7] ^ coefficient_ring[15];
-                        tap_index <= tap_index + 3'd1;
-                        bit_index <= 3'd0;
-                    end
-                end else begin
-                    accumulator <= mac_sum;
-                    multiplicand <= multiplicand << 1;
-                    multiplier <= multiplier >> 1;
-                    bit_index <= bit_index + 3'd1;
-                end
-            end else begin
-                // Low write-enable starts a 64 enabled-cycle, 8x8 FIR.
-                active_sample <= ui_in;
-                accumulator <= 19'sd0;
-                multiplicand <= {8'd0, abs8($signed(ui_in))};
-                multiplier <= abs8($signed(coefficient_ring[7:0]));
-                product_negative <= ui_in[7] ^ coefficient_ring[7];
-                tap_index <= 3'd0;
-                bit_index <= 3'd0;
-                busy <= 1'b1;
-            end
         end
     end
 

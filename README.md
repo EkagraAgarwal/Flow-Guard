@@ -35,6 +35,26 @@ for measured area and the architectural tradeoff.
 
 See `TODO.md` for the complete implementation and experiment roadmap.
 
+`designs/flowguard_stress/` is the companion dense sensor MAC target for
+server-side tuning experiments. Its fixed-tile synthesis is intentionally
+overfull and is used to retain failed placement/routing trials as evidence.
+
+## Remote Matrix
+
+On a server with Docker, the pinned LibreLane environment, and this repository:
+
+```bash
+scripts/launch_server_matrix.sh --timeout 7200
+```
+
+The launcher executes 24 deterministic stress candidates and appends terminal
+records to `results/server_experiment_manifest.csv`. It refuses duplicate trial
+IDs and preserves failed or timed-out runs. For SSH execution from a client:
+
+```bash
+scripts/launch_server_matrix.sh --host user@server --remote-root /srv/flow-guard
+```
+
 ## Branches
 
 - `feature/openlane-baseline`: environment and baseline flow
