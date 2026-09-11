@@ -14,3 +14,5 @@
 2026-09-11T15:59:19Z [recovery_5h_v5] [fixed_clock] start fixed-11-safe clock=11ns profile=safe timeout=7200s
 2026-09-11T16:02:12Z [recovery_5h_v5] [fixed_clock] start fixed-11-middle clock=11ns profile=middle timeout=7200s
 2026-09-11T16:05:10Z [recovery_5h_v5] [fixed_clock] start fixed-11-aggressive clock=11ns profile=aggressive timeout=7200s
+2026-09-11T16:08:03Z [recovery_5h_v5] fixed-clock characterization complete: selected_clock=none
+2026-09-11T16:08:03Z [recovery_5h_v5] no boundary: safe pass plus aggressive failure was not observed

@@ -1,9 +1,9 @@
 {
   "manifest": "/home/ubuntu/FlowGuard-recovery/results/recovery_5h_v5/manifest.jsonl",
-  "message": "completed=fixed-11-aggressive runner=SUCCESS parser=PARSED",
+  "message": "selected_clock=none",
   "namespace": "recovery_5h_v5",
-  "stage": "fixed_clock",
-  "state": "RUNNING",
+  "stage": "complete",
+  "state": "COMPLETE",
   "summary": "/home/ubuntu/FlowGuard-recovery/results/recovery_5h_v5/summary.json",
-  "updated_at": "2026-09-11T16:08:02.429745Z"
+  "updated_at": "2026-09-11T16:08:03.768039Z"
 }
