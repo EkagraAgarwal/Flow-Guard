@@ -39,20 +39,38 @@ See `TODO.md` for the complete implementation and experiment roadmap.
 server-side tuning experiments. Its fixed-tile synthesis is intentionally
 overfull and is used to retain failed placement/routing trials as evidence.
 
-## Remote Matrix
+## Oracle Recovery Pilot
 
 On a server with Docker, the pinned LibreLane environment, and this repository:
 
 ```bash
-scripts/launch_server_matrix.sh --timeout 7200
+scripts/launch_oracle_campaign.sh \
+  --namespace pilot_repaired_tile_v1 \
+  --timeout 7200
 ```
 
-The launcher executes 24 deterministic stress candidates and appends terminal
-records to `results/server_experiment_manifest.csv`. It refuses duplicate trial
-IDs and preserves failed or timed-out runs. For SSH execution from a client:
+This runs the staged 2x1 pilot: 3 safe, 8 middle, then 16 aggressive probes.
+It keeps the clock fixed at 20 ns, preserves failed/timed-out trials, and
+supports resume without overwriting completed records. For SSH execution from
+a client:
 
 ```bash
-scripts/launch_server_matrix.sh --host user@server --remote-root /srv/flow-guard
+ssh user@server 'cd /srv/flow-guard && bash scripts/launch_oracle_campaign.sh \
+  --namespace pilot_repaired_tile_v1 --timeout 7200'
+```
+
+Pilot outputs are stored under `results/pilot_repaired_tile_v1/`. The 2x1
+geometry is an explicit horizontal-abutment assumption and must be checked
+against the server's TinyTapeout integration environment before treating the
+pilot as a final benchmark.
+
+## ChipIgnite Inventory
+
+The external-corpus tooling is data-only:
+
+```bash
+python3 -m chipignite catalog --output chipignite/catalog.json
+python3 -m chipignite report chipignite/catalog.json --output chipignite/ranking.json
 ```
 
 ## Branches
