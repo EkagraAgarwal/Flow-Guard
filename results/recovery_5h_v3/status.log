@@ -12,3 +12,4 @@
 2026-09-11T10:21:48Z [recovery_5h_v3] preflight: checking repository, runner/parser, config, and push target
 2026-09-11T10:23:14Z [recovery_5h_v3] [fixed_clock] start fixed-13-middle clock=13ns profile=middle timeout=7200s
 2026-09-11T10:25:51Z [recovery_5h_v3] [fixed_clock] start fixed-13-aggressive clock=13ns profile=aggressive timeout=7200s
+2026-09-11T10:28:24Z [recovery_5h_v3] [fixed_clock] start fixed-11-safe clock=11ns profile=safe timeout=7200s
