@@ -12,3 +12,5 @@ __pycache__/
 /results/*_runs/
 /results/*_aggregates/
 /results/*/runs/
+# Exhaustive campaign namespaces are local checkpoints and raw artifacts.
+/results/*/
