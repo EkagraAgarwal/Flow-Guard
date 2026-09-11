@@ -13,6 +13,7 @@ LIBRELANE_VERSION = "3.0.14"
 # experiment may tune placement, timing, and padding, but not the design.
 ALLOWLIST = frozenset({
     "CLOCK_PERIOD", "FP_CORE_UTIL", "PL_TARGET_DENSITY_PCT", "GPL_CELL_PADDING",
+    "SYNTH_STRATEGY",
     "GRT_ADJUSTMENT", "PL_RESIZER_BUFFER_INPUT_PORTS", "PL_RESIZER_BUFFER_OUTPUT_PORTS",
     "PL_RESIZER_SETUP_SLACK_MARGIN", "PL_RESIZER_HOLD_SLACK_MARGIN",
 })
@@ -34,8 +35,12 @@ BOUNDS: dict[str, tuple[float, float]] = {
 BOOLEAN_KEYS = frozenset({"PL_RESIZER_BUFFER_INPUT_PORTS", "PL_RESIZER_BUFFER_OUTPUT_PORTS"})
 STRING_KEYS = frozenset({
     "CLOCK_PORT", "CLOCK_NET", "DESIGN_NAME", "PDK", "PDK_ROOT", "STD_CELL_LIBRARY",
-    "FP_SIZING",
+    "FP_SIZING", "SYNTH_STRATEGY",
 })
+SYNTH_STRATEGIES = frozenset(
+    {f"AREA {index}" for index in range(4)} |
+    {f"DELAY {index}" for index in range(5)}
+)
 PATH_KEYS = frozenset({"VERILOG_FILES", "SVERILOG_FILES"})
 
 
@@ -63,6 +68,8 @@ def validate_config(config: Mapping[str, Any], baseline: Mapping[str, Any] | Non
             raise ConfigError(f"{key} must contain a mapping")
         if key in STRING_KEYS and not isinstance(value, str):
             raise ConfigError(f"{key} must be a string")
+        if key == "SYNTH_STRATEGY" and value not in SYNTH_STRATEGIES:
+            raise ConfigError(f"unsupported SYNTH_STRATEGY: {value}")
         if key in PATH_KEYS and not isinstance(value, (str, list)):
             raise ConfigError(f"{key} must be a path or list of paths")
         if key == "DIE_AREA":

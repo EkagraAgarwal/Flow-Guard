@@ -118,7 +118,9 @@ PY
   runner_status=FAILED
   if "$PYTHON" -m src.runner --trial-id "$trial_id" --config "$trial_config" --timeout "$TIMEOUT_S" --runs-root "$RUNS_ROOT"; then runner_status=SUCCESS; fi
   metrics_file=""
-  while IFS= read -r candidate; do [[ -f $candidate ]] && { metrics_file=$candidate; break; }; done < <(find "$trial_dir" -type f -name metrics.json -print)
+   if [[ -d $trial_dir ]]; then
+     while IFS= read -r candidate; do [[ -f $candidate ]] && { metrics_file=$candidate; break; }; done < <(find "$trial_dir" -type f -name metrics.json -print)
+   fi
   parser_status=NO_METRICS; parsed_record=""
   if [[ -n $metrics_file ]]; then
     if parsed_record=$(python3 -m src.parser --trial-id "$trial_id" --metrics "$metrics_file" --status "$status_file" --config "$trial_config" --output-root "$AGGREGATE_ROOT"); then parser_status=PARSED; else parser_status=PARSER_FAILED; fi

@@ -19,6 +19,11 @@ class ConfigSchemaTests(unittest.TestCase):
             preflight_config({"CLOCK_PORT": "bad"}, baseline)
         self.assertEqual(preflight_config({"CLOCK_PORT": "clk"}, baseline)["CLOCK_PORT"], "clk")
 
+    def test_synthesis_strategy_is_legal_and_bounded(self):
+        self.assertEqual(preflight_config({"SYNTH_STRATEGY": "AREA 2"})["SYNTH_STRATEGY"], "AREA 2")
+        with self.assertRaises(ConfigError):
+            preflight_config({"SYNTH_STRATEGY": "AREA 9"})
+
     def test_hash_is_canonical(self):
         self.assertEqual(effective_config_hash({"A": 1, "B": 2}), effective_config_hash({"B": 2, "A": 1}))
 
