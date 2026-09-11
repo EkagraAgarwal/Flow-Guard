@@ -26,8 +26,8 @@ This roadmap implements the Gemini FlowGuard concept: a calibrated, failure-awar
 
 ## Phase 2 — Design and experiment contract
 
-- [x] Implement and functionally validate the `flowguard_fir` RTL and retain `flowguard_counter` as the environment smoke baseline.
-- [ ] Resolve the measured FIR size conflict: the parallel programmable design synthesizes to 4,375 cells (443.2% tile-core utilization) and cannot fit the declared 1x1 tile without an architecture/specification change.
+- [x] Implement and functionally validate the folded `flowguard_fir` RTL and retain `flowguard_counter` as the environment smoke baseline.
+- [ ] Resolve the measured FIR size conflict: the bit-serial folded design synthesizes to 806 cells and 99.0% tile-core utilization; further architectural/specification changes are required.
 - [ ] Freeze exactly four bounded knobs after the pilot: clock period, core utilization, placement density, and either global-routing adjustment or one synthesis-effort control.
 - [ ] Document legal ranges, defaults, candidate encoding, fixed candidate pool, per-run timeout, concurrency, seeds, and a 24–30-call budget per method.
 - [ ] Pre-register eight initialization trials (including default) and 16–22 sequential trials; count crashes, timeouts, and unroutable designs against budget.
@@ -37,9 +37,9 @@ This roadmap implements the Gemini FlowGuard concept: a calibrated, failure-awar
 
 ## Phase 3 — Trial execution and evidence retention
 
-- [ ] Implement an isolated runner with unique trial IDs/work directories, subprocess or ORFS API execution, timeout termination, and resume-safe behavior.
-- [ ] Persist each attempted trial's configuration, tool/commit IDs, start/end timestamps, exit code, timeout state, last stage, raw metrics, and log locations.
-- [ ] Parse `metrics.json` for DRC count, setup WNS, standard-cell area, and runtime.
+- [x] Implement an isolated runner with unique trial IDs/work directories, subprocess execution, timeout termination, and immutable terminal status.
+- [x] Persist each attempted trial's configuration hash, tool/PDK IDs, timestamps, exit code, status, runtime, and logs.
+- [x] Parse `metrics.json` for DRC count, setup WNS, standard-cell area, wirelength, TNS, and runtime.
 - [ ] Parse signoff DRC/KLayout reports and OpenSTA reports to classify timing, routing, DRC, crash, timeout, and missing-metric failure modes.
 - [ ] Prevent reruns from overwriting or double-counting trials; store compact immutable CSV/JSON summaries and keep large raw logs external when necessary.
 
@@ -47,10 +47,10 @@ This roadmap implements the Gemini FlowGuard concept: a calibrated, failure-awar
 
 ## Phase 4 — Models and risk-aware acquisition
 
-- [ ] Implement a QoR surrogate (small scikit-learn Gaussian process or random-forest quantile model) trained only on feasible trials.
-- [ ] Implement a feasibility classifier (logistic regression or calibrated random forest) trained on all attempts.
+- [x] Implement a QoR Gaussian-process surrogate trained only on feasible trials.
+- [x] Implement a calibrated/random-forest feasibility classifier trained on all attempts with small-data fallbacks.
 - [ ] Add probability calibration, Brier score, and reliability-diagram outputs.
-- [ ] Score candidates as expected QoR improvement multiplied by calibrated feasibility probability, with an explicit minimum-risk abstention threshold.
+- [x] Score candidates as expected QoR improvement multiplied by feasibility probability, with an explicit 0.35 minimum-risk abstention threshold.
 - [ ] Select sequential candidates deterministically from the frozen pool; retain the default and initialization sequence.
 - [ ] Keep the acquisition loop lightweight and auditable; do not require a large optimization framework for the MVP.
 
