@@ -14,3 +14,4 @@
 2026-09-11T10:25:51Z [recovery_5h_v3] [fixed_clock] start fixed-13-aggressive clock=13ns profile=aggressive timeout=7200s
 2026-09-11T10:28:24Z [recovery_5h_v3] [fixed_clock] start fixed-11-safe clock=11ns profile=safe timeout=7200s
 2026-09-11T10:30:56Z [recovery_5h_v3] [fixed_clock] start fixed-11-middle clock=11ns profile=middle timeout=7200s
+2026-09-11T10:33:32Z [recovery_5h_v3] [fixed_clock] start fixed-11-aggressive clock=11ns profile=aggressive timeout=7200s
