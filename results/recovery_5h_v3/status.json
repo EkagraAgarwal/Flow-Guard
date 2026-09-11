@@ -1,9 +1,9 @@
 {
   "manifest": "/home/ubuntu/Flow-Guard/results/recovery_5h_v3/manifest.jsonl",
-  "message": "selected_clock=none",
+  "message": "budget=17100s",
   "namespace": "recovery_5h_v3",
-  "stage": "complete",
-  "state": "COMPLETE",
+  "stage": "preflight",
+  "state": "PREFLIGHT_PASSED",
   "summary": "/home/ubuntu/Flow-Guard/results/recovery_5h_v3/summary.json",
-  "updated_at": "2026-09-11T10:36:05.943815Z"
+  "updated_at": "2026-09-11T15:15:45.576036Z"
 }

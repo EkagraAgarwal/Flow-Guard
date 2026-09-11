@@ -17,3 +17,5 @@
 2026-09-11T10:33:32Z [recovery_5h_v3] [fixed_clock] start fixed-11-aggressive clock=11ns profile=aggressive timeout=7200s
 2026-09-11T10:36:05Z [recovery_5h_v3] fixed-clock characterization complete: selected_clock=none
 2026-09-11T10:36:05Z [recovery_5h_v3] no boundary: safe pass plus aggressive failure was not observed
+2026-09-11T10:36:07Z [recovery_5h_v3] campaign complete: summary=/home/ubuntu/Flow-Guard/results/recovery_5h_v3/summary.json
+2026-09-11T15:15:45Z [recovery_5h_v3] preflight: checking repository, runner/parser, config, and push target
