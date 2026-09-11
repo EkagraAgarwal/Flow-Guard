@@ -8,6 +8,7 @@ Last audited: 2026-09-11
 - Remote: `origin/experiment/server-runs`
 - Current commit: `d6e43a6 Fix parser failure stage aggregation`
 - Worktree: clean at the time of this update
+- Recovery benchmark branch: `experiment/recovery-benchmark`
 - Main foundation commit: `d44e3e2`
 - FIR/data-pipeline feature commit: `4aa1bc7`
 
@@ -168,6 +169,27 @@ Those are server/Internet-dependent follow-up tasks.
    runner/model operations.
 7. No external ChipIgnite modern baseline has been reproduced yet.
 8. Dashboard and agentic DRC triage remain intentionally unstarted.
+
+## Recovery Benchmark Update
+
+The experimental branch adds the next correctness layer:
+
+- `src/objective.py` computes normalized timing/wirelength/area objective
+  components and rejects missing or zero denominators.
+- `src/parser.py` preserves positive setup slack, parses hold/routing/DRC/LVS/
+  signoff fields, captures `GPL_CELL_PADDING` and
+  `PL_TARGET_DENSITY_PCT`, and rejects incomplete final evidence as feasible.
+- `scripts/launch_oracle_campaign.sh` has preflight-only mode, safe-stage gate
+  enforcement, immutable artifact manifests, and durable namespace status.
+- `experiments/v3_analysis.py` provides offline range, repeatability, class
+  balance, and feasible-only QoR sanity analysis.
+- `experiments/manifests/v3_diagnostic_boundary.json` defines the next fixed-
+  clock diagnostic boundary.
+
+Important evidence correction: the historical v3 aggregate labels 27/27 runs
+as feasible, but it does not contain complete hold/routing/LVS/signoff fields.
+Under the corrected parser, those records are useful recovery/QoR evidence but
+are not yet valid final feasibility labels.
 
 ## Next Agent Handoff
 

@@ -16,6 +16,12 @@ exit code alone; require final metrics and preserved artifacts.
       full pilot budget.
 - [ ] Preserve `results/pilot_repaired_tile_v3/manifest.csv`, status log,
       aggregates, effective configs, and representative raw reports.
+- [ ] Reparse v3 raw metrics with the corrected parser and archive complete
+      hold/routing/LVS/signoff evidence; do not reuse old feasible labels.
+- [ ] Run three identical repeats for at least three configurations to quantify
+      physical metric noise before boundary selection.
+- [ ] Run `experiments/v3_analysis.py` against the server aggregate JSONL and
+      preserve its machine-readable report.
 
 ## Completed Foundation
 
@@ -59,6 +65,8 @@ exit code alone; require final metrics and preserved artifacts.
       nonzero baseline normalization.
 - [ ] Reject missing denominators, mixed units, incomplete timing, and missing
       objective metrics.
+- [x] Add complete metric fixtures and strict incomplete-record feasibility
+      behavior on `experiment/recovery-benchmark`.
 - [ ] Add fixtures for safe success, GPL-0301, timing failure, routing failure,
       DRC failure, timeout, malformed reports, and missing metrics.
 
@@ -76,6 +84,7 @@ exit code alone; require final metrics and preserved artifacts.
 - [ ] Register eight shared initialization candidates before optimizer traces.
 - [ ] Enforce the staged 3/8/16 pilot separately from the final 24-call traces.
 - [ ] Preserve failed calls in the canonical trial ledger.
+- [x] Add a versioned diagnostic-boundary manifest for the fixed 20 ns pilot.
 
 ## Online Optimization
 

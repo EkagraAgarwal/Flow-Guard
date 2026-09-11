@@ -66,6 +66,10 @@ pilot as a final benchmark.
 The current recovery branch tip is `d6e43a6` or newer. Use a new namespace for
 every changed manifest/config/flow version; never overwrite earlier pilot data.
 
+The stricter metric/objective and diagnostic-boundary work lives on the
+experimental branch `experiment/recovery-benchmark` until the next pilot is
+validated. It intentionally does not change `main`.
+
 ## ChipIgnite Inventory
 
 The external-corpus tooling is data-only:
