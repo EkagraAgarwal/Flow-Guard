@@ -23,15 +23,14 @@ artifacts under `designs/flowguard_counter/runs/`.
 
 ## FIR Interface
 
-`designs/flowguard_fir/` contains the signed, programmable, pipelined 8-tap
-FIR. A normal enabled cycle accepts `ui_in` as a sample. When `uio_in[7]` is
-high, `uio_in[2:0]` selects a coefficient and `ui_in` supplies its signed
-8-bit value; no sample is accepted on that write cycle. `uio_out[0]` marks an
-output valid four enabled pipeline clocks after sample acceptance.
+`designs/flowguard_fir/` contains the fixed CSD signed 8-tap FIR. Its impulse
+response is `[1,2,4,8,8,4,2,1]/32`; coefficients are not runtime programmable.
+Each enabled sample produces a valid output one enabled clock later. `uio_in`
+is reserved and `uio_oe` is fixed to the TinyTapeout input-only contract.
 
-The fully parallel programmable multipliers are functionally verified but do
-not fit a 1x1 Tiny Tapeout tile in the first Sky130 synthesis. See `STATUS.md`
-for measured area and the architectural tradeoff.
+The CSD implementation measured 428 synthesized cells and passed the full
+LibreLane timing/DRC/LVS flow. See `STATUS.md` for the prior folded and stress
+design measurements.
 
 See `TODO.md` for the complete implementation and experiment roadmap.
 
@@ -45,7 +44,7 @@ On a server with Docker, the pinned LibreLane environment, and this repository:
 
 ```bash
 scripts/launch_oracle_campaign.sh \
-  --namespace pilot_repaired_tile_v1 \
+  --namespace pilot_repaired_tile_v3 \
   --timeout 7200
 ```
 
@@ -56,13 +55,16 @@ a client:
 
 ```bash
 ssh user@server 'cd /srv/flow-guard && bash scripts/launch_oracle_campaign.sh \
-  --namespace pilot_repaired_tile_v1 --timeout 7200'
+  --namespace pilot_repaired_tile_v3 --timeout 7200'
 ```
 
-Pilot outputs are stored under `results/pilot_repaired_tile_v1/`. The 2x1
+Pilot outputs are stored under `results/pilot_repaired_tile_v3/`. The 2x1
 geometry is an explicit horizontal-abutment assumption and must be checked
 against the server's TinyTapeout integration environment before treating the
 pilot as a final benchmark.
+
+The current recovery branch tip is `d6e43a6` or newer. Use a new namespace for
+every changed manifest/config/flow version; never overwrite earlier pilot data.
 
 ## ChipIgnite Inventory
 
