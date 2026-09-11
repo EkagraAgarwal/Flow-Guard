@@ -1,0 +1,57 @@
+2026-09-11T07:10:31Z [pilot_repaired_tile_v3] preflight: checking repository, pinned environment, runner/parser, and config
+2026-09-11T07:10:31Z [pilot_repaired_tile_v3] campaign start: fixed 20ns clock; budgets safe=3 middle=8 aggressive=16
+2026-09-11T07:10:31Z [pilot_repaired_tile_v3] [safe] start safe-01 seed=1101 probe=30,38,0,0.05,AREA 0
+2026-09-11T07:13:04Z [pilot_repaired_tile_v3] [safe] gate passed safe-01
+2026-09-11T07:13:04Z [pilot_repaired_tile_v3] [safe] start safe-02 seed=1102 probe=30,45,0,0.10,AREA 1
+2026-09-11T07:15:40Z [pilot_repaired_tile_v3] [safe] gate passed safe-02
+2026-09-11T07:15:40Z [pilot_repaired_tile_v3] [safe] start safe-03 seed=1103 probe=35,38,1,0.05,AREA 2
+2026-09-11T07:18:41Z [pilot_repaired_tile_v3] [safe] gate passed safe-03
+2026-09-11T07:18:41Z [pilot_repaired_tile_v3] [middle] start middle-04 seed=1201 probe=35,45,1,0.10,AREA 0
+2026-09-11T07:21:08Z [pilot_repaired_tile_v3] [middle] gate passed middle-04
+2026-09-11T07:21:08Z [pilot_repaired_tile_v3] [middle] start middle-05 seed=1202 probe=35,52,1,0.15,AREA 1
+2026-09-11T07:24:10Z [pilot_repaired_tile_v3] [middle] gate passed middle-05
+2026-09-11T07:24:10Z [pilot_repaired_tile_v3] [middle] start middle-06 seed=1203 probe=40,45,1,0.10,AREA 2
+2026-09-11T07:27:09Z [pilot_repaired_tile_v3] [middle] gate passed middle-06
+2026-09-11T07:27:09Z [pilot_repaired_tile_v3] [middle] start middle-07 seed=1204 probe=30,52,2,0.10,AREA 1
+2026-09-11T07:29:43Z [pilot_repaired_tile_v3] [middle] gate passed middle-07
+2026-09-11T07:29:43Z [pilot_repaired_tile_v3] [middle] start middle-08 seed=1205 probe=40,38,0,0.15,AREA 0
+2026-09-11T07:32:38Z [pilot_repaired_tile_v3] [middle] gate passed middle-08
+2026-09-11T07:32:39Z [pilot_repaired_tile_v3] [middle] start middle-09 seed=1206 probe=35,38,2,0.20,AREA 2
+2026-09-11T07:35:11Z [pilot_repaired_tile_v3] [middle] gate passed middle-09
+2026-09-11T07:35:11Z [pilot_repaired_tile_v3] [middle] start middle-10 seed=1207 probe=30,45,2,0.15,AREA 2
+2026-09-11T07:37:45Z [pilot_repaired_tile_v3] [middle] gate passed middle-10
+2026-09-11T07:37:45Z [pilot_repaired_tile_v3] [middle] start middle-11 seed=1208 probe=40,52,0,0.05,AREA 1
+2026-09-11T07:40:28Z [pilot_repaired_tile_v3] [middle] gate passed middle-11
+2026-09-11T07:40:28Z [pilot_repaired_tile_v3] [aggressive] start aggressive-12 seed=1301 probe=40,52,2,0.20,AREA 2
+2026-09-11T07:43:00Z [pilot_repaired_tile_v3] [aggressive] gate passed aggressive-12
+2026-09-11T07:43:00Z [pilot_repaired_tile_v3] [aggressive] start aggressive-13 seed=1302 probe=40,52,2,0.15,AREA 1
+2026-09-11T07:45:41Z [pilot_repaired_tile_v3] [aggressive] gate passed aggressive-13
+2026-09-11T07:45:41Z [pilot_repaired_tile_v3] [aggressive] start aggressive-14 seed=1303 probe=40,45,2,0.20,AREA 0
+2026-09-11T07:48:28Z [pilot_repaired_tile_v3] [aggressive] gate passed aggressive-14
+2026-09-11T07:48:28Z [pilot_repaired_tile_v3] [aggressive] start aggressive-15 seed=1304 probe=40,38,2,0.20,AREA 2
+2026-09-11T07:51:01Z [pilot_repaired_tile_v3] [aggressive] gate passed aggressive-15
+2026-09-11T07:51:01Z [pilot_repaired_tile_v3] [aggressive] start aggressive-16 seed=1305 probe=35,52,2,0.20,AREA 0
+2026-09-11T07:53:49Z [pilot_repaired_tile_v3] [aggressive] gate passed aggressive-16
+2026-09-11T07:53:49Z [pilot_repaired_tile_v3] [aggressive] start aggressive-17 seed=1306 probe=30,52,2,0.20,AREA 1
+2026-09-11T07:56:20Z [pilot_repaired_tile_v3] [aggressive] gate passed aggressive-17
+2026-09-11T07:56:20Z [pilot_repaired_tile_v3] [aggressive] start aggressive-18 seed=1307 probe=40,45,0,0.20,AREA 2
+2026-09-11T07:59:16Z [pilot_repaired_tile_v3] [aggressive] gate passed aggressive-18
+2026-09-11T07:59:16Z [pilot_repaired_tile_v3] [aggressive] start aggressive-19 seed=1308 probe=35,45,2,0.20,AREA 1
+2026-09-11T08:01:49Z [pilot_repaired_tile_v3] [aggressive] gate passed aggressive-19
+2026-09-11T08:01:49Z [pilot_repaired_tile_v3] [aggressive] start aggressive-20 seed=1309 probe=30,38,2,0.15,AREA 0
+2026-09-11T08:04:57Z [pilot_repaired_tile_v3] [aggressive] gate passed aggressive-20
+2026-09-11T08:04:57Z [pilot_repaired_tile_v3] [aggressive] start aggressive-21 seed=1310 probe=40,38,1,0.20,AREA 1
+2026-09-11T08:07:32Z [pilot_repaired_tile_v3] [aggressive] gate passed aggressive-21
+2026-09-11T08:07:32Z [pilot_repaired_tile_v3] [aggressive] start aggressive-22 seed=1311 probe=35,52,0,0.20,AREA 2
+2026-09-11T08:10:28Z [pilot_repaired_tile_v3] [aggressive] gate passed aggressive-22
+2026-09-11T08:10:28Z [pilot_repaired_tile_v3] [aggressive] start aggressive-23 seed=1312 probe=30,45,2,0.20,AREA 0
+2026-09-11T08:13:14Z [pilot_repaired_tile_v3] [aggressive] gate passed aggressive-23
+2026-09-11T08:13:14Z [pilot_repaired_tile_v3] [aggressive] start aggressive-24 seed=1313 probe=40,52,1,0.20,AREA 1
+2026-09-11T08:15:49Z [pilot_repaired_tile_v3] [aggressive] gate passed aggressive-24
+2026-09-11T08:15:49Z [pilot_repaired_tile_v3] [aggressive] start aggressive-25 seed=1314 probe=35,38,2,0.15,AREA 0
+2026-09-11T08:18:57Z [pilot_repaired_tile_v3] [aggressive] gate passed aggressive-25
+2026-09-11T08:18:57Z [pilot_repaired_tile_v3] [aggressive] start aggressive-26 seed=1315 probe=30,52,1,0.20,AREA 2
+2026-09-11T08:21:51Z [pilot_repaired_tile_v3] [aggressive] gate passed aggressive-26
+2026-09-11T08:21:51Z [pilot_repaired_tile_v3] [aggressive] start aggressive-27 seed=1316 probe=40,38,2,0.15,AREA 1
+2026-09-11T08:24:31Z [pilot_repaired_tile_v3] [aggressive] gate passed aggressive-27
+2026-09-11T08:24:31Z [pilot_repaired_tile_v3] campaign complete: failures=0 manifest=/home/ubuntu/Flow-Guard/results/pilot_repaired_tile_v3/manifest.csv

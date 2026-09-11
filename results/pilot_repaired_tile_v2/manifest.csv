@@ -1,0 +1,2 @@
+trial_id,stage,seed,probe,status_file,metrics_file,parser_status,parsed_record
+safe-01,safe,1101,"30,38,0,0.05,AREA 0",/home/ubuntu/Flow-Guard/results/pilot_repaired_tile_v2/runs/trial_safe-01/status.json,/home/ubuntu/Flow-Guard/results/pilot_repaired_tile_v2/runs/trial_safe-01/final/metrics.json,PARSER_FAILED,

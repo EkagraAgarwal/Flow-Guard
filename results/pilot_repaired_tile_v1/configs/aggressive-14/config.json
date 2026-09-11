@@ -1,0 +1,23 @@
+{
+  "CLOCK_PERIOD": 20.0,
+  "CLOCK_PORT": "clk",
+  "DESIGN_NAME": "tt_um_flowguard_stress",
+  "DIE_AREA": [
+    0.0,
+    0.0,
+    320.0,
+    100.0
+  ],
+  "FP_CORE_UTIL": 40,
+  "FP_SIZING": "absolute",
+  "GPL_CELL_PADDING": 2,
+  "GRT_ADJUSTMENT": 0.2,
+  "PL_TARGET_DENSITY_PCT": 45,
+  "SYNTH_STRATEGY": "AREA 0",
+  "VERILOG_FILES": "/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv",
+  "pdk::sky130A": {
+    "scl::sky130_fd_sc_hd": {
+      "CLOCK_PERIOD": 20.0
+    }
+  }
+}

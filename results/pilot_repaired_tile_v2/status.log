@@ -1,0 +1,5 @@
+2026-09-11T07:04:50Z [pilot_repaired_tile_v2] preflight: checking repository, pinned environment, runner/parser, and config
+2026-09-11T07:04:51Z [pilot_repaired_tile_v2] campaign start: fixed 20ns clock; budgets safe=3 middle=8 aggressive=16
+2026-09-11T07:04:51Z [pilot_repaired_tile_v2] [safe] start safe-01 seed=1101 probe=30,38,0,0.05,AREA 0
+2026-09-11T07:07:24Z [pilot_repaired_tile_v2] [safe] gate failed safe-01 runner=SUCCESS parser=PARSER_FAILED
+2026-09-11T07:07:24Z [pilot_repaired_tile_v2] [safe] start safe-02 seed=1102 probe=30,45,0,0.10,AREA 1

@@ -1,0 +1,160 @@
+Reading timing models for corner max_tt_025C_1v80…
+Reading timing library for the 'max_tt_025C_1v80' corner at '/home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib'…
+Reading timing models for corner min_ss_100C_1v60…
+Reading timing library for the 'min_ss_100C_1v60' corner at '/home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_100C_1v60.lib'…
+Reading timing models for corner nom_tt_025C_1v80…
+Reading timing library for the 'nom_tt_025C_1v80' corner at '/home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib'…
+[WARNING STA-1140] /home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib line 1, library sky130_fd_sc_hd__tt_025C_1v80 already exists.
+Reading timing models for corner max_ff_n40C_1v95…
+Reading timing library for the 'max_ff_n40C_1v95' corner at '/home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v95.lib'…
+Reading timing models for corner nom_ff_n40C_1v95…
+Reading timing library for the 'nom_ff_n40C_1v95' corner at '/home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v95.lib'…
+[WARNING STA-1140] /home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v95.lib line 1, library sky130_fd_sc_hd__ff_n40C_1v95 already exists.
+Reading timing models for corner max_ss_100C_1v60…
+Reading timing library for the 'max_ss_100C_1v60' corner at '/home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_100C_1v60.lib'…
+[WARNING STA-1140] /home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_100C_1v60.lib line 1, library sky130_fd_sc_hd__ss_100C_1v60 already exists.
+Reading timing models for corner min_tt_025C_1v80…
+Reading timing library for the 'min_tt_025C_1v80' corner at '/home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib'…
+[WARNING STA-1140] /home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib line 1, library sky130_fd_sc_hd__tt_025C_1v80 already exists.
+Reading timing models for corner nom_ss_100C_1v60…
+Reading timing library for the 'nom_ss_100C_1v60' corner at '/home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_100C_1v60.lib'…
+[WARNING STA-1140] /home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_100C_1v60.lib line 1, library sky130_fd_sc_hd__ss_100C_1v60 already exists.
+Reading timing models for corner min_ff_n40C_1v95…
+Reading timing library for the 'min_ff_n40C_1v95' corner at '/home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v95.lib'…
+[WARNING STA-1140] /home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v95.lib line 1, library sky130_fd_sc_hd__ff_n40C_1v95 already exists.
+Reading OpenROAD database at '/home/ubuntu/Flow-Guard/results/pilot_repaired_tile_v2/configs/safe-02/runs/trial_safe-02/28-openroad-globalplacement/tt_um_flowguard_stress.odb'…
+Reading design constraints file at '/nix/store/f8bhalkl3s4vjwd7g271xz92bra8yrm5-python3-3.13.9-env/lib/python3.13/site-packages/librelane/scripts/base.sdc'…
+[INFO] Using clock clk…
+[INFO] Setting output delay to: 4.0
+[INFO] Setting input delay to: 4.0
+[INFO] Setting load to: 0.033442
+[INFO] Setting clock uncertainty to: 0.25
+[INFO] Setting clock transition to: 0.1499999999999999944488848768742172978818416595458984375
+[INFO] Setting timing derate to: 5.0%
+[INFO RSZ-0027] Inserted 15 sky130_fd_sc_hd__clkdlybuf4s25_1 input buffers.
+[INFO RSZ-0028] Inserted 8 sky130_fd_sc_hd__clkdlybuf4s25_1 output buffers.
++ repair_design -verbose -max_wire_length 0.0 -slew_margin 20.0 -cap_margin 20.0
+Iteration |   Area    | Resized | Buffers | Nets repaired | Remaining
+---------------------------------------------------------------------
+        0 |     +0.0% |       0 |       0 |             0 |       801
+       10 |     +0.0% |       0 |       0 |             0 |       791
+       20 |     +0.0% |       0 |       0 |             0 |       781
+       30 |     +0.0% |       0 |       0 |             0 |       771
+       40 |     +0.0% |       0 |       0 |             0 |       761
+       50 |     +0.0% |       0 |       0 |             0 |       751
+       60 |     +0.0% |       0 |       0 |             0 |       741
+       70 |     +0.0% |       0 |       0 |             0 |       731
+       80 |     +0.0% |       0 |       0 |             0 |       721
+       90 |     +0.0% |       0 |       0 |             0 |       711
+      100 |     +0.0% |       0 |       0 |             0 |       701
+      110 |     +0.0% |       0 |       0 |             0 |       691
+      120 |     +0.0% |       0 |       0 |             0 |       681
+      130 |     +0.0% |       0 |       0 |             0 |       671
+      140 |     +0.0% |       0 |       0 |             0 |       661
+      150 |     +0.0% |       0 |       0 |             0 |       651
+      160 |     +0.0% |       0 |       0 |             0 |       641
+      170 |     +0.0% |       0 |       0 |             0 |       631
+      180 |     +0.0% |       0 |       0 |             0 |       621
+      190 |     +0.0% |       0 |       0 |             0 |       611
+      200 |     +0.0% |       0 |       0 |             0 |       601
+      210 |     +0.0% |       0 |       0 |             0 |       591
+      220 |     +0.0% |       0 |       0 |             0 |       581
+      230 |     +0.0% |       0 |       0 |             0 |       571
+      240 |     +0.0% |       0 |       0 |             0 |       561
+      250 |     +0.0% |       0 |       0 |             0 |       551
+      260 |     +0.1% |       0 |       1 |             1 |       541
+      270 |     +0.3% |       1 |       4 |             4 |       531
+      280 |     +0.7% |       2 |      10 |             9 |       521
+      290 |     +0.8% |       3 |      11 |            10 |       511
+      300 |     +0.8% |       3 |      11 |            10 |       501
+      310 |     +0.8% |       3 |      11 |            10 |       491
+      320 |     +0.8% |       3 |      11 |            10 |       481
+      330 |     +0.8% |       3 |      11 |            10 |       471
+      340 |     +0.8% |       3 |      11 |            10 |       461
+      350 |     +0.8% |       3 |      11 |            10 |       451
+      360 |     +0.8% |       3 |      11 |            10 |       441
+      370 |     +0.8% |       3 |      11 |            10 |       431
+      380 |     +0.8% |       3 |      11 |            10 |       421
+      390 |     +0.8% |       3 |      11 |            10 |       411
+      400 |     +0.8% |       3 |      11 |            10 |       401
+      410 |     +0.8% |       3 |      11 |            10 |       391
+      420 |     +0.8% |       3 |      11 |            10 |       381
+      430 |     +0.8% |       3 |      11 |            10 |       371
+      440 |     +1.1% |       3 |      14 |            12 |       361
+      450 |     +1.1% |       3 |      14 |            12 |       351
+      460 |     +1.1% |       3 |      14 |            12 |       341
+      470 |     +1.1% |       3 |      14 |            12 |       331
+      480 |     +1.1% |       3 |      14 |            12 |       321
+      490 |     +1.1% |       3 |      14 |            12 |       311
+      500 |     +1.1% |       3 |      14 |            12 |       301
+      510 |     +1.5% |       5 |      20 |            16 |       291
+      520 |     +2.8% |       5 |      36 |            17 |       281
+      530 |     +2.8% |       5 |      36 |            17 |       271
+      540 |     +2.8% |       5 |      36 |            17 |       261
+      550 |     +4.7% |       5 |      57 |            20 |       251
+      560 |     +4.7% |       5 |      57 |            20 |       241
+      570 |     +4.7% |       5 |      57 |            20 |       231
+      580 |     +4.7% |       5 |      57 |            20 |       221
+      590 |     +4.7% |       5 |      57 |            20 |       211
+      600 |     +4.7% |       5 |      57 |            20 |       201
+      610 |     +4.7% |       5 |      57 |            20 |       191
+      620 |     +4.7% |       5 |      57 |            20 |       181
+      630 |     +4.7% |       5 |      57 |            20 |       171
+      640 |     +4.7% |       5 |      57 |            20 |       161
+      650 |     +4.7% |       5 |      57 |            20 |       151
+      660 |     +4.7% |       5 |      57 |            20 |       141
+      670 |     +4.7% |       5 |      57 |            20 |       131
+      680 |     +4.7% |       5 |      57 |            20 |       121
+      690 |     +4.7% |       5 |      57 |            20 |       111
+      700 |     +4.7% |       5 |      57 |            20 |       101
+      710 |     +4.7% |       5 |      57 |            20 |        91
+      720 |     +4.7% |       5 |      57 |            20 |        81
+      730 |     +4.7% |       5 |      57 |            20 |        71
+      740 |     +4.7% |       5 |      57 |            20 |        61
+      750 |     +8.2% |       5 |     100 |            21 |        51
+      760 |     +8.2% |       5 |     100 |            21 |        41
+      770 |     +8.2% |       5 |     100 |            21 |        31
+      780 |     +8.2% |       5 |     100 |            21 |        21
+      790 |     +8.2% |       5 |     100 |            21 |        11
+      800 |     +8.2% |       5 |     100 |            21 |         1
+    final |     +8.2% |       5 |     100 |            21 |         0
+---------------------------------------------------------------------
+[INFO RSZ-0034] Found 20 slew violations.
+[INFO RSZ-0035] Found 10 fanout violations.
+[INFO RSZ-0039] Resized 5 instances.
+[INFO RSZ-0038] Inserted 100 buffers in 21 nets.
+[INFO RSZ-0042] Inserted 16 tie sky130_fd_sc_hd__conb_1 instances.
+[WARNING RSZ-0020] found 2 floating nets.
+ VGND
+ VPWR
++ detailed_placement -max_displacement  500 100 
+Placement Analysis
+---------------------------------
+total displacement       3155.8 u
+average displacement        2.5 u
+max displacement           24.0 u
+original HPWL           17843.6 u
+legalized HPWL          21089.4 u
+delta HPWL                   18 %
+
+[INFO DPL-0020] Mirrored 236 instances
+[INFO DPL-0021] HPWL before           21089.4 u
+[INFO DPL-0022] HPWL after            20599.9 u
+[INFO DPL-0023] HPWL delta               -2.3 %
+Setting global connections for newly added cells…
+[INFO] Setting global connections...
+[INFO ODB-0403] 556 connections made, 0 conflicts skipped.
+Updating metrics…
+Cell type report:                       Count       Area
+  Fill cell                                56     210.20
+  Tap cell                                345     431.66
+  Timing Repair Buffer                    123    1106.06
+  Inverter                                  4      15.01
+  Sequential cell                         202    5307.59
+  Multi-Input combinational cell          537    5665.43
+  Total                                  1267   12735.96
+Writing OpenROAD database to '/home/ubuntu/Flow-Guard/results/pilot_repaired_tile_v2/configs/safe-02/runs/trial_safe-02/32-openroad-repairdesignpostgpl/tt_um_flowguard_stress.odb'…
+Writing netlist to '/home/ubuntu/Flow-Guard/results/pilot_repaired_tile_v2/configs/safe-02/runs/trial_safe-02/32-openroad-repairdesignpostgpl/tt_um_flowguard_stress.nl.v'…
+Writing powered netlist to '/home/ubuntu/Flow-Guard/results/pilot_repaired_tile_v2/configs/safe-02/runs/trial_safe-02/32-openroad-repairdesignpostgpl/tt_um_flowguard_stress.pnl.v'…
+Writing layout to '/home/ubuntu/Flow-Guard/results/pilot_repaired_tile_v2/configs/safe-02/runs/trial_safe-02/32-openroad-repairdesignpostgpl/tt_um_flowguard_stress.def'…
+Writing timing constraints to '/home/ubuntu/Flow-Guard/results/pilot_repaired_tile_v2/configs/safe-02/runs/trial_safe-02/32-openroad-repairdesignpostgpl/tt_um_flowguard_stress.sdc'…

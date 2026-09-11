@@ -1,0 +1,9 @@
+{
+    "json_h": "/home/ubuntu/Flow-Guard/results/pilot_repaired_tile_v2/configs/safe-02/runs/trial_safe-02/05-yosys-jsonheader/tt_um_flowguard_stress.h.json",
+    "metrics": {
+        "design__lint_error__count": 0,
+        "design__lint_timing_construct__count": 0,
+        "design__lint_warning__count": 448,
+        "design__inferred_latch__count": 0
+    }
+}
