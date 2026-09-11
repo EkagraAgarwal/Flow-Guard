@@ -17,7 +17,7 @@ ALIASES = {
     "wirelength": ("wirelength", "wire_length", "total_wirelength", "hpwl", "route__wirelength", "route__wire_length", "routing__wirelength", "design__wirelength"),
     "status": ("status", "flow_status", "flow__status", "run_status", "meta__status"),
 }
-KNOBS = ("CLOCK_PERIOD", "FP_CORE_UTIL", "PL_TARGET_DENSITY", "GRT_ADJUSTMENT", "SYNTH_STRATEGY")
+KNOBS = ("CLOCK_PERIOD", "FP_CORE_UTIL", "PL_TARGET_DENSITY", "CELL_PAD", "GRT_ADJUSTMENT", "SYNTH_STRATEGY")
 
 
 def _flatten(value: Any, prefix: str = "") -> dict[str, Any]:

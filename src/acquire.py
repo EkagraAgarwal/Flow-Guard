@@ -13,6 +13,13 @@ from .models import FlowGuardModels, Metric, _features
 
 MIN_FEASIBILITY_PROBABILITY = 0.35
 
+FROZEN_SEARCH_SPACE = {
+    "PL_TARGET_DENSITY": (0.40, 0.70),
+    "CELL_PAD": (1, 4),
+    "SYNTH_STRATEGY": ("AREA 0", "AREA 1", "AREA 2", "AREA 3"),
+    "FP_CORE_UTIL": (35, 60),
+}
+
 
 @dataclass(frozen=True)
 class AcquisitionResult:
