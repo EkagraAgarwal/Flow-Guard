@@ -47,7 +47,6 @@ while (($#)); do
 done
 
 [[ $NAMESPACE =~ ^[A-Za-z0-9_.-]+$ ]] || die "namespace contains invalid characters"
-[[ $RESULTS_BRANCH =~ ^[A-Za-z0-9_./-]+$ ]] || die "results branch contains invalid characters"
 [[ $HOURS =~ ^[0-9]+([.][0-9]+)?$ ]] || die "hours must be a positive decimal"
 
 RESULTS="$ROOT/results/$NAMESPACE"
