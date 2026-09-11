@@ -1,0 +1,7 @@
+{
+  "standard_cell_area": "99.5",
+  "timing": {"setup": {"wns": -0.03, "tns": -1.2}},
+  "drc_count": 2,
+  "wirelength": 100,
+  "flow_status": "failed"
+}

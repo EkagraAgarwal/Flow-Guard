@@ -2,4 +2,6 @@
 /local-reference-artifacts/
 /.banyancode
 /.venv/
+__pycache__/
+*.py[cod]
 /designs/*/runs/

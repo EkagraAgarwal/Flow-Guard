@@ -17,19 +17,31 @@ Status audited against the repository on 2026-09-11.
 
 **[In Progress] `designs/flowguard_fir/`**
 
-- Done: synthesizable signed 8-tap FIR, eight programmable coefficients,
-  parallel registered multipliers, balanced registered adder tree, signed
-  saturation, valid pipeline, and asynchronous active-low reset.
-- Done: self-checking Icarus simulation (46 checked outputs), Verilator RTL
-  lint, and a full LibreLane flow with timing, DRC, and LVS passing.
-- Measured: 4,375 synthesized standard cells and 50,155.6 square micrometers
-  of cell area. The fixed `160 x 100` micrometer config has 443.2% effective
-  core utilization. An unconstrained reference run required 7,214 placed cells
-  and an automatically sized `389.59 x 400.31` micrometer die.
-- Blocker: eight parallel programmable 8x8 multipliers cannot meet the stated
-  400-750-cell target or `160 x 100` micrometer tile. Meeting that envelope
-  requires relaxing the parallel-tree/throughput requirement and sharing a
-  multiplier across taps, or reducing coefficient precision.
+- Done: synthesizable signed 8-tap folded FIR with one 8x8 arithmetic unit,
+  eight-cycle accumulation, eight programmable coefficients, saturation,
+  valid output, and asynchronous active-low reset.
+- Done: self-checking Icarus simulation and Verilator RTL lint.
+- Measured: the 64-cycle bit-serial reduction synthesizes to 806 cells,
+  11,198.24 square micrometers, and 99.0% effective utilization on the fixed
+  tile; global placement reaches 114.789% and stops. The strict 400-750-cell
+  and `<60%` gate remains unmet.
+- Blocker: fitting the exact tile requires further reducing state/control or
+  relaxing coefficient precision, reset, or throughput requirements.
+
+## Data and Optimization Stack
+
+**[Done] `src/runner.py`, `src/parser.py`, `src/models.py`, `src/acquire.py`**
+
+- Runner/parser: isolated trial directories, timeout/crash status records,
+  metrics extraction, feasibility, immutable CSV/JSONL aggregation, and six
+  fixture tests.
+- Models/acquisition: calibrated/random-forest feasibility model with small-
+  data fallbacks, feasible-only Gaussian-process QoR models, frozen knobs, EI
+  times feasibility, and the 0.35 risk threshold.
+- Integration evidence: four concurrent counter trials completed successfully;
+  parser recorded all four as feasible and the model/acquisition fit completed.
+- Immediate blocker: no blocker for the core data pipeline; real adaptive
+  optimization still needs varied trial knobs and a curated experiment set.
 
 ## Software Stack
 
