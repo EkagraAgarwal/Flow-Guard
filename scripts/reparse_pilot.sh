@@ -33,6 +33,7 @@ done
 source_root="$root/results/$namespace"
 runs_root="$source_root/runs"
 configs_root="$source_root/configs"
+manifest_path="$source_root/manifest.csv"
 output_root=${output_root:-"$source_root/v3_corrected_aggregates"}
 python_bin="$root/.venv/openlane/bin/python"
 [[ -x "$python_bin" ]] || python_bin=python3
@@ -42,6 +43,9 @@ mkdir -p "$output_root/configs"
   printf 'missing raw run directory: %s\n' "$runs_root" >&2
   exit 1
 }
+if [[ ! -f "$manifest_path" ]]; then
+  printf 'NOTICE: manifest missing; using per-trial configs without probe reconstruction\n'
+fi
 
 parsed=0
 skipped=0
@@ -73,8 +77,12 @@ while IFS= read -r trial_dir; do
     continue
   fi
 
-  probe="$(python3 - "$source_root/manifest.csv" "$trial_id" <<'PY'
+  probe="$(python3 - "$manifest_path" "$trial_id" <<'PY'
 import csv, sys
+import os
+if not os.path.isfile(sys.argv[1]):
+    print("")
+    raise SystemExit
 with open(sys.argv[1], newline="", encoding="utf-8") as handle:
     rows = [row for row in csv.DictReader(handle) if row.get("trial_id") == sys.argv[2]]
 print(rows[-1].get("probe", "") if rows else "")
