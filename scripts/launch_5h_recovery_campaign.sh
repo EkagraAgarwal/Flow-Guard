@@ -169,7 +169,9 @@ PY
 append_event() {
   python3 - "$MANIFEST" "$TRIALS" "$1" <<'PY'
 import json, pathlib, sys
-manifest, trials, raw = map(pathlib.Path, sys.argv[1:])
+manifest = pathlib.Path(sys.argv[1])
+trials = pathlib.Path(sys.argv[2])
+raw = sys.argv[3]
 record = json.loads(raw)
 record["event"] = "trial"
 line = json.dumps(record, sort_keys=True)
