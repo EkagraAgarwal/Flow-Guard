@@ -6,7 +6,6 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 CONFIG="$ROOT/designs/flowguard_stress/config.2x1.json"
 NAMESPACE="recovery_5h_v1"
-RESULTS_BRANCH="recovery-results"
 HOURS="4.75"
 RESUME=0
 PREFLIGHT_ONLY=0
@@ -19,7 +18,6 @@ Usage: scripts/launch_5h_recovery_campaign.sh [options]
 Options:
   --hours H             Wall-clock budget (default: 4.75)
   --namespace ID        Results namespace (default: recovery_5h_v1)
-  --results-branch ID   Dedicated branch for compact checkpoints
   --resume              Skip immutable trials already in manifest.jsonl
   --preflight-only      Validate inputs and environment without launching
   -h, --help            Show this help
@@ -41,7 +39,6 @@ while (($#)); do
   case "$1" in
     --hours) HOURS=${2:?missing value for --hours}; shift 2 ;;
     --namespace) NAMESPACE=${2:?missing value for --namespace}; shift 2 ;;
-    --results-branch) RESULTS_BRANCH=${2:?missing value for --results-branch}; shift 2 ;;
     --resume) RESUME=1; shift ;;
     --preflight-only) PREFLIGHT_ONLY=1; shift ;;
     -h|--help) usage; exit 0 ;;
@@ -96,12 +93,11 @@ PY
 }
 
 preflight() {
-  status "preflight: checking repository, runner/parser, config, and push target"
+  status "preflight: checking repository, runner/parser, and config"
   for command in git python3 docker; do command -v "$command" >/dev/null || die "missing prerequisite: $command"; done
   git rev-parse --is-inside-work-tree >/dev/null || die "not a git repository"
   [[ -f $CONFIG && -f $ROOT/src/runner.py && -f $ROOT/src/parser.py ]] || die "campaign inputs are incomplete"
   python3 -m json.tool "$CONFIG" >/dev/null || die "invalid campaign config"
-  git remote get-url origin >/dev/null 2>&1 || die "origin remote is required for checkpoint pushes"
   PYTHON="$ROOT/.venv/openlane/bin/python"; [[ -x $PYTHON ]] || PYTHON=python3
   "$PYTHON" -m librelane --help >/dev/null || die "LibreLane is unavailable"
   "$PYTHON" - <<'PY' "$CONFIG"
@@ -137,11 +133,14 @@ PY
 }
 
 checkpoint() {
-  git add -- "$MANIFEST" "$TRIALS" "$STATUS_JSON" "$SUMMARY" "$STATUS_LOG"
-  if ! git diff --cached --quiet; then
-    git commit -m "recovery campaign checkpoint: $NAMESPACE" >/dev/null
-    git push origin "HEAD:refs/heads/$RESULTS_BRANCH"
-  fi
+  python3 - "$MANIFEST" "$TRIALS" "$STATUS_JSON" "$SUMMARY" "$STATUS_LOG" <<'PY'
+import os, sys
+for name in sys.argv[1:]:
+    if os.path.exists(name):
+        with open(name, "a", encoding="utf-8") as handle:
+            handle.flush()
+            os.fsync(handle.fileno())
+PY
 }
 
 refresh_summary() {
