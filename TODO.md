@@ -6,22 +6,25 @@ exit code alone; require final metrics and preserved artifacts.
 
 ## Immediate Server Recovery
 
-- [ ] Pull commit `d6e43a6` or newer on the Oracle server.
+- [x] Pull recovery benchmark commit `9aea48a` or newer on the Oracle server.
 - [ ] Run `./scripts/openlane-setup.sh` and capture the pinned runtime output.
 - [ ] Validate that the 2x1 horizontal-abutment geometry is legal in the
       TinyTapeout integration environment.
-- [ ] Run namespace `pilot_repaired_tile_v3` with the 20 ns fixed clock.
-- [ ] Confirm `safe-01` creates final metrics before running middle probes.
+- [x] Run namespace `pilot_repaired_tile_v3` with the 20 ns fixed clock.
+- [x] Confirm all 27 trials create complete final metrics.
 - [ ] If safe probes fail, stop and record a new incident; do not consume the
       full pilot budget.
 - [ ] Preserve `results/pilot_repaired_tile_v3/manifest.csv`, status log,
       aggregates, effective configs, and representative raw reports.
-- [ ] Reparse v3 raw metrics with the corrected parser and archive complete
+- [x] Reparse v3 raw metrics with the corrected parser and archive complete
       hold/routing/LVS/signoff evidence; do not reuse old feasible labels.
 - [ ] Run three identical repeats for at least three configurations to quantify
       physical metric noise before boundary selection.
-- [ ] Run `experiments/v3_analysis.py` against the server aggregate JSONL and
+- [x] Run `experiments/v3_analysis.py` against the server aggregate JSONL and
       preserve its machine-readable report.
+- [x] Confirm v3 is one feasibility class and therefore not optimizer-ready.
+- [ ] Characterize fixed clocks at 17, 15, 13, and 11 ns before changing the
+      search-space or optimizer policy.
 
 ## Completed Foundation
 

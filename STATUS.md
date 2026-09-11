@@ -186,34 +186,36 @@ The experimental branch adds the next correctness layer:
 - `experiments/manifests/v3_diagnostic_boundary.json` defines the next fixed-
   clock diagnostic boundary.
 
-Important evidence correction: the historical v3 aggregate labels 27/27 runs
-as feasible, but it does not contain complete hold/routing/LVS/signoff fields.
-Under the corrected parser, those records are useful recovery/QoR evidence but
-are not yet valid final feasibility labels.
+Corrected v3 evidence is now complete in the server-generated
+`v3_corrected_aggregates_v7` output:
+
+- 27/27 records have complete required evidence.
+- 27/27 are feasible with DRC zero, LVS passed, and signoff passed.
+- Setup worst slack is `3.863` to `4.915 ns`.
+- Hold worst slack is `0.110` to `0.113 ns`.
+- Area remains `15030.7` to `15318.4`; wirelength remains `27287` to `28897`.
+- All 27 candidates are one feasibility class, so this is not yet a valid
+  failure-aware optimization benchmark.
+
+The corrected data proves the recovery instrument works. It also proves that
+20 ns and the current 2x1 legal search region are too easy. Do not launch the
+optimizer from this pilot.
 
 ## Next Agent Handoff
 
 Work in this order:
 
-1. Pull `experiment/server-runs` at `d6e43a6` or newer.
-2. Run the 2x1 pilot in a new namespace and verify `safe-01` produces final
-   metrics before allowing larger probes.
-3. Add stage-gated launcher behavior: stop before middle/aggressive when the
-   safe gate has no final metrics.
-4. Extend parser fixtures for hold, routing, DRC, timeout, missing metrics, and
-   signoff reports.
-5. Add the canonical objective and reject incomplete/incompatible metrics.
-6. Add deterministic seed propagation and namespace/resume tests.
-7. Complete baseline/FlowGuard comparison only after a mixed feasible/failure
-   region exists.
-8. Mine and modernize the top three ChipIgnite candidates.
+1. Characterize fixed clocks at 17, 15, 13, and 11 ns with a safe config.
+2. Choose one fixed clock with a feasible point and real failures.
+3. Repeat three configurations at least three times to quantify noise.
+4. Expand the diagnostic region until feasible and infeasible classes coexist.
+5. Complete baseline/FlowGuard comparison only after a mixed region exists.
+6. Mine and modernize the top three ChipIgnite candidates.
 
 Server command:
 
 ```bash
-git pull --ff-only origin experiment/server-runs
+git pull --ff-only origin experiment/recovery-benchmark
 ./scripts/openlane-setup.sh
-bash scripts/launch_oracle_campaign.sh \
-  --namespace pilot_repaired_tile_v3 \
-  --timeout 8200
+bash scripts/launch_oracle_campaign.sh --preflight-only
 ```
