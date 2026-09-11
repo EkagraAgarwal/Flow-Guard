@@ -1,0 +1,65 @@
+{
+   "creator": "Yosys 0.62 (git sha1 7326bb7d6641500ecb285c291a54a662cb1e76cf, clang++ 21.1.2 -fPIC -O3)",
+   "invocation": "stat -json -liberty /home/ubuntu/Flow-Guard/results/server_experiment_v2_configs/server-15/runs/trial_server-15/tmp/f352163572a54ec5a53d6755e464d65b.lib ",
+   "modules": {
+      "\\tt_um_flowguard_stress": {
+         "num_wires":         561,
+         "num_wire_bits":     943,
+         "num_pub_wires":     39,
+         "num_pub_wire_bits": 310,
+         "num_ports":         8,
+         "num_port_bits":     43,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         744,
+         "num_submodules":       0,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 224,
+            "$_AND_": 24,
+            "$_DFFE_PN0P_": 182,
+            "$_DFFE_PN1P_": 13,
+            "$_DFF_PN0_": 6,
+            "$_DFF_PN1_": 1,
+            "$_MUX_": 20,
+            "$_NAND_": 13,
+            "$_NOR_": 33,
+            "$_NOT_": 21,
+            "$_ORNOT_": 28,
+            "$_OR_": 104,
+            "$_XNOR_": 21,
+            "$_XOR_": 54
+         }
+      }
+   },
+      "design": {
+         "num_wires":         561,
+         "num_wire_bits":     943,
+         "num_pub_wires":     39,
+         "num_pub_wire_bits": 310,
+         "num_ports":         8,
+         "num_port_bits":     43,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         744,
+         "num_submodules":       0,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 224,
+            "$_AND_": 24,
+            "$_DFFE_PN0P_": 182,
+            "$_DFFE_PN1P_": 13,
+            "$_DFF_PN0_": 6,
+            "$_DFF_PN1_": 1,
+            "$_MUX_": 20,
+            "$_NAND_": 13,
+            "$_NOR_": 33,
+            "$_NOT_": 21,
+            "$_ORNOT_": 28,
+            "$_OR_": 104,
+            "$_XNOR_": 21,
+            "$_XOR_": 54
+         }
+      }
+}
+

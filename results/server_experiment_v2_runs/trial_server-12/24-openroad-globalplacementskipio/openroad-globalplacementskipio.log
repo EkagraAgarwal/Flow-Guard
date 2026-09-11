@@ -1,0 +1,38 @@
+Reading timing models for corner nom_tt_025C_1v80…
+Reading timing library for the 'nom_tt_025C_1v80' corner at '/home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib'…
+Reading OpenROAD database at '/home/ubuntu/Flow-Guard/results/server_experiment_v2_configs/server-12/runs/trial_server-12/21-openroad-generatepdn/tt_um_flowguard_stress.odb'…
+Reading design constraints file at '/nix/store/f8bhalkl3s4vjwd7g271xz92bra8yrm5-python3-3.13.9-env/lib/python3.13/site-packages/librelane/scripts/base.sdc'…
+[INFO] Using clock clk…
+[INFO] Setting output delay to: 4.0
+[INFO] Setting input delay to: 4.0
+[INFO] Setting load to: 0.033442
+[INFO] Setting clock uncertainty to: 0.25
+[INFO] Setting clock transition to: 0.1499999999999999944488848768742172978818416595458984375
+[INFO] Setting timing derate to: 5.0%
++ global_placement -density 0.52 -skip_io -pad_right 0 -pad_left 0 -init_wirelength_coef 0.25
+[INFO GPL-0001] ---- Initialize GPL Main Data Structures
+[INFO GPL-0002] DBU: 1000
+[INFO GPL-0003] SiteSize: (  0.460  2.720 ) um
+[INFO GPL-0004] CoreBBox: (  5.520 10.880 ) ( 154.100 87.040 ) um
+[INFO GPL-0036] Movable instances area:      10750.310 um^2
+[INFO GPL-0037] Total instances area:        11166.960 um^2
+[INFO GPL-0035] Pin density area adjust:      1201.658 um^2
+[INFO GPL-0032] ---- Initialize Region: Top-level
+[INFO GPL-0006] Number of instances:               951
+[INFO GPL-0007] Movable instances:                 730
+[INFO GPL-0008] Fixed instances:                   221
+[INFO GPL-0009] Dummy instances:                     0
+[INFO GPL-0010] Number of nets:                    749
+[INFO GPL-0011] Number of pins:                   2910
+[INFO GPL-0012] Die BBox:  (  0.000  0.000 ) ( 160.000 100.000 ) um
+[INFO GPL-0013] Core BBox: (  5.520 10.880 ) ( 154.100 87.040 ) um
+[INFO GPL-0016] Core area:                   11315.853 um^2
+[INFO GPL-0014] Region name: top-level.
+[INFO GPL-0015] Region area:                 11315.853 um^2
+[INFO GPL-0017] Fixed instances area:          416.650 um^2
+[INFO GPL-0018] Movable instances area:      11951.968 um^2
+[INFO GPL-0019] Utilization:                   109.659 %
+[INFO GPL-0020] Standard cells area:         11951.968 um^2
+[INFO GPL-0021] Large instances area:            0.000 um^2
+[ERROR GPL-0301] Utilization 109.659 % exceeds 100%.
+Error: gpl.tcl, 82 GPL-0301

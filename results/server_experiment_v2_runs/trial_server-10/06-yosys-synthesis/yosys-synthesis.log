@@ -1,0 +1,1616 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.62 (git sha1 7326bb7d6641500ecb285c291a54a662cb1e76cf, clang++ 21.1.2 -fPIC -O3)
+
+1. Executing Liberty frontend: /home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+Imported 428 cell types from liberty file.
+[INFO] Using SDC file '/home/ubuntu/Flow-Guard/results/server_experiment_v2_configs/server-10/runs/trial_server-10/06-yosys-synthesis/synthesis.abc.sdc' for ABC…
+
+2. Executing Verilog-2005 frontend: /home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv
+Parsing SystemVerilog input from `/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv' to AST representation.
+Storing AST representation for module `$abstract\flowguard_cla4'.
+Storing AST representation for module `$abstract\flowguard_cla20'.
+Storing AST representation for module `$abstract\tt_um_flowguard_stress'.
+Successfully finished Verilog frontend.
+
+3. Executing HIERARCHY pass (managing design hierarchy).
+
+4. Executing AST frontend in derive mode using pre-parsed AST for module `\tt_um_flowguard_stress'.
+Generating RTLIL representation for module `\tt_um_flowguard_stress'.
+
+4.1. Analyzing design hierarchy..
+Top module:  \tt_um_flowguard_stress
+
+4.2. Executing AST frontend in derive mode using pre-parsed AST for module `\flowguard_cla20'.
+Generating RTLIL representation for module `\flowguard_cla20'.
+
+4.3. Analyzing design hierarchy..
+Top module:  \tt_um_flowguard_stress
+Used module:     \flowguard_cla20
+
+4.4. Executing AST frontend in derive mode using pre-parsed AST for module `\flowguard_cla4'.
+Generating RTLIL representation for module `\flowguard_cla4'.
+Reprocessing module flowguard_cla20 because instantiated module flowguard_cla4 has become available.
+Generating RTLIL representation for module `\flowguard_cla20'.
+
+4.5. Analyzing design hierarchy..
+Top module:  \tt_um_flowguard_stress
+Used module:     \flowguard_cla20
+Used module:         \flowguard_cla4
+
+4.6. Analyzing design hierarchy..
+Top module:  \tt_um_flowguard_stress
+Used module:     \flowguard_cla20
+Used module:         \flowguard_cla4
+Removing unused module `$abstract\tt_um_flowguard_stress'.
+Removing unused module `$abstract\flowguard_cla20'.
+Removing unused module `$abstract\flowguard_cla4'.
+Removed 3 unused modules.
+Renaming module tt_um_flowguard_stress to tt_um_flowguard_stress.
+
+5. Executing ATTRMAP pass (move or copy attributes).
+
+6. Executing TRIBUF pass.
+
+7. Executing HIERARCHY pass (managing design hierarchy).
+
+7.1. Analyzing design hierarchy..
+Top module:  \tt_um_flowguard_stress
+Used module:     \flowguard_cla20
+Used module:         \flowguard_cla4
+
+7.2. Analyzing design hierarchy..
+Top module:  \tt_um_flowguard_stress
+Used module:     \flowguard_cla20
+Used module:         \flowguard_cla4
+Removed 0 unused modules.
+
+8. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+9. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 8 switch rules as full_case in process $proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14 in module tt_um_flowguard_stress.
+Removed a total of 0 dead cases.
+
+10. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 1 redundant assignment.
+Promoted 4 assignments to connections.
+
+11. Executing PROC_INIT pass (extract init attributes).
+
+12. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst_n in `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+
+13. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~8 debug messages>
+
+14. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+     1/54: $5\select_coefficient$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$2.$result[7:0]$38
+     2/54: $5\select_snapshot$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$1.$result[7:0]$37
+     3/54: $4\select_coefficient$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$2.$result[7:0]$35
+     4/54: $4\select_coefficient$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$2.index[2:0]$36
+     5/54: $4\select_snapshot$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$1.$result[7:0]$33
+     6/54: $4\select_snapshot$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$1.index[2:0]$34
+     7/54: $3\select_coefficient$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$2.index[2:0]$32
+     8/54: $3\select_coefficient$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$2.$result[7:0]$31
+     9/54: $3\select_snapshot$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$1.index[2:0]$30
+    10/54: $3\select_snapshot$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$1.$result[7:0]$29
+    11/54: $2\select_coefficient$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$2.index[2:0]$27
+    12/54: $2\select_coefficient$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$2.$result[7:0]$26
+    13/54: $2\select_snapshot$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$1.index[2:0]$25
+    14/54: $2\select_snapshot$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$1.$result[7:0]$24
+    15/54: $1\select_coefficient$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$2.index[2:0]$23
+    16/54: $1\select_coefficient$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$2.$result[7:0]$22
+    17/54: $1\select_snapshot$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$1.index[2:0]$21
+    18/54: $1\select_snapshot$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$1.$result[7:0]$20
+    19/54: $0\mac_valid[0:0]
+    20/54: $0\mac_busy[0:0]
+    21/54: $0\phase[2:0]
+    22/54: $0\tap_index[2:0]
+    23/54: $0\sample_count[7:0]
+    24/54: $0\mac_result[19:0]
+    25/54: $0\stage3[19:0]
+    26/54: $0\stage2[19:0]
+    27/54: $0\stage1[19:0]
+    28/54: $0\stage0[19:0]
+    29/54: $0\accumulator[19:0]
+    30/54: $0\product_reg[15:0]
+    31/54: $0\snapshot7[7:0]
+    32/54: $0\snapshot6[7:0]
+    33/54: $0\snapshot5[7:0]
+    34/54: $0\snapshot4[7:0]
+    35/54: $0\snapshot3[7:0]
+    36/54: $0\snapshot2[7:0]
+    37/54: $0\snapshot1[7:0]
+    38/54: $0\snapshot0[7:0]
+    39/54: $0\coeff7[7:0]
+    40/54: $0\coeff6[7:0]
+    41/54: $0\coeff5[7:0]
+    42/54: $0\coeff4[7:0]
+    43/54: $0\coeff3[7:0]
+    44/54: $0\coeff2[7:0]
+    45/54: $0\coeff1[7:0]
+    46/54: $0\coeff0[7:0]
+    47/54: $0\window7[7:0]
+    48/54: $0\window6[7:0]
+    49/54: $0\window5[7:0]
+    50/54: $0\window4[7:0]
+    51/54: $0\window3[7:0]
+    52/54: $0\window2[7:0]
+    53/54: $0\window1[7:0]
+    54/54: $0\window0[7:0]
+
+15. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+16. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\tt_um_flowguard_stress.\window0' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$497' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\window1' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$502' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\window2' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$507' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\window3' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$512' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\window4' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$517' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\window5' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$522' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\window6' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$527' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\window7' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$532' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\coeff0' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$537' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\coeff1' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$542' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\coeff2' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$547' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\coeff3' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$552' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\coeff4' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$557' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\coeff5' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$562' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\coeff6' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$567' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\coeff7' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$572' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\snapshot0' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$577' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\snapshot1' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$582' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\snapshot2' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$587' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\snapshot3' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$592' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\snapshot4' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$597' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\snapshot5' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$602' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\snapshot6' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$607' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\snapshot7' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$612' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\product_reg' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$617' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\accumulator' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$622' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\stage0' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$627' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\stage1' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$632' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\stage2' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$637' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\stage3' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$642' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\mac_result' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$647' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\sample_count' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$652' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\tap_index' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$657' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\phase' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$662' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\mac_busy' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$667' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\mac_valid' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$672' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\select_snapshot$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$1.$result' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$677' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\select_snapshot$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$1.index' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$682' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\select_coefficient$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$2.$result' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$687' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_flowguard_stress.\select_coefficient$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$2.index' using process `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+  created $adff cell `$procdff$692' with positive edge clock and positive level reset.
+
+17. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+18. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 8 empty switches in `\tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+Removing empty process `tt_um_flowguard_stress.$proc$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:116$14'.
+Cleaned up 8 empty switches.
+
+19. Executing CHECK pass (checking for obvious problems).
+Checking module tt_um_flowguard_stress...
+Checking module flowguard_cla4...
+Checking module flowguard_cla20...
+Found and reported 0 problems.
+
+20. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_flowguard_stress.
+<suppressed ~98 debug messages>
+Optimizing module flowguard_cla4.
+Optimizing module flowguard_cla20.
+
+21. Executing FLATTEN pass (flatten design).
+Deleting now unused module flowguard_cla4.
+Deleting now unused module flowguard_cla20.
+<suppressed ~9 debug messages>
+
+22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_flowguard_stress.
+<suppressed ~399 debug messages>
+
+23. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_flowguard_stress..
+Removed 257 unused cells and 947 unused wires.
+<suppressed ~263 debug messages>
+
+24. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_flowguard_stress.
+
+25. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_flowguard_stress'.
+Computing hashes of 353 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Computing hashes of 300 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Computing hashes of 297 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+<suppressed ~168 debug messages>
+Removed a total of 56 cells.
+
+26. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_flowguard_stress..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+      Replacing known input bits on port A of cell $procmux$255: \mac_busy -> 1'0
+      Replacing known input bits on port B of cell $procmux$249: { \mac_busy \mac_busy \mac_busy \mac_busy \mac_busy } -> 5'11111
+      Replacing known input bits on port A of cell $procmux$246: \mac_busy -> 1'1
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~109 debug messages>
+
+27. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_flowguard_stress.
+    New ctrl vector for $pmux cell $procmux$249: $auto$opt_reduce.cc:137:opt_pmux$703
+    New ctrl vector for $pmux cell $procmux$280: $auto$opt_reduce.cc:137:opt_pmux$705
+    New ctrl vector for $pmux cell $procmux$299: $auto$opt_reduce.cc:137:opt_pmux$707
+    New ctrl vector for $pmux cell $procmux$354: $auto$opt_reduce.cc:137:opt_pmux$709
+    New ctrl vector for $pmux cell $procmux$403: $auto$opt_reduce.cc:137:opt_pmux$711
+  Optimizing cells in module \tt_um_flowguard_stress.
+Performed a total of 5 changes.
+
+28. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_flowguard_stress'.
+Computing hashes of 302 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Computing hashes of 299 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+<suppressed ~9 debug messages>
+Removed a total of 3 cells.
+
+29. Executing OPT_DFF pass (perform DFF optimizations).
+
+30. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_flowguard_stress..
+Removed 0 unused cells and 59 unused wires.
+<suppressed ~1 debug messages>
+
+31. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_flowguard_stress.
+
+32. Rerunning OPT passes. (Maybe there is more to do…)
+
+33. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_flowguard_stress..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~109 debug messages>
+
+34. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_flowguard_stress.
+Performed a total of 0 changes.
+
+35. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_flowguard_stress'.
+Computing hashes of 299 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Removed a total of 0 cells.
+
+36. Executing OPT_DFF pass (perform DFF optimizations).
+
+37. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_flowguard_stress..
+
+38. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_flowguard_stress.
+
+39. Executing FSM pass (extract and optimize FSM).
+
+39.1. Executing FSM_DETECT pass (finding FSMs in design).
+Found FSM state register tt_um_flowguard_stress.phase.
+
+39.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+Extracting FSM `\phase' from module `\tt_um_flowguard_stress'.
+  found $adff cell for state register: $procdff$662
+  root of input selection tree: $0\phase[2:0]
+  found reset state: 3'000 (from async reset)
+  found ctrl input: \sample_accept
+  found ctrl input: \mac_busy
+  found ctrl input: $procmux$250_CMP
+  found ctrl input: $procmux$251_CMP
+  found ctrl input: $procmux$252_CMP
+  found ctrl input: $procmux$253_CMP
+  found ctrl input: $procmux$112_CMP
+  found state code: 3'101
+  found state code: 3'100
+  found state code: 3'011
+  found state code: 3'010
+  found state code: 3'001
+  found ctrl output: $procmux$112_CMP
+  found ctrl output: $procmux$250_CMP
+  found ctrl output: $procmux$251_CMP
+  found ctrl output: $procmux$252_CMP
+  found ctrl output: $procmux$253_CMP
+  ctrl inputs: { \sample_accept \mac_busy }
+  ctrl outputs: { $procmux$253_CMP $procmux$252_CMP $procmux$251_CMP $procmux$250_CMP $procmux$112_CMP $0\phase[2:0] }
+  transition:      3'000 2'00 ->      3'000 8'00001000
+  transition:      3'000 2'01 ->      3'001 8'00001001
+  transition:      3'000 2'1- ->      3'000 8'00001000
+  transition:      3'100 2'00 ->      3'100 8'00010100
+  transition:      3'100 2'01 ->      3'101 8'00010101
+  transition:      3'100 2'1- ->      3'000 8'00010000
+  transition:      3'010 2'00 ->      3'010 8'01000010
+  transition:      3'010 2'01 ->      3'011 8'01000011
+  transition:      3'010 2'1- ->      3'000 8'01000000
+  transition:      3'001 2'00 ->      3'001 8'10000001
+  transition:      3'001 2'01 ->      3'010 8'10000010
+  transition:      3'001 2'1- ->      3'000 8'10000000
+  transition:      3'101 2'00 ->      3'101 8'00000101
+  transition:      3'101 2'01 ->      3'000 8'00000000
+  transition:      3'101 2'1- ->      3'000 8'00000000
+  transition:      3'011 2'00 ->      3'011 8'00100011
+  transition:      3'011 2'01 ->      3'100 8'00100100
+  transition:      3'011 2'1- ->      3'000 8'00100000
+
+39.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\phase$712' from module `\tt_um_flowguard_stress'.
+
+39.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_flowguard_stress..
+Removed 9 unused cells and 9 unused wires.
+<suppressed ~10 debug messages>
+
+39.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\phase$712' from module `\tt_um_flowguard_stress'.
+  Removing unused output signal $0\phase[2:0] [0].
+  Removing unused output signal $0\phase[2:0] [1].
+  Removing unused output signal $0\phase[2:0] [2].
+
+39.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+Recoding FSM `$fsm$\phase$712' from module `\tt_um_flowguard_stress' using `auto' encoding:
+  mapping auto encoding to `one-hot` for this FSM.
+  000 -> -----1
+  100 -> ----1-
+  010 -> ---1--
+  001 -> --1---
+  101 -> -1----
+  011 -> 1-----
+
+39.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+FSM `$fsm$\phase$712' from module `tt_um_flowguard_stress':
+-------------------------------------
+
+  Information on FSM $fsm$\phase$712 (\phase):
+
+  Number of input signals:    2
+  Number of output signals:   5
+  Number of state bits:       6
+
+  Input signals:
+    0: \mac_busy
+    1: \sample_accept
+
+  Output signals:
+    0: $procmux$112_CMP
+    1: $procmux$250_CMP
+    2: $procmux$251_CMP
+    3: $procmux$252_CMP
+    4: $procmux$253_CMP
+
+  State encoding:
+    0:   6'-----1  <RESET STATE>
+    1:   6'----1-
+    2:   6'---1--
+    3:   6'--1---
+    4:   6'-1----
+    5:   6'1-----
+
+  Transition Table (state_in, ctrl_in, state_out, ctrl_out):
+      0:     0 2'00   ->     0 5'00001
+      1:     0 2'1-   ->     0 5'00001
+      2:     0 2'01   ->     3 5'00001
+      3:     1 2'1-   ->     0 5'00010
+      4:     1 2'00   ->     1 5'00010
+      5:     1 2'01   ->     4 5'00010
+      6:     2 2'1-   ->     0 5'01000
+      7:     2 2'00   ->     2 5'01000
+      8:     2 2'01   ->     5 5'01000
+      9:     3 2'1-   ->     0 5'10000
+     10:     3 2'01   ->     2 5'10000
+     11:     3 2'00   ->     3 5'10000
+     12:     4 2'01   ->     0 5'00000
+     13:     4 2'1-   ->     0 5'00000
+     14:     4 2'00   ->     4 5'00000
+     15:     5 2'1-   ->     0 5'00100
+     16:     5 2'01   ->     1 5'00100
+     17:     5 2'00   ->     5 5'00100
+
+-------------------------------------
+
+39.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+Mapping FSM `$fsm$\phase$712' from module `\tt_um_flowguard_stress'.
+
+40. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_flowguard_stress.
+<suppressed ~7 debug messages>
+
+41. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_flowguard_stress'.
+Computing hashes of 321 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Computing hashes of 311 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+<suppressed ~30 debug messages>
+Removed a total of 10 cells.
+
+42. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_flowguard_stress..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~105 debug messages>
+
+43. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_flowguard_stress.
+Performed a total of 0 changes.
+
+44. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_flowguard_stress'.
+Computing hashes of 311 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Removed a total of 0 cells.
+
+45. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$657 ($adff) from module tt_um_flowguard_stress (D = $0\tap_index[2:0], Q = \tap_index).
+Adding EN signal on $procdff$647 ($adff) from module tt_um_flowguard_stress (D = \stage3, Q = \mac_result).
+Adding EN signal on $procdff$642 ($adff) from module tt_um_flowguard_stress (D = \stage2, Q = \stage3).
+Adding EN signal on $procdff$637 ($adff) from module tt_um_flowguard_stress (D = \stage1, Q = \stage2).
+Adding EN signal on $procdff$632 ($adff) from module tt_um_flowguard_stress (D = \stage0, Q = \stage1).
+Adding EN signal on $procdff$627 ($adff) from module tt_um_flowguard_stress (D = { \stage0_next [19:1] \add_stage0.add0.p [0] }, Q = \stage0).
+Adding EN signal on $procdff$622 ($adff) from module tt_um_flowguard_stress (D = $0\accumulator[19:0], Q = \accumulator).
+Adding EN signal on $procdff$617 ($adff) from module tt_um_flowguard_stress (D = $mul$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$39_Y, Q = \product_reg).
+Adding EN signal on $procdff$612 ($adff) from module tt_um_flowguard_stress (D = \window7, Q = \snapshot7).
+Adding EN signal on $procdff$607 ($adff) from module tt_um_flowguard_stress (D = \window6, Q = \snapshot6).
+Adding EN signal on $procdff$602 ($adff) from module tt_um_flowguard_stress (D = \window5, Q = \snapshot5).
+Adding EN signal on $procdff$597 ($adff) from module tt_um_flowguard_stress (D = \window4, Q = \snapshot4).
+Adding EN signal on $procdff$592 ($adff) from module tt_um_flowguard_stress (D = \window3, Q = \snapshot3).
+Adding EN signal on $procdff$587 ($adff) from module tt_um_flowguard_stress (D = \window2, Q = \snapshot2).
+Adding EN signal on $procdff$582 ($adff) from module tt_um_flowguard_stress (D = \window1, Q = \snapshot1).
+Adding EN signal on $procdff$577 ($adff) from module tt_um_flowguard_stress (D = \window0, Q = \snapshot0).
+Adding EN signal on $procdff$572 ($adff) from module tt_um_flowguard_stress (D = \ui_in, Q = \coeff7).
+Adding EN signal on $procdff$567 ($adff) from module tt_um_flowguard_stress (D = \ui_in, Q = \coeff6).
+Adding EN signal on $procdff$562 ($adff) from module tt_um_flowguard_stress (D = \ui_in, Q = \coeff5).
+Adding EN signal on $procdff$557 ($adff) from module tt_um_flowguard_stress (D = \ui_in, Q = \coeff4).
+Adding EN signal on $procdff$552 ($adff) from module tt_um_flowguard_stress (D = \ui_in, Q = \coeff3).
+Adding EN signal on $procdff$547 ($adff) from module tt_um_flowguard_stress (D = \ui_in, Q = \coeff2).
+Adding EN signal on $procdff$542 ($adff) from module tt_um_flowguard_stress (D = \ui_in, Q = \coeff1).
+Adding EN signal on $procdff$537 ($adff) from module tt_um_flowguard_stress (D = \ui_in, Q = \coeff0).
+Adding EN signal on $procdff$532 ($adff) from module tt_um_flowguard_stress (D = \window6, Q = \window7).
+Adding EN signal on $procdff$527 ($adff) from module tt_um_flowguard_stress (D = \window5, Q = \window6).
+Adding EN signal on $procdff$522 ($adff) from module tt_um_flowguard_stress (D = \window4, Q = \window5).
+Adding EN signal on $procdff$517 ($adff) from module tt_um_flowguard_stress (D = \window3, Q = \window4).
+Adding EN signal on $procdff$512 ($adff) from module tt_um_flowguard_stress (D = \window2, Q = \window3).
+Adding EN signal on $procdff$507 ($adff) from module tt_um_flowguard_stress (D = \window1, Q = \window2).
+Adding EN signal on $procdff$502 ($adff) from module tt_um_flowguard_stress (D = \window0, Q = \window1).
+Adding EN signal on $procdff$497 ($adff) from module tt_um_flowguard_stress (D = \ui_in, Q = \window0).
+
+46. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_flowguard_stress..
+Removed 51 unused cells and 70 unused wires.
+<suppressed ~52 debug messages>
+
+47. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_flowguard_stress.
+<suppressed ~2 debug messages>
+
+48. Rerunning OPT passes. (Maybe there is more to do…)
+
+49. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_flowguard_stress..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~24 debug messages>
+
+50. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_flowguard_stress.
+Performed a total of 0 changes.
+
+51. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_flowguard_stress'.
+Computing hashes of 289 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Computing hashes of 275 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+<suppressed ~42 debug messages>
+Removed a total of 14 cells.
+
+52. Executing OPT_DFF pass (perform DFF optimizations).
+
+53. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_flowguard_stress..
+Removed 0 unused cells and 7 unused wires.
+<suppressed ~1 debug messages>
+
+54. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_flowguard_stress.
+
+55. Rerunning OPT passes. (Maybe there is more to do…)
+
+56. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_flowguard_stress..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~24 debug messages>
+
+57. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_flowguard_stress.
+Performed a total of 0 changes.
+
+58. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_flowguard_stress'.
+Computing hashes of 275 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Removed a total of 0 cells.
+
+59. Executing OPT_DFF pass (perform DFF optimizations).
+
+60. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_flowguard_stress..
+
+61. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_flowguard_stress.
+
+62. Executing WREDUCE pass (reducing word size of cells).
+Removed top 12 bits (of 20) from FF cell tt_um_flowguard_stress.$auto$ff.cc:337:slice$788 ($adffe).
+Removed top 1 bits (of 2) from port B of cell tt_um_flowguard_stress.$auto$opt_dff.cc:235:make_patterns_logic$781 ($ne).
+Removed top 1 bits (of 2) from port B of cell tt_um_flowguard_stress.$auto$fsm_map.cc:77:implement_pattern_cache$775 ($eq).
+Removed top 2 bits (of 3) from port B of cell tt_um_flowguard_stress.$add$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:172$41 ($add).
+Removed top 1 bits (of 3) from port B of cell tt_um_flowguard_stress.$procmux$107_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell tt_um_flowguard_stress.$procmux$108_CMP0 ($eq).
+Removed top 2 bits (of 3) from port B of cell tt_um_flowguard_stress.$procmux$109_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell tt_um_flowguard_stress.$procmux$407_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell tt_um_flowguard_stress.$procmux$408_CMP0 ($eq).
+Removed top 2 bits (of 3) from port B of cell tt_um_flowguard_stress.$procmux$409_CMP0 ($eq).
+Removed top 1 bits (of 4) from port Y of cell tt_um_flowguard_stress.$flatten\add_stage0.\add4.$and$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:20$45 ($and).
+Removed top 1 bits (of 4) from port A of cell tt_um_flowguard_stress.$flatten\add_stage0.\add4.$and$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:20$45 ($and).
+Removed top 1 bits (of 4) from port B of cell tt_um_flowguard_stress.$flatten\add_stage0.\add4.$and$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:20$45 ($and).
+
+63. Executing PEEPOPT pass (run peephole optimizers).
+
+64. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_flowguard_stress..
+
+65. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module tt_um_flowguard_stress:
+  creating $macc model for $add$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:172$41 ($add).
+  creating $macc model for $mul$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$39 ($mul).
+  creating $alu model for $macc $add$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:172$41.
+  creating $macc cell for $mul$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$39: $auto$alumacc.cc:382:replace_macc$869
+  creating $alu cell for $add$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:172$41: $auto$alumacc.cc:512:replace_alu$870
+  created 1 $alu and 1 $macc cells.
+
+66. Executing SHARE pass (SAT-based resource sharing).
+
+67. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_flowguard_stress.
+
+68. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_flowguard_stress'.
+Computing hashes of 275 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Removed a total of 0 cells.
+
+69. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_flowguard_stress..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~24 debug messages>
+
+70. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_flowguard_stress.
+Performed a total of 0 changes.
+
+71. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_flowguard_stress'.
+Computing hashes of 275 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Removed a total of 0 cells.
+
+72. Executing OPT_DFF pass (perform DFF optimizations).
+
+73. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_flowguard_stress..
+
+74. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_flowguard_stress.
+
+75. Executing MEMORY pass.
+
+75.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+75.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+75.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+75.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+75.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+75.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_flowguard_stress..
+
+75.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+75.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+75.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_flowguard_stress..
+
+75.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+76. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_flowguard_stress..
+
+77. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_flowguard_stress.
+<suppressed ~27 debug messages>
+
+78. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_flowguard_stress'.
+Computing hashes of 264 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Removed a total of 0 cells.
+
+79. Executing OPT_DFF pass (perform DFF optimizations).
+
+80. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_flowguard_stress..
+Removed 0 unused cells and 11 unused wires.
+<suppressed ~1 debug messages>
+
+81. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+82. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_flowguard_stress.
+
+83. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_flowguard_stress'.
+Computing hashes of 264 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Removed a total of 0 cells.
+
+84. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_flowguard_stress..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~8 debug messages>
+
+85. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_flowguard_stress.
+Performed a total of 0 changes.
+
+86. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_flowguard_stress'.
+Computing hashes of 264 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Removed a total of 0 cells.
+
+87. Executing OPT_SHARE pass.
+
+88. Executing OPT_DFF pass (perform DFF optimizations).
+
+89. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_flowguard_stress..
+
+90. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_flowguard_stress.
+
+91. Executing TECHMAP pass (map to technology primitives).
+
+91.1. Executing Verilog-2005 frontend: /nix/store/4mjds051vd8w85hclkghhb9avl38l2k0-yosys-0.62/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/nix/store/4mjds051vd8w85hclkghhb9avl38l2k0-yosys-0.62/bin/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `$__div_mod_u'.
+Generating RTLIL representation for module `$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Generating RTLIL representation for module `$connect'.
+Generating RTLIL representation for module `$input_port'.
+Successfully finished Verilog frontend.
+
+91.2. Continuing TECHMAP pass.
+Using template $paramod$3ef7d3dd227da7627a99c5e5a6a4deb817573e39\_90_alu for cells of type $alu.
+Using extmapper maccmap for cells of type $macc_v2.
+  add $5\select_snapshot$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$1.$result[7:0]$37 * $5\select_coefficient$func$/home/ubuntu/Flow-Guard/designs/flowguard_stress/src/tt_um_flowguard_stress.sv:154$2.$result[7:0]$38 (8x8 bits, signed)
+Using extmapper simplemap for cells of type $adffe.
+Using extmapper simplemap for cells of type $reduce_and.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $ne.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $reduce_or.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $eq.
+Using extmapper simplemap for cells of type $logic_not.
+Using extmapper simplemap for cells of type $adff.
+Using extmapper simplemap for cells of type $logic_and.
+Using template $paramod$d7387fdb214042e5ef2d69a3f74948694b4bb65e\_90_pmux for cells of type $pmux.
+Using extmapper simplemap for cells of type $or.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $xor.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000010000 for cells of type $fa.
+Using template $paramod$6df0329addda9228fcc2546de2aaf14ad26c98e1\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $pos.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000011 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000011 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000010000 for cells of type $lcu.
+No more expansions possible.
+<suppressed ~804 debug messages>
+
+92. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_flowguard_stress.
+<suppressed ~379 debug messages>
+
+93. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_flowguard_stress'.
+Computing hashes of 1451 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Computing hashes of 1388 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Computing hashes of 1358 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Computing hashes of 1347 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Computing hashes of 1341 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Computing hashes of 1334 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Computing hashes of 1328 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Computing hashes of 1325 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+<suppressed ~378 debug messages>
+Removed a total of 126 cells.
+
+94. Executing OPT_DFF pass (perform DFF optimizations).
+
+95. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_flowguard_stress..
+Removed 535 unused cells and 467 unused wires.
+<suppressed ~565 debug messages>
+
+96. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_flowguard_stress.
+
+97. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_flowguard_stress'.
+Computing hashes of 790 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Removed a total of 0 cells.
+
+98. Executing OPT_DFF pass (perform DFF optimizations).
+
+99. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_flowguard_stress..
+
+100. Executing ABC pass (technology mapping using ABC).
+
+100.1. Extracting gate netlist of module `\tt_um_flowguard_stress' to `<abc-temp-dir>/input.blif'..
+
+100.1.1. Executed ABC.
+Extracted 564 gates and 733 wires to a netlist network with 168 inputs and 51 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library /tmp/yosys-abc-OGKsAb/stdcells.genlib 
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+100.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:       29
+ABC RESULTS:            ANDNOT cells:      224
+ABC RESULTS:               MUX cells:       20
+ABC RESULTS:              NAND cells:       13
+ABC RESULTS:               NOR cells:       33
+ABC RESULTS:               NOT cells:       21
+ABC RESULTS:                OR cells:      104
+ABC RESULTS:             ORNOT cells:       28
+ABC RESULTS:              XNOR cells:       21
+ABC RESULTS:               XOR cells:       54
+ABC RESULTS:        internal signals:      514
+ABC RESULTS:           input signals:      168
+ABC RESULTS:          output signals:       51
+Removing temp directory.
+Removing global temp directory.
+
+101. Executing OPT pass (performing simple optimizations).
+
+101.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_flowguard_stress.
+<suppressed ~3 debug messages>
+
+101.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_flowguard_stress'.
+Computing hashes of 773 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Computing hashes of 768 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+<suppressed ~15 debug messages>
+Removed a total of 5 cells.
+
+101.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+101.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_flowguard_stress..
+Removed 0 unused cells and 418 unused wires.
+<suppressed ~14 debug messages>
+
+101.5. Finished fast OPT passes.
+
+102. Executing HIERARCHY pass (managing design hierarchy).
+
+102.1. Analyzing design hierarchy..
+Top module:  \tt_um_flowguard_stress
+
+102.2. Analyzing design hierarchy..
+Top module:  \tt_um_flowguard_stress
+Removed 0 unused modules.
+
+103. Executing CHECK pass (checking for obvious problems).
+Checking module tt_um_flowguard_stress...
+Found and reported 0 problems.
+
+104. Printing statistics.
+
+=== tt_um_flowguard_stress ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      757 wires
+     1795 wire bits
+      235 public wires
+     1162 public wire bits
+        8 ports
+       43 port bits
+      768 cells
+      224   $_ANDNOT_
+       24   $_AND_
+      182   $_DFFE_PN0P_
+       13   $_DFFE_PN1P_
+        6   $_DFF_PN0_
+        1   $_DFF_PN1_
+       20   $_MUX_
+       13   $_NAND_
+       33   $_NOR_
+       21   $_NOT_
+       28   $_ORNOT_
+      104   $_OR_
+       21   $_XNOR_
+       54   $_XOR_
+       24   $scopeinfo
+
+105. Executing OPT pass (performing simple optimizations).
+
+105.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_flowguard_stress.
+
+105.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_flowguard_stress'.
+Computing hashes of 768 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Removed a total of 0 cells.
+
+105.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_flowguard_stress..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+105.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_flowguard_stress.
+Performed a total of 0 changes.
+
+105.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_flowguard_stress'.
+Computing hashes of 768 cells of `\tt_um_flowguard_stress'.
+Finding duplicate cells in `\tt_um_flowguard_stress'.
+Removed a total of 0 cells.
+
+105.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+105.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_flowguard_stress..
+
+105.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_flowguard_stress.
+
+105.9. Finished fast OPT passes. (There is nothing left to do.)
+
+106. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_flowguard_stress..
+Removed 24 unused cells and 196 unused wires.
+<suppressed ~220 debug messages>
+{
+   "creator": "Yosys 0.62 (git sha1 7326bb7d6641500ecb285c291a54a662cb1e76cf, clang++ 21.1.2 -fPIC -O3)",
+   "invocation": "stat -json -liberty /home/ubuntu/Flow-Guard/results/server_experiment_v2_configs/server-10/runs/trial_server-10/tmp/5cd032150cf64b8b9a1c76efc595a407.lib ",
+   "modules": {
+      "\\tt_um_flowguard_stress": {
+         "num_wires":         561,
+         "num_wire_bits":     943,
+         "num_pub_wires":     39,
+         "num_pub_wire_bits": 310,
+         "num_ports":         8,
+         "num_port_bits":     43,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         744,
+         "num_submodules":       0,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 224,
+            "$_AND_": 24,
+            "$_DFFE_PN0P_": 182,
+            "$_DFFE_PN1P_": 13,
+            "$_DFF_PN0_": 6,
+            "$_DFF_PN1_": 1,
+            "$_MUX_": 20,
+            "$_NAND_": 13,
+            "$_NOR_": 33,
+            "$_NOT_": 21,
+            "$_ORNOT_": 28,
+            "$_OR_": 104,
+            "$_XNOR_": 21,
+            "$_XOR_": 54
+         }
+      }
+   },
+      "design": {
+         "num_wires":         561,
+         "num_wire_bits":     943,
+         "num_pub_wires":     39,
+         "num_pub_wire_bits": 310,
+         "num_ports":         8,
+         "num_port_bits":     43,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         744,
+         "num_submodules":       0,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 224,
+            "$_AND_": 24,
+            "$_DFFE_PN0P_": 182,
+            "$_DFFE_PN1P_": 13,
+            "$_DFF_PN0_": 6,
+            "$_DFF_PN1_": 1,
+            "$_MUX_": 20,
+            "$_NAND_": 13,
+            "$_NOR_": 33,
+            "$_NOT_": 21,
+            "$_ORNOT_": 28,
+            "$_OR_": 104,
+            "$_XNOR_": 21,
+            "$_XOR_": 54
+         }
+      }
+}
+
+107. Printing statistics.
+
+=== tt_um_flowguard_stress ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      561 wires
+      943 wire bits
+       39 public wires
+      310 public wire bits
+        8 ports
+       43 port bits
+      744 cells
+      224   $_ANDNOT_
+       24   $_AND_
+      182   $_DFFE_PN0P_
+       13   $_DFFE_PN1P_
+        6   $_DFF_PN0_
+        1   $_DFF_PN1_
+       20   $_MUX_
+       13   $_NAND_
+       33   $_NOR_
+       21   $_NOT_
+       28   $_ORNOT_
+      104   $_OR_
+       21   $_XNOR_
+       54   $_XOR_
+
+   Area for cell type $_ANDNOT_ is unknown!
+   Area for cell type $_AND_ is unknown!
+   Area for cell type $_DFFE_PN0P_ is unknown!
+   Area for cell type $_DFFE_PN1P_ is unknown!
+   Area for cell type $_DFF_PN0_ is unknown!
+   Area for cell type $_DFF_PN1_ is unknown!
+   Area for cell type $_MUX_ is unknown!
+   Area for cell type $_NAND_ is unknown!
+   Area for cell type $_NOR_ is unknown!
+   Area for cell type $_NOT_ is unknown!
+   Area for cell type $_ORNOT_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_XNOR_ is unknown!
+   Area for cell type $_XOR_ is unknown!
+
+[INFO] Applying tri-state buffer mapping from '/home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.tech/openlane/sky130_fd_sc_hd/tribuff_map.v'…
+
+108. Executing TECHMAP pass (map to technology primitives).
+
+108.1. Executing Verilog-2005 frontend: /home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.tech/openlane/sky130_fd_sc_hd/tribuff_map.v
+Parsing Verilog input from `/home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.tech/openlane/sky130_fd_sc_hd/tribuff_map.v' to AST representation.
+Generating RTLIL representation for module `$_TBUF_'.
+Successfully finished Verilog frontend.
+
+108.2. Continuing TECHMAP pass.
+No more expansions possible.
+<suppressed ~3 debug messages>
+
+109. Executing SIMPLEMAP pass (map simple cells to gate primitives).
+[INFO] Applying latch mapping from '/home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.tech/openlane/sky130_fd_sc_hd/latch_map.v'…
+
+110. Executing TECHMAP pass (map to technology primitives).
+
+110.1. Executing Verilog-2005 frontend: /home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.tech/openlane/sky130_fd_sc_hd/latch_map.v
+Parsing Verilog input from `/home/ubuntu/.ciel/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.tech/openlane/sky130_fd_sc_hd/latch_map.v' to AST representation.
+Generating RTLIL representation for module `$_DLATCH_P_'.
+Generating RTLIL representation for module `$_DLATCH_N_'.
+Successfully finished Verilog frontend.
+
+110.2. Continuing TECHMAP pass.
+No more expansions possible.
+<suppressed ~4 debug messages>
+
+111. Executing SIMPLEMAP pass (map simple cells to gate primitives).
+
+112. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+  cell sky130_fd_sc_hd__dfxtp_2 (noninv, pins=3, area=21.27) is a direct match for cell type $_DFF_P_.
+  cell sky130_fd_sc_hd__dfrtp_2 (noninv, pins=4, area=26.28) is a direct match for cell type $_DFF_PN0_.
+  cell sky130_fd_sc_hd__dfstp_2 (noninv, pins=4, area=26.28) is a direct match for cell type $_DFF_PN1_.
+  cell sky130_fd_sc_hd__dfbbn_2 (noninv, pins=6, area=35.03) is a direct match for cell type $_DFFSR_NNN_.
+  final dff cell mappings:
+    unmapped dff cell: $_DFF_N_
+    \sky130_fd_sc_hd__dfxtp_2 _DFF_P_ (.CLK( C), .D( D), .Q( Q));
+    unmapped dff cell: $_DFF_NN0_
+    unmapped dff cell: $_DFF_NN1_
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    \sky130_fd_sc_hd__dfrtp_2 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    \sky130_fd_sc_hd__dfstp_2 _DFF_PN1_ (.CLK( C), .D( D), .Q( Q), .SET_B( R));
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    unmapped dff cell: $_DFFE_NN_
+    unmapped dff cell: $_DFFE_NP_
+    unmapped dff cell: $_DFFE_PN_
+    unmapped dff cell: $_DFFE_PP_
+    \sky130_fd_sc_hd__dfbbn_2 _DFFSR_NNN_ (.CLK_N( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    unmapped dff cell: $_DFFSR_PNN_
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+
+112.1. Executing DFFLEGALIZE pass (convert FFs to types supported by the target).
+Mapping DFF cells in module `\tt_um_flowguard_stress':
+  mapped 188 $_DFF_PN0_ cells to \sky130_fd_sc_hd__dfrtp_2 cells.
+  mapped 14 $_DFF_PN1_ cells to \sky130_fd_sc_hd__dfstp_2 cells.
+{
+   "creator": "Yosys 0.62 (git sha1 7326bb7d6641500ecb285c291a54a662cb1e76cf, clang++ 21.1.2 -fPIC -O3)",
+   "invocation": "stat -json -liberty /home/ubuntu/Flow-Guard/results/server_experiment_v2_configs/server-10/runs/trial_server-10/tmp/5cd032150cf64b8b9a1c76efc595a407.lib ",
+   "modules": {
+      "\\tt_um_flowguard_stress": {
+         "num_wires":         756,
+         "num_wire_bits":     1138,
+         "num_pub_wires":     39,
+         "num_pub_wire_bits": 310,
+         "num_ports":         8,
+         "num_port_bits":     43,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         939,
+         "num_submodules":       0,
+         "area":              5307.590400,
+         "sequential_area":    5307.590400,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 224,
+            "$_AND_": 24,
+            "$_MUX_": 215,
+            "$_NAND_": 13,
+            "$_NOR_": 33,
+            "$_NOT_": 21,
+            "$_ORNOT_": 28,
+            "$_OR_": 104,
+            "$_XNOR_": 21,
+            "$_XOR_": 54,
+            "sky130_fd_sc_hd__dfrtp_2": 188,
+            "sky130_fd_sc_hd__dfstp_2": 14
+         }
+      }
+   },
+      "design": {
+         "num_wires":         756,
+         "num_wire_bits":     1138,
+         "num_pub_wires":     39,
+         "num_pub_wire_bits": 310,
+         "num_ports":         8,
+         "num_port_bits":     43,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         939,
+         "num_submodules":       0,
+         "area":              5307.590400,
+         "sequential_area":    5307.590400,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 224,
+            "$_AND_": 24,
+            "$_MUX_": 215,
+            "$_NAND_": 13,
+            "$_NOR_": 33,
+            "$_NOT_": 21,
+            "$_ORNOT_": 28,
+            "$_OR_": 104,
+            "$_XNOR_": 21,
+            "$_XOR_": 54,
+            "sky130_fd_sc_hd__dfrtp_2": 188,
+            "sky130_fd_sc_hd__dfstp_2": 14
+         }
+      }
+}
+
+113. Printing statistics.
+
+=== tt_um_flowguard_stress ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      756        - wires
+     1138        - wire bits
+       39        - public wires
+      310        - public wire bits
+        8        - ports
+       43        - port bits
+      939  5307.59 cells
+      224        -   $_ANDNOT_
+       24        -   $_AND_
+      215        -   $_MUX_
+       13        -   $_NAND_
+       33        -   $_NOR_
+       21        -   $_NOT_
+       28        -   $_ORNOT_
+      104        -   $_OR_
+       21        -   $_XNOR_
+       54        -   $_XOR_
+      188 4.94E+03   sky130_fd_sc_hd__dfrtp_2
+       14  367.853   sky130_fd_sc_hd__dfstp_2
+
+   Area for cell type $_ANDNOT_ is unknown!
+   Area for cell type $_AND_ is unknown!
+   Area for cell type $_MUX_ is unknown!
+   Area for cell type $_NAND_ is unknown!
+   Area for cell type $_NOR_ is unknown!
+   Area for cell type $_NOT_ is unknown!
+   Area for cell type $_ORNOT_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_XNOR_ is unknown!
+   Area for cell type $_XOR_ is unknown!
+
+   Chip area for module '\tt_um_flowguard_stress': 5307.590400
+     of which used for sequential elements: 5307.590400 (100.00%)
+
+[INFO] Using generated ABC script '/home/ubuntu/Flow-Guard/results/server_experiment_v2_configs/server-10/runs/trial_server-10/06-yosys-synthesis/AREA_0.abc'…
+
+114. Executing ABC pass (technology mapping using ABC).
+
+114.1. Extracting gate netlist of module `\tt_um_flowguard_stress' to `/tmp/yosys-abc-ZYGJi2/input.blif'..
+
+114.1.1. Executed ABC.
+Extracted 737 gates and 953 wires to a netlist network with 216 inputs and 202 outputs.
+Running ABC script: /tmp/yosys-abc-ZYGJi2/abc.script
+ABC: ======== ABC command line "source /tmp/yosys-abc-ZYGJi2/abc.script"
+ABC: + read_blif /tmp/yosys-abc-ZYGJi2/input.blif 
+ABC: + read_lib -w /home/ubuntu/Flow-Guard/results/server_experiment_v2_configs/server-10/runs/trial_server-10/tmp/5cd032150cf64b8b9a1c76efc595a407.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.06 sec
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfsbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_8".
+ABC: Library "sky130_fd_sc_hd__tt_025C_1v80" from "/home/ubuntu/Flow-Guard/results/server_experiment_v2_configs/server-10/runs/trial_server-10/tmp/5cd032150cf64b8b9a1c76efc595a407.lib" has 175 cells (17 skipped: 14 seq; 3 tri-state; 0 no func; 0 dont_use; 0 with 2 outputs; 0 with 3+ outputs).  Time =     0.09 sec
+ABC: Memory =    9.54 MB. Time =     0.09 sec
+ABC: Warning: Detected 2 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + read_constr -v /home/ubuntu/Flow-Guard/results/server_experiment_v2_configs/server-10/runs/trial_server-10/06-yosys-synthesis/synthesis.abc.sdc 
+ABC: Setting driving cell to be "sky130_fd_sc_hd__inv_2/Y".
+ABC: Setting output load to be 33.442001.
+ABC: + source /home/ubuntu/Flow-Guard/results/server_experiment_v2_configs/server-10/runs/trial_server-10/06-yosys-synthesis/AREA_0.abc 
+ABC: Error: The network is combinational.
+ABC: Cannot find the default PI driving cell (sky130_fd_sc_hd__inv_2/Y) in the library.
+ABC: WireLoad = "none"  Gates =    510 (  0.8 %)   Cap = 15.5 ff (  9.5 %)   Area =     5435.21 ( 62.5 %)   Delay =  3843.61 ps  ( 13.1 %)               
+ABC: Path  0 --       5 : 0   44 pi                        A =   0.00  Df =   0.0   -0.0 ps  S =   0.0 ps  Cin =  0.0 ff  Cout =  89.9 ff  Cmax =   0.0 ff  G =    0  
+ABC: Path  1 --     588 : 3   13 sky130_fd_sc_hd__nor3b_2  A =  12.51  Df = 474.3 -283.1 ps  S = 562.0 ps  Cin =  3.4 ff  Cout =  32.5 ff  Cmax =  93.4 ff  G =  907  
+ABC: Path  2 --     618 : 5    1 sky130_fd_sc_hd__a2111o_2 A =  12.51  Df = 722.0  -52.6 ps  S =  67.0 ps  Cin =  2.4 ff  Cout =   4.7 ff  Cmax = 324.1 ff  G =  181  
+ABC: Path  3 --     619 : 5   10 sky130_fd_sc_hd__o32ai_2  A =  16.27  Df =1223.4 -283.7 ps  S = 665.4 ps  Cin =  4.4 ff  Cout =  34.6 ff  Cmax =  88.8 ff  G =  756  
+ABC: Path  4 --     690 : 4    2 sky130_fd_sc_hd__o22ai_2  A =  12.51  Df =1407.6 -236.8 ps  S = 153.0 ps  Cin =  4.3 ff  Cout =   6.1 ff  Cmax = 137.3 ff  G =  133  
+ABC: Path  5 --     716 : 4    2 sky130_fd_sc_hd__a22oi_2  A =  12.51  Df =1616.5 -349.8 ps  S = 220.2 ps  Cin =  4.3 ff  Cout =  11.9 ff  Cmax = 170.3 ff  G =  265  
+ABC: Path  6 --     728 : 2    2 sky130_fd_sc_hd__xor2_2   A =  16.27  Df =1876.6 -357.9 ps  S = 175.1 ps  Cin =  8.6 ff  Cout =  10.0 ff  Cmax = 130.0 ff  G =  114  
+ABC: Path  7 --     730 : 2    2 sky130_fd_sc_hd__xnor2_2  A =  16.27  Df =2082.7 -354.6 ps  S = 228.8 ps  Cin =  8.5 ff  Cout =  13.9 ff  Cmax = 121.8 ff  G =  158  
+ABC: Path  8 --     745 : 2    2 sky130_fd_sc_hd__xor2_2   A =  16.27  Df =2282.9  -15.2 ps  S = 184.3 ps  Cin =  8.6 ff  Cout =  10.9 ff  Cmax = 130.0 ff  G =  123  
+ABC: Path  9 --     790 : 3    2 sky130_fd_sc_hd__a21o_2   A =   8.76  Df =2880.8 -117.1 ps  S =  46.6 ps  Cin =  2.4 ff  Cout =   6.1 ff  Cmax = 309.5 ff  G =  247  
+ABC: Path 10 --     792 : 2    2 sky130_fd_sc_hd__or2_2    A =   6.26  Df =3165.1 -272.6 ps  S =  67.1 ps  Cin =  1.5 ff  Cout =   7.1 ff  Cmax = 299.4 ff  G =  468  
+ABC: Path 11 --     796 : 3    1 sky130_fd_sc_hd__a21bo_2  A =  10.01  Df =3399.3 -353.3 ps  S =  63.6 ps  Cin =  2.0 ff  Cout =   9.0 ff  Cmax = 288.4 ff  G =  426  
+ABC: Path 12 --     831 : 2    1 sky130_fd_sc_hd__xnor2_2  A =  16.27  Df =3524.1 -352.3 ps  S =  86.8 ps  Cin =  8.5 ff  Cout =   1.6 ff  Cmax = 121.8 ff  G =   18  
+ABC: Path 13 --     832 : 3    1 sky130_fd_sc_hd__mux2_1   A =  11.26  Df =3843.6 -248.7 ps  S = 300.2 ps  Cin =  2.3 ff  Cout =  33.4 ff  Cmax = 173.0 ff  G = 1465  
+ABC: Start-point = pi4 (\tap_index [1]).  End-point = po144 ($auto$rtlil.cc:3583:MuxGate$3970).
+ABC: netlist                       : i/o =  216/  202  lat =    0  nd =   510  edge =   1532  area =5435.63  delay =15.00  lev = 15
+ABC: + write_blif /tmp/yosys-abc-ZYGJi2/output.blif 
+
+114.1.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__a2111o_2 cells:       10
+ABC RESULTS:   sky130_fd_sc_hd__a211o_2 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a211oi_2 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a21bo_2 cells:        7
+ABC RESULTS:   sky130_fd_sc_hd__a21boi_2 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a21o_2 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_2 cells:        7
+ABC RESULTS:   sky130_fd_sc_hd__a221o_2 cells:       14
+ABC RESULTS:   sky130_fd_sc_hd__a22o_2 cells:       26
+ABC RESULTS:   sky130_fd_sc_hd__a22oi_2 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a31o_2 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a41o_2 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__and2_2 cells:       22
+ABC RESULTS:   sky130_fd_sc_hd__and2b_2 cells:        8
+ABC RESULTS:   sky130_fd_sc_hd__and3_2 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__and3b_2 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__and4_2 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__and4b_2 cells:       19
+ABC RESULTS:   sky130_fd_sc_hd__and4bb_2 cells:        7
+ABC RESULTS:   sky130_fd_sc_hd__inv_2 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__mux2_1 cells:      182
+ABC RESULTS:   sky130_fd_sc_hd__nand2_2 cells:       18
+ABC RESULTS:   sky130_fd_sc_hd__nand2b_2 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__nand3b_2 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nand4_2 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nor2_2 cells:       42
+ABC RESULTS:   sky130_fd_sc_hd__nor3_2 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__nor3b_2 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__o211a_2 cells:       13
+ABC RESULTS:   sky130_fd_sc_hd__o21ai_2 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__o21ba_2 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__o22a_2 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__o22ai_2 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__o2bb2a_2 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o31a_2 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o31ai_2 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o32a_2 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o32ai_2 cells:        8
+ABC RESULTS:   sky130_fd_sc_hd__or2_2 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__or3_2 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__or3b_2 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__or4_2 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__or4bb_2 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__xnor2_2 cells:       34
+ABC RESULTS:   sky130_fd_sc_hd__xor2_2 cells:       15
+ABC RESULTS:        internal signals:      535
+ABC RESULTS:           input signals:      216
+ABC RESULTS:          output signals:      202
+Removing temp directory.
+Removing global temp directory.
+
+115. Executing SETUNDEF pass (replace undef values with defined constants).
+
+116. Executing HILOMAP pass (mapping to constant drivers).
+
+117. Executing SPLITNETS pass (splitting up multi-bit signals).
+
+118. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_flowguard_stress..
+Removed 0 unused cells and 1133 unused wires.
+<suppressed ~74 debug messages>
+
+119. Executing INSBUF pass (insert buffer cells for connected wires).
+
+120. Executing CHECK pass (checking for obvious problems).
+Checking module tt_um_flowguard_stress...
+Found and reported 0 problems.
+{
+   "creator": "Yosys 0.62 (git sha1 7326bb7d6641500ecb285c291a54a662cb1e76cf, clang++ 21.1.2 -fPIC -O3)",
+   "invocation": "stat -json -liberty /home/ubuntu/Flow-Guard/results/server_experiment_v2_configs/server-10/runs/trial_server-10/tmp/5cd032150cf64b8b9a1c76efc595a407.lib ",
+   "modules": {
+      "\\tt_um_flowguard_stress": {
+         "num_wires":         712,
+         "num_wire_bits":     747,
+         "num_pub_wires":     202,
+         "num_pub_wire_bits": 237,
+         "num_ports":         8,
+         "num_port_bits":     43,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         728,
+         "num_submodules":       0,
+         "area":              10802.860800,
+         "sequential_area":    5307.590400,
+         "num_cells_by_type": {
+            "sky130_fd_sc_hd__a2111o_2": 10,
+            "sky130_fd_sc_hd__a211o_2": 2,
+            "sky130_fd_sc_hd__a211oi_2": 2,
+            "sky130_fd_sc_hd__a21bo_2": 7,
+            "sky130_fd_sc_hd__a21boi_2": 2,
+            "sky130_fd_sc_hd__a21o_2": 4,
+            "sky130_fd_sc_hd__a21oi_2": 7,
+            "sky130_fd_sc_hd__a221o_2": 14,
+            "sky130_fd_sc_hd__a22o_2": 26,
+            "sky130_fd_sc_hd__a22oi_2": 2,
+            "sky130_fd_sc_hd__a31o_2": 2,
+            "sky130_fd_sc_hd__a41o_2": 1,
+            "sky130_fd_sc_hd__and2_2": 22,
+            "sky130_fd_sc_hd__and2b_2": 8,
+            "sky130_fd_sc_hd__and3_2": 5,
+            "sky130_fd_sc_hd__and3b_2": 4,
+            "sky130_fd_sc_hd__and4_2": 1,
+            "sky130_fd_sc_hd__and4b_2": 19,
+            "sky130_fd_sc_hd__and4bb_2": 7,
+            "sky130_fd_sc_hd__conb_1": 16,
+            "sky130_fd_sc_hd__dfrtp_2": 188,
+            "sky130_fd_sc_hd__dfstp_2": 14,
+            "sky130_fd_sc_hd__inv_2": 4,
+            "sky130_fd_sc_hd__mux2_1": 182,
+            "sky130_fd_sc_hd__nand2_2": 18,
+            "sky130_fd_sc_hd__nand2b_2": 5,
+            "sky130_fd_sc_hd__nand3b_2": 1,
+            "sky130_fd_sc_hd__nand4_2": 1,
+            "sky130_fd_sc_hd__nor2_2": 42,
+            "sky130_fd_sc_hd__nor3_2": 3,
+            "sky130_fd_sc_hd__nor3b_2": 4,
+            "sky130_fd_sc_hd__o211a_2": 13,
+            "sky130_fd_sc_hd__o21ai_2": 4,
+            "sky130_fd_sc_hd__o21ba_2": 4,
+            "sky130_fd_sc_hd__o22a_2": 6,
+            "sky130_fd_sc_hd__o22ai_2": 5,
+            "sky130_fd_sc_hd__o2bb2a_2": 1,
+            "sky130_fd_sc_hd__o31a_2": 1,
+            "sky130_fd_sc_hd__o31ai_2": 1,
+            "sky130_fd_sc_hd__o32a_2": 1,
+            "sky130_fd_sc_hd__o32ai_2": 8,
+            "sky130_fd_sc_hd__or2_2": 5,
+            "sky130_fd_sc_hd__or3_2": 3,
+            "sky130_fd_sc_hd__or3b_2": 2,
+            "sky130_fd_sc_hd__or4_2": 1,
+            "sky130_fd_sc_hd__or4bb_2": 1,
+            "sky130_fd_sc_hd__xnor2_2": 34,
+            "sky130_fd_sc_hd__xor2_2": 15
+         }
+      }
+   },
+      "design": {
+         "num_wires":         712,
+         "num_wire_bits":     747,
+         "num_pub_wires":     202,
+         "num_pub_wire_bits": 237,
+         "num_ports":         8,
+         "num_port_bits":     43,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         728,
+         "num_submodules":       0,
+         "area":              10802.860800,
+         "sequential_area":    5307.590400,
+         "num_cells_by_type": {
+            "sky130_fd_sc_hd__a2111o_2": 10,
+            "sky130_fd_sc_hd__a211o_2": 2,
+            "sky130_fd_sc_hd__a211oi_2": 2,
+            "sky130_fd_sc_hd__a21bo_2": 7,
+            "sky130_fd_sc_hd__a21boi_2": 2,
+            "sky130_fd_sc_hd__a21o_2": 4,
+            "sky130_fd_sc_hd__a21oi_2": 7,
+            "sky130_fd_sc_hd__a221o_2": 14,
+            "sky130_fd_sc_hd__a22o_2": 26,
+            "sky130_fd_sc_hd__a22oi_2": 2,
+            "sky130_fd_sc_hd__a31o_2": 2,
+            "sky130_fd_sc_hd__a41o_2": 1,
+            "sky130_fd_sc_hd__and2_2": 22,
+            "sky130_fd_sc_hd__and2b_2": 8,
+            "sky130_fd_sc_hd__and3_2": 5,
+            "sky130_fd_sc_hd__and3b_2": 4,
+            "sky130_fd_sc_hd__and4_2": 1,
+            "sky130_fd_sc_hd__and4b_2": 19,
+            "sky130_fd_sc_hd__and4bb_2": 7,
+            "sky130_fd_sc_hd__conb_1": 16,
+            "sky130_fd_sc_hd__dfrtp_2": 188,
+            "sky130_fd_sc_hd__dfstp_2": 14,
+            "sky130_fd_sc_hd__inv_2": 4,
+            "sky130_fd_sc_hd__mux2_1": 182,
+            "sky130_fd_sc_hd__nand2_2": 18,
+            "sky130_fd_sc_hd__nand2b_2": 5,
+            "sky130_fd_sc_hd__nand3b_2": 1,
+            "sky130_fd_sc_hd__nand4_2": 1,
+            "sky130_fd_sc_hd__nor2_2": 42,
+            "sky130_fd_sc_hd__nor3_2": 3,
+            "sky130_fd_sc_hd__nor3b_2": 4,
+            "sky130_fd_sc_hd__o211a_2": 13,
+            "sky130_fd_sc_hd__o21ai_2": 4,
+            "sky130_fd_sc_hd__o21ba_2": 4,
+            "sky130_fd_sc_hd__o22a_2": 6,
+            "sky130_fd_sc_hd__o22ai_2": 5,
+            "sky130_fd_sc_hd__o2bb2a_2": 1,
+            "sky130_fd_sc_hd__o31a_2": 1,
+            "sky130_fd_sc_hd__o31ai_2": 1,
+            "sky130_fd_sc_hd__o32a_2": 1,
+            "sky130_fd_sc_hd__o32ai_2": 8,
+            "sky130_fd_sc_hd__or2_2": 5,
+            "sky130_fd_sc_hd__or3_2": 3,
+            "sky130_fd_sc_hd__or3b_2": 2,
+            "sky130_fd_sc_hd__or4_2": 1,
+            "sky130_fd_sc_hd__or4bb_2": 1,
+            "sky130_fd_sc_hd__xnor2_2": 34,
+            "sky130_fd_sc_hd__xor2_2": 15
+         }
+      }
+}
+
+121. Printing statistics.
+
+=== tt_um_flowguard_stress ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      712        - wires
+      747        - wire bits
+      202        - public wires
+      237        - public wire bits
+        8        - ports
+       43        - port bits
+      728 1.08E+04 cells
+       10   125.12   sky130_fd_sc_hd__a2111o_2
+        2   20.019   sky130_fd_sc_hd__a211o_2
+        2   25.024   sky130_fd_sc_hd__a211oi_2
+        7   70.067   sky130_fd_sc_hd__a21bo_2
+        2   22.522   sky130_fd_sc_hd__a21boi_2
+        4   35.034   sky130_fd_sc_hd__a21o_2
+        7   61.309   sky130_fd_sc_hd__a21oi_2
+       14  157.651   sky130_fd_sc_hd__a221o_2
+       26   260.25   sky130_fd_sc_hd__a22o_2
+        2   25.024   sky130_fd_sc_hd__a22oi_2
+        2   17.517   sky130_fd_sc_hd__a31o_2
+        1   11.261   sky130_fd_sc_hd__a41o_2
+       22  165.158   sky130_fd_sc_hd__and2_2
+        8   70.067   sky130_fd_sc_hd__and2b_2
+        5   37.536   sky130_fd_sc_hd__and3_2
+        4   40.038   sky130_fd_sc_hd__and3b_2
+        1    10.01   sky130_fd_sc_hd__and4_2
+       19  213.955   sky130_fd_sc_hd__and4b_2
+        7   87.584   sky130_fd_sc_hd__and4bb_2
+       16   60.058   sky130_fd_sc_hd__conb_1
+      188 4.94E+03   sky130_fd_sc_hd__dfrtp_2
+       14  367.853   sky130_fd_sc_hd__dfstp_2
+        4   15.014   sky130_fd_sc_hd__inv_2
+      182 2.05E+03   sky130_fd_sc_hd__mux2_1
+       18  112.608   sky130_fd_sc_hd__nand2_2
+        5   43.792   sky130_fd_sc_hd__nand2b_2
+        1   11.261   sky130_fd_sc_hd__nand3b_2
+        1   12.512   sky130_fd_sc_hd__nand4_2
+       42  262.752   sky130_fd_sc_hd__nor2_2
+        3   30.029   sky130_fd_sc_hd__nor3_2
+        4   50.048   sky130_fd_sc_hd__nor3b_2
+       13  130.125   sky130_fd_sc_hd__o211a_2
+        4   35.034   sky130_fd_sc_hd__o21ai_2
+        4   40.038   sky130_fd_sc_hd__o21ba_2
+        6   60.058   sky130_fd_sc_hd__o22a_2
+        5    62.56   sky130_fd_sc_hd__o22ai_2
+        1   11.261   sky130_fd_sc_hd__o2bb2a_2
+        1    10.01   sky130_fd_sc_hd__o31a_2
+        1   12.512   sky130_fd_sc_hd__o31ai_2
+        1   11.261   sky130_fd_sc_hd__o32a_2
+        8  130.125   sky130_fd_sc_hd__o32ai_2
+        5    31.28   sky130_fd_sc_hd__or2_2
+        3   22.522   sky130_fd_sc_hd__or3_2
+        2   17.517   sky130_fd_sc_hd__or3b_2
+        1    8.758   sky130_fd_sc_hd__or4_2
+        1   12.512   sky130_fd_sc_hd__or4bb_2
+       34   553.03   sky130_fd_sc_hd__xnor2_2
+       15  243.984   sky130_fd_sc_hd__xor2_2
+
+   Chip area for module '\tt_um_flowguard_stress': 10802.860800
+     of which used for sequential elements: 5307.590400 (49.13%)
+
+122. Executing Verilog backend.
+Dumping module `\tt_um_flowguard_stress'.
+
+123. Executing JSON backend.
