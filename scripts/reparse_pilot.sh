@@ -47,7 +47,18 @@ skipped=0
 while IFS= read -r trial_dir; do
   trial_id=${trial_dir##*/trial_}
   status_file="$trial_dir/status.json"
+  if [[ ! -f "$status_file" ]]; then
+    status_file=""
+    while IFS= read -r candidate; do status_file=$candidate; break; done < <(find "$trial_dir" -type f -name status.json -print)
+  fi
   config_file="$configs_root/$trial_id/config.json"
+  if [[ ! -f "$config_file" ]]; then
+    config_file=""
+    while IFS= read -r candidate; do config_file=$candidate; break; done < <(find "$trial_dir" -type f -name effective_config.json -print)
+  fi
+  if [[ -z "$config_file" || ! -f "$config_file" ]]; then
+    while IFS= read -r candidate; do config_file=$candidate; break; done < <(find "$trial_dir" -type f -path '*/config.json' -print)
+  fi
   metrics_file=""
   while IFS= read -r candidate; do
     metrics_file=$candidate
@@ -55,7 +66,8 @@ while IFS= read -r trial_dir; do
   done < <(find "$trial_dir" -type f -path '*/final/metrics.json' -print)
 
   if [[ -z "$metrics_file" || ! -f "$status_file" || ! -f "$config_file" ]]; then
-    printf 'SKIP %s (missing metrics, status, or config)\n' "$trial_id"
+    printf 'SKIP %s (metrics=%s status=%s config=%s)\n' "$trial_id" \
+      "${metrics_file:-missing}" "${status_file:-missing}" "${config_file:-missing}"
     skipped=$((skipped + 1))
     continue
   fi
