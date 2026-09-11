@@ -83,6 +83,20 @@ def summarize(records: Iterable[dict[str, Any]], manifest: dict[str, Any] | None
     feasible = sum(_feasible(row) for row in rows)
     total = len(rows)
     fractions = {"false": (total - feasible) / total if total else 0.0, "true": feasible / total if total else 0.0}
+    missing_metrics: Counter[str] = Counter()
+    failure_stages: Counter[str] = Counter()
+    for row in rows:
+        missing = row.get("missing_metrics", [])
+        if isinstance(missing, str):
+            try:
+                missing = json.loads(missing)
+            except json.JSONDecodeError:
+                missing = [missing]
+        for name in missing or []:
+            missing_metrics[str(name)] += 1
+        stage = row.get("failure_stage")
+        if stage:
+            failure_stages[str(stage)] += 1
     warnings: list[str] = []
     if total and len({ _feasible(row) for row in rows }) == 1:
         warnings.append("all trials are one feasibility class; model sanity checks are limited")
@@ -95,6 +109,10 @@ def summarize(records: Iterable[dict[str, Any]], manifest: dict[str, Any] | None
         "metric_ranges": ranges,
         "repeatability": {"groups": len(groups), "sizes": dict(sorted(Counter(groups.values()).items())), "required_repeats_per_configuration": required, "undersized_groups": len(undersized)},
         "feasibility_balance": {"counts": {"false": total - feasible, "true": feasible}, "fractions": fractions},
+        "evidence_gaps": {
+            "missing_metrics": dict(sorted(missing_metrics.items())),
+            "failure_stages": dict(sorted(failure_stages.items())),
+        },
         "warnings": warnings,
     }
 

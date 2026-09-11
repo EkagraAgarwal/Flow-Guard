@@ -27,3 +27,16 @@ def test_empty_and_alias_fields():
     report = summarize([])
     assert report["records"] == 0
     assert report["metric_ranges"]["area"] is None
+
+
+def test_reports_missing_evidence_and_failure_stages():
+    report = summarize([{
+        **row("missing", False),
+        "missing_metrics": ["hold_wns", "routing_completion"],
+        "failure_stage": "MISSING_METRICS",
+    }])
+    assert report["evidence_gaps"]["missing_metrics"] == {
+        "hold_wns": 1,
+        "routing_completion": 1,
+    }
+    assert report["evidence_gaps"]["failure_stages"] == {"MISSING_METRICS": 1}
