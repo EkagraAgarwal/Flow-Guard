@@ -86,9 +86,11 @@ def _failure_stage(result: Mapping[str, Any], explicit: str | None = None) -> st
         candidates.add("TIMEOUT")
     if result.get("status") in {"CRASH", "ERROR"}:
         candidates.add("TOOL_CRASH")
-    if result.get("setup_wns") is not None and result["setup_wns"] < 0:
+    setup_slack = result.get("setup_ws") if result.get("setup_ws") is not None else result.get("setup_wns")
+    hold_slack = result.get("hold_ws") if result.get("hold_ws") is not None else result.get("hold_wns")
+    if setup_slack is not None and setup_slack < 0:
         candidates.add("TIMING_FAIL")
-    if result.get("hold_wns") is not None and result["hold_wns"] < 0:
+    if hold_slack is not None and hold_slack < 0:
         candidates.add("TIMING_FAIL")
     if result.get("routing_overflow") is not None and result["routing_overflow"] > 0:
         candidates.add("ROUTING_FAIL")
@@ -140,9 +142,11 @@ def parse_metrics(metrics_path: str | Path, status_path: str | Path | None = Non
         value = next((flat[alias.lower()] for alias in aliases if alias.lower() in flat), None)
         result[field] = _canonical_status(value) if field == "status" else _number(value)
     result.update({
+        "setup_ws": _number(_first(flat, "timing__setup__ws", "setup_ws", "timing_setup_ws")),
         "setup_wns": _number(_first(flat, "timing__setup__wns", "setup_wns", "timing_setup_wns")),
         "setup_tns": _number(_first(flat, "timing__setup__tns", "setup_tns", "timing_setup_tns")),
         "setup_violation_count": _number(_first(flat, "timing__setup__violation_count", "setup_violation_count", "setup_violations", "timing__setup__violations")),
+        "hold_ws": _number(_first(flat, "timing__hold__ws", "hold_ws", "timing_hold_ws")),
         "hold_wns": _number(_first(flat, "timing__hold__wns", "hold_wns", "timing_hold_wns")),
         "hold_tns": _number(_first(flat, "timing__hold__tns", "hold_tns", "timing_hold_tns")),
         "hold_violation_count": _number(_first(flat, "timing__hold__violation_count", "hold_violation_count", "hold_violations", "timing__hold__violations")),
@@ -155,15 +159,20 @@ def parse_metrics(metrics_path: str | Path, status_path: str | Path | None = Non
     })
     result["wirelength"] = result["routing_wirelength"] if result["routing_wirelength"] is not None else result["wirelength"]
     result["DRC"] = result["drc_violations"] if result["drc_violations"] is not None else result["DRC"]
-    result["WNS"] = result["setup_wns"] if result["setup_wns"] is not None else result["WNS"]
+    # LibreLane's *_wns fields are violation-only and become zero when timing
+    # is clean. Use worst slack (WS) for feasibility; retain WNS separately.
+    result["WNS"] = result["setup_ws"] if result["setup_ws"] is not None else (
+        result["setup_wns"] if result["setup_wns"] is not None else result["WNS"]
+    )
     result["TNS"] = result["setup_tns"] if result["setup_tns"] is not None else result["TNS"]
     _report_evidence(metrics_path, result)
-    required = (
-        "area", "setup_wns", "setup_tns", "hold_wns", "hold_tns",
-        "routing_completion", "routing_wirelength", "drc_violations",
-        "lvs_passed", "signoff_passed",
-    )
+    required = ("area", "setup_tns", "hold_tns", "routing_completion",
+                "routing_wirelength", "drc_violations", "lvs_passed", "signoff_passed")
     result["missing_metrics"] = [name for name in required if result.get(name) is None]
+    if result.get("setup_ws") is None and result.get("setup_wns") is None:
+        result["missing_metrics"].append("setup_ws")
+    if result.get("hold_ws") is None and result.get("hold_wns") is None:
+        result["missing_metrics"].append("hold_ws")
     if status_path:
         runner_record = json.loads(Path(status_path).read_text(encoding="utf-8"))
         runner_status = runner_record.get("terminal_status") or runner_record.get("status")
@@ -188,7 +197,8 @@ def is_feasible(
         return True
     if metrics.get("missing_metrics"):
         return False
-    if metrics.get("hold_wns") is None or metrics["hold_wns"] < 0:
+    hold_slack = metrics.get("hold_ws") if metrics.get("hold_ws") is not None else metrics.get("hold_wns")
+    if hold_slack is None or hold_slack < 0:
         return False
     if metrics.get("hold_violation_count") not in (None, 0):
         return False
@@ -219,8 +229,8 @@ def append_record(record: Mapping[str, Any], output_root: str | Path) -> None:
                 raise FileExistsError(f"trial already aggregated: {trial_id}")
     fields = [
         "trial_id", "knobs", "feasible", "area", "WNS", "runtime_s",
-        "TNS", "DRC", "wirelength", "setup_wns", "setup_tns",
-        "setup_violation_count", "hold_wns", "hold_tns", "hold_violation_count",
+        "TNS", "DRC", "wirelength", "setup_ws", "setup_wns", "setup_tns",
+        "setup_violation_count", "hold_ws", "hold_wns", "hold_tns", "hold_violation_count",
         "routing_completion", "routing_overflow", "routing_wirelength",
         "drc_violations", "lvs_passed", "signoff_passed", "missing_metrics",
         "status", "failure_stage",

@@ -11,7 +11,7 @@ def canonical_objective(metrics: Mapping[str, Any], baselines: Mapping[str, Any]
     Raw components are retained so objective records remain auditable. Missing or
     zero baselines are rejected rather than silently producing an invalid score.
     """
-    setup_wns = metrics.get("setup_wns", metrics.get("WNS"))
+    setup_wns = metrics.get("setup_ws", metrics.get("setup_wns", metrics.get("WNS")))
     wirelength = metrics.get("routing_wirelength", metrics.get("wirelength"))
     area = metrics.get("area")
     clock = metrics.get("clock_period", baselines.get("clock_period"))

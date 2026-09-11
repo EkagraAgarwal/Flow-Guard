@@ -59,6 +59,13 @@ class ParserTests(unittest.TestCase):
         self.assertIsNone(metrics["failure_stage"])
         self.assertTrue(is_feasible(metrics["status"], metrics["DRC"], metrics["WNS"], metrics))
 
+    def test_worst_slack_takes_precedence_over_violation_only_wns(self):
+        fixture = FIXTURES / "metrics_ws_positive.json"
+        metrics = parse_metrics(fixture)
+        self.assertEqual(metrics["setup_wns"], 0)
+        self.assertEqual(metrics["setup_ws"], 3.9)
+        self.assertEqual(metrics["WNS"], 3.9)
+
     def test_incomplete_success_is_not_feasible(self):
         metrics = parse_metrics(FIXTURES / "metrics_success.json")
         self.assertFalse(is_feasible(metrics["status"], metrics["DRC"], metrics["WNS"], metrics))
