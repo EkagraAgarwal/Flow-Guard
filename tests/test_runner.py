@@ -29,6 +29,8 @@ class RunnerTests(unittest.TestCase):
             with patch("src.runner.subprocess.run", side_effect=__import__("subprocess").TimeoutExpired(["x"], 1)):
                 result = run_trial("timeout", config, 1, root / "runs")
             self.assertEqual(result["status"], "TIMEOUT")
+            self.assertEqual(result["terminal_status"], "TIMEOUT")
+            self.assertEqual(result["failure_stage"], "TIMEOUT")
 
     def test_records_nonzero_exit_as_crash(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -40,6 +42,11 @@ class RunnerTests(unittest.TestCase):
                 result = run_trial("crash", config, 1, root / "runs")
             self.assertEqual(result["status"], "CRASH")
             self.assertEqual(result["exit_code"], 7)
+            self.assertIn("sys_executable", result["metadata"])
+            self.assertIn("python_version", result["metadata"])
+            self.assertIn("pdk_root", result["metadata"])
+            self.assertIn("git", result["metadata"])
+            self.assertEqual(result["failure_metadata"]["exit_code"], 7)
 
     def test_classifies_librelane_placement_failure(self):
         with tempfile.TemporaryDirectory() as directory:
