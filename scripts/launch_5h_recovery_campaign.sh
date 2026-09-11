@@ -4,7 +4,7 @@ IFS=$'\n\t'
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
-CONFIG="$ROOT/designs/flowguard_stress/config.json"
+CONFIG="$ROOT/designs/flowguard_stress/config.2x1.json"
 NAMESPACE="recovery_5h_v1"
 RESULTS_BRANCH="recovery-results"
 HOURS="4.75"
