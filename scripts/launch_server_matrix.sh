@@ -9,6 +9,7 @@ TRIALS=24
 TIMEOUT_S=7200
 CONFIG=""
 DESIGN="flowguard_stress"
+EXPERIMENT_ID="server_experiment"
 HOST=""
 REMOTE_ROOT=""
 
@@ -24,6 +25,7 @@ Options:
   --config PATH       Base LibreLane JSON config (overrides --design).
   --design NAME       Use designs/NAME/config.json (default: flowguard_stress).
   --timeout SECONDS   Per-trial timeout, positive integer (default: 7200).
+  --experiment-id ID  Output namespace for an immutable matrix (default: server_experiment).
   --host USER@HOST    Execute this same launcher through SSH on the server.
   --remote-root PATH  Repository path on --host (required with --host).
   -h, --help          Show this help.
@@ -42,6 +44,7 @@ while (($#)); do
     --config) CONFIG=${2:?missing value for --config}; shift 2 ;;
     --design) DESIGN=${2:?missing value for --design}; shift 2 ;;
     --timeout) TIMEOUT_S=${2:?missing value for --timeout}; shift 2 ;;
+    --experiment-id) EXPERIMENT_ID=${2:?missing value for --experiment-id}; shift 2 ;;
     --host) HOST=${2:?missing value for --host}; shift 2 ;;
     --remote-root) REMOTE_ROOT=${2:?missing value for --remote-root}; shift 2 ;;
     -h|--help) usage; exit 0 ;;
@@ -50,12 +53,13 @@ while (($#)); do
 done
 
 [[ $TIMEOUT_S =~ ^[1-9][0-9]*$ ]] || die "--timeout must be a positive integer"
+[[ $EXPERIMENT_ID =~ ^[A-Za-z0-9_.-]+$ ]] || die "--experiment-id contains invalid characters"
 
 if [[ -n $HOST ]]; then
   [[ -n $REMOTE_ROOT ]] || die "--remote-root is required with --host"
   [[ -z $CONFIG || $CONFIG != /* ]] || die "--config must be remote-relative when using --host"
   command -v ssh >/dev/null || die "missing prerequisite: ssh"
-  args=(--timeout "$TIMEOUT_S")
+  args=(--timeout "$TIMEOUT_S" --experiment-id "$EXPERIMENT_ID")
   [[ -n $CONFIG ]] && args+=(--config "$CONFIG") || args+=(--design "$DESIGN")
   exec ssh -- "$HOST" "cd $(printf '%q' "$REMOTE_ROOT") && exec bash scripts/launch_server_matrix.sh $(printf ' %q' "${args[@]}")"
 fi
@@ -77,9 +81,9 @@ PYTHON="$ROOT/.venv/openlane/bin/python"
 "$PYTHON" -m librelane --help >/dev/null || die "LibreLane is unavailable to $PYTHON"
 
 RESULTS="$ROOT/results"
-MANIFEST="$RESULTS/server_experiment_manifest.csv"
-CONFIG_ROOT="$RESULTS/server_experiment_configs"
-RUNS_ROOT="$RESULTS/server_experiment_runs"
+MANIFEST="$RESULTS/${EXPERIMENT_ID}_manifest.csv"
+CONFIG_ROOT="$RESULTS/${EXPERIMENT_ID}_configs"
+RUNS_ROOT="$RESULTS/${EXPERIMENT_ID}_runs"
 LOCK="$RESULTS/.server_experiment.lock"
 mkdir -p "$RESULTS" "$CONFIG_ROOT" "$RUNS_ROOT"
 mkdir "$LOCK" 2>/dev/null || die "another server matrix launcher is active"
