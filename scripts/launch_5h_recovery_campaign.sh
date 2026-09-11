@@ -202,6 +202,11 @@ def resolve(value):
 config = resolve(config)
 config.update({"CLOCK_PERIOD": float(clock), "FP_CORE_UTIL": int(util), "PL_TARGET_DENSITY_PCT": int(density),
                "GPL_CELL_PADDING": int(padding), "GRT_ADJUSTMENT": float(adjustment), "SYNTH_STRATEGY": strategy})
+pdk = config.get("pdk::sky130A")
+if isinstance(pdk, dict):
+    scl = pdk.get("scl::sky130_fd_sc_hd")
+    if isinstance(scl, dict):
+        scl["CLOCK_PERIOD"] = float(clock)
 pathlib.Path(destination).write_text(json.dumps(config, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 PY
   status "[$stage] start $trial_id clock=${clock}ns profile=$profile timeout=${timeout}s"
