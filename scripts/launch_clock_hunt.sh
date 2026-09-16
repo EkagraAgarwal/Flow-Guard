@@ -238,7 +238,8 @@ PY
 while IFS=$'\t' read -r -u 3 clock util density padding adjustment strategy; do
   [[ -n $clock ]] || continue
   strategy_id=${strategy// /_}; adjustment_id=${adjustment/./p}
-  trial_id="clock16-u${util}-d${density}-p${padding}-g${adjustment_id}-s${strategy_id}"
+  clock_id=$(python3 -c 'import sys; print(sys.argv[1].replace(".","p"))' "$clock")
+  trial_id="clock${clock_id}-u${util}-d${density}-p${padding}-g${adjustment_id}-s${strategy_id}"
   run_trial "$trial_id" "$clock" "$util" "$density" "$padding" "$adjustment" "$strategy" || { [[ $? == 3 ]] && { status "deadline safety stop"; write_status STOPPED sweep deadline; refresh_summary; checkpoint; exit 0; }; die "trial failed unexpectedly"; }
 done 3<<< "$HUNT_ROWS"
 refresh_summary; write_status COMPLETE complete "hunt done"; checkpoint

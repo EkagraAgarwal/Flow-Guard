@@ -25,3 +25,8 @@
 ## 2026-09-16 06:25Z hunt launcher bug + fix
 - Hunt launcher exited COMPLETE after 1/8 trials: `docker run -i` inside run_trial consumed the while-read herestring stdin. Same latent pattern cannot hit the exhaustive for-loop launcher.
 - Fix: hunt rows via fd 3 (`read -u 3`), runner stdin from /dev/null. Trial 2 result stands (strongest config @16ns FEASIBLE, setup_ws 0.915 vs 1.915 @17ns). Relaunching --resume for remaining 7.
+
+## 2026-09-16 06:50Z 16.0ns verdict + 15.8 probe
+- clock_hunt_16ns_v1 8/8 COMPLETE: 7 feasible (ws 0.083-0.915), 1 TIMING_FAIL weakest (ws -0.137). One-sided (87.5%) -> probe 15.8 per plan; crit estimates predict ~5/8 feasible there.
+- All feasible rows: hold_ws ~0.11, routing 100, DRC 0, LVS/signoff true, missing [].
+- Launcher: clock-derived trial prefix (clock15p8-...).
