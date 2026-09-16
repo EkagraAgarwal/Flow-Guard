@@ -59,3 +59,7 @@
 ## 2026-09-16 18:10Z primary build kicked off
 - ML venv .venv/ml (sklearn 1.9.1/optuna 5.0.0/scipy 1.18.1); full suite 24/24 green (system python lacked sklearn -> prior 1 error resolved by venv, no code change).
 - Shared init primary_init_v1: first 8 seeded pool IDs, zero overlap -> all fresh (~25min). Coder building src/primary_loop.py + launch_primary_v1.sh + tests (no EDA during build).
+
+## 2026-09-16 18:30Z true-shared-init support
+- 5-way build reviewed: per-method namespaces would each rerun init (40 runs, ~28G > disk). Added --shared-from NS (launcher) + --shared-trials (suggest CLI): methods train on shared ledger rows, run only 16 adaptive each. Total 8 + 5x16 = 88 runs.
+- Suite 35/35 on .venv/ml (incl. new shared-trials merge/exclusion test).
