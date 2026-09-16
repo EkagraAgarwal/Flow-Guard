@@ -17,3 +17,7 @@
 - Per operator order, SIGTERM launcher (PID 3123875). Spared live trial clock15-u35-d45-p1-g0p10-sAREA_0 finished clean (exit 0).
 - Reconciled orphan via src.parser + manifest append in launcher-exact format (event=trial, sort_keys). Namespace now 485/648 SUSPENDED: 17ns 310 feas + 15 infra; 15ns 0 feas + 160 fails (159 TIMING_FAIL + reconciled infeasible).
 - Grid remainder parked, not deleted. Pivot to clock_hunt_16ns_v1 @16.0ns. Reconciled trial parsed TIMING_FAIL (setup_ws -0.266): namespace totals 15ns 0 feas + 160 fails (all TIMING_FAIL).
+
+## 2026-09-16 06:15Z hunt ledger correction (clock_hunt_16ns_v1)
+- First hunt launch chain was killed by tool-timeout cleanup after LibreLane had started trial 1 under its config dir (partial stage tree, no status/metrics). Relaunch then recorded FAILED/NO_METRICS for trial 1 purely from the immutability guard (produced residue), not from EDA evidence.
+- Removed that single NO_METRICS row from manifest+trials (no EDA evidence lost) and deleted the partial residue tree, so --resume retries trial 1 cleanly after trials 2-8. Original refusal preserved in this log entry.
