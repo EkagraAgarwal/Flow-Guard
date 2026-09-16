@@ -45,3 +45,8 @@
 - Chained `preflight && nohup launcher &` in one tool call: tool-timeout cleanup killed the process group; runner+launcher died mid-trial r1 while container-side LibreLane finished (final/metrics.json present, no status.json since writer died).
 - Rule: single detached `setsid nohup ... &` per call, verify in a separate call.
 - Orphan raw quarantined at results/repeat_15p8_med_v1/quarantine/orphan_r1_tool_cleanup/ (no status.json; not in ledger). Fresh r1 via --resume.
+
+## 2026-09-16 15:55Z repeatability verdict + diagnostics
+- repeat_15p8_med_v1 3/3: setup_ws 0.5001 x3, hold 0.112 x3, area/wl identical; runtime 160-175s only. Effectively deterministic -> GP observation noise ~0; tiny QoR deltas not claimable below ~1e-3 only if replicated (they are exact here).
+- Freeze knobs: GPL_CELL_PADDING / SYNTH_STRATEGY / PL_TARGET_DENSITY_PCT / GRT_ADJUSTMENT (util fixed 30, flat 1.443-1.454 @17ns). Pool 3x3x3x4=108.
+- diag_15p8_v1: 9 padding x strategy cross (d45/g0.10) + 5 density/grt probes = 14 new points @15.8.
