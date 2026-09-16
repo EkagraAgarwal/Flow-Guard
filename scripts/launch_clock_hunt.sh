@@ -217,7 +217,7 @@ PY
   fi
   status "start $trial_id timeout=${timeout}s"
   local runner_status=FAILED parser_status=NO_METRICS metrics_file="" parsed="" feasible=false
-  if "$PYTHON" -m src.runner --trial-id "$trial_id" --config "$config" --timeout "$timeout" --runs-root "$RUNS_ROOT"; then runner_status=SUCCESS; fi
+  if "$PYTHON" -m src.runner --trial-id "$trial_id" --config "$config" --timeout "$timeout" --runs-root "$RUNS_ROOT" < /dev/null; then runner_status=SUCCESS; fi
   [[ -d $trial_dir ]] && cp "$config" "$trial_dir/effective_config.json"
   metrics_file=$(find "$trial_dir" -name metrics.json -type f -print -quit 2>/dev/null || true)
   if [[ $runner_status == SUCCESS && -n $metrics_file ]]; then
@@ -235,11 +235,11 @@ PY
   append_trial "$record"; refresh_summary; write_status RUNNING trial "completed=$trial_id runner=$runner_status parser=$parser_status"; checkpoint
 }
 
-while IFS=$'\t' read -r clock util density padding adjustment strategy; do
+while IFS=$'\t' read -r -u 3 clock util density padding adjustment strategy; do
   [[ -n $clock ]] || continue
   strategy_id=${strategy// /_}; adjustment_id=${adjustment/./p}
   trial_id="clock16-u${util}-d${density}-p${padding}-g${adjustment_id}-s${strategy_id}"
   run_trial "$trial_id" "$clock" "$util" "$density" "$padding" "$adjustment" "$strategy" || { [[ $? == 3 ]] && { status "deadline safety stop"; write_status STOPPED sweep deadline; refresh_summary; checkpoint; exit 0; }; die "trial failed unexpectedly"; }
-done <<< "$HUNT_ROWS"
+done 3<<< "$HUNT_ROWS"
 refresh_summary; write_status COMPLETE complete "hunt done"; checkpoint
 status "hunt complete: summary=$SUMMARY"
