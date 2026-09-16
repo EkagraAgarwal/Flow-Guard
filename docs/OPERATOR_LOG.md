@@ -55,3 +55,7 @@
 - Pruned 159 TIMING_FAIL step dirs in exhaustive (kept final/, STA pre/post-pnr, status, runner logs, aggregate, effective config). 106G -> 89G namespace; disk 14G -> 30G free. Note: 76-manufacturability pruned on fail trials only (timing-infeasible; signoff raw retained for all feasible).
 - Objective qor_v1 frozen: 0.5 crit + 0.3 wl + 0.2 area, baselines crit 15.0847-15.7342ns / wl 27229-28422 / area 15109.5-15318.4 (25 trials @15.8, 19 feas).
 - Pool pool_15p8_v1: 72 grid (padding {0,2} x 3 strategies x 3 densities x 4 grt), seed 0, sha 6c41874c....
+
+## 2026-09-16 18:10Z primary build kicked off
+- ML venv .venv/ml (sklearn 1.9.1/optuna 5.0.0/scipy 1.18.1); full suite 24/24 green (system python lacked sklearn -> prior 1 error resolved by venv, no code change).
+- Shared init primary_init_v1: first 8 seeded pool IDs, zero overlap -> all fresh (~25min). Coder building src/primary_loop.py + launch_primary_v1.sh + tests (no EDA during build).
