@@ -40,3 +40,8 @@
 - Prune preview: drop FP_CORE_UTIL (flat 1.443-1.454 @17ns); keep padding/strategy/density/grt_adj (3x3x3x4=108 pool). Confirm at freeze.
 - Archived results/recovery_5h_{v5,v6,v9} (no manifests, superseded) to /home/ubuntu/flowguard-archive-recovery-v5v6v9.tar.gz (609M, 32515 entries, sha256 39b247a9...). Disk 13G -> 18G free. Docker images untouched (all lobe infra + librelane in use).
 - Repeatability: repeat_15p8_med_v1 (median config x3, suffixed ids). Launcher supports trial_suffix.
+
+## 2026-09-16 15:55Z repeat launcher killed by tool cleanup (lesson)
+- Chained `preflight && nohup launcher &` in one tool call: tool-timeout cleanup killed the process group; runner+launcher died mid-trial r1 while container-side LibreLane finished (final/metrics.json present, no status.json since writer died).
+- Rule: single detached `setsid nohup ... &` per call, verify in a separate call.
+- Orphan raw quarantined at results/repeat_15p8_med_v1/quarantine/orphan_r1_tool_cleanup/ (no status.json; not in ledger). Fresh r1 via --resume.
