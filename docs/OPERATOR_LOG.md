@@ -34,3 +34,9 @@
 ## 2026-09-16 07:00Z parser worst-corner verification (clock_hunt_16ns_v1)
 - trial clock16-u40-d52-p1-g0p05-sAREA_1: parsed setup_ws 0.915 == metrics top timing__setup__ws == min over 9 corners (limiting: max_ss_100C_1v60); raw nom_tt ws.max.rpt 8.536 matches that corner's metrics value exactly. Hold likewise (parsed 0.111 == min corner min_ff_n40C_1v95).
 - trial clock16-u30-d38-p2-g0p15-sAREA_1 (TIMING_FAIL): parsed -0.137 == worst corner (same max_ss corner), TNS -0.253, 2 violations. Units ns, positive=pass. Worst-corner convention confirmed both directions.
+
+## 2026-09-16 15:40Z clock freeze + storage triage
+- clock_hunt_15p8ns_v1 8/8 COMPLETE: 5 feasible (ws 0.197-0.715), 3 TIMING_FAIL (ws -0.337/-0.117/-0.056). 62.5% feasible -> FREEZE clock at 15.8ns for primary benchmark. FlowGuard must not tune clock.
+- Prune preview: drop FP_CORE_UTIL (flat 1.443-1.454 @17ns); keep padding/strategy/density/grt_adj (3x3x3x4=108 pool). Confirm at freeze.
+- Archived results/recovery_5h_{v5,v6,v9} (no manifests, superseded) to /home/ubuntu/flowguard-archive-recovery-v5v6v9.tar.gz (609M, 32515 entries, sha256 39b247a9...). Disk 13G -> 18G free. Docker images untouched (all lobe infra + librelane in use).
+- Repeatability: repeat_15p8_med_v1 (median config x3, suffixed ids). Launcher supports trial_suffix.

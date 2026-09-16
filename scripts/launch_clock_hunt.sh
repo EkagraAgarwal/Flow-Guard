@@ -179,7 +179,7 @@ for entry in hunt["configs"]:
     v = entry["vars"]
     clock = entry.get("clock_ns", hunt.get("clock_ns", 16.0))
     print("\t".join(str(x) for x in (clock, v["FP_CORE_UTIL"], v["PL_TARGET_DENSITY_PCT"],
-          v["GPL_CELL_PADDING"], v["GRT_ADJUSTMENT"], v["SYNTH_STRATEGY"])))
+          v["GPL_CELL_PADDING"], v["GRT_ADJUSTMENT"], v["SYNTH_STRATEGY"], entry.get("trial_suffix", ""))))
 PY
 )
 
@@ -235,11 +235,12 @@ PY
   append_trial "$record"; refresh_summary; write_status RUNNING trial "completed=$trial_id runner=$runner_status parser=$parser_status"; checkpoint
 }
 
-while IFS=$'\t' read -r -u 3 clock util density padding adjustment strategy; do
+while IFS=$'\t' read -r -u 3 clock util density padding adjustment strategy suffix; do
   [[ -n $clock ]] || continue
   strategy_id=${strategy// /_}; adjustment_id=${adjustment/./p}
   clock_id=$(python3 -c 'import sys; print(sys.argv[1].replace(".","p"))' "$clock")
   trial_id="clock${clock_id}-u${util}-d${density}-p${padding}-g${adjustment_id}-s${strategy_id}"
+  [[ -n ${suffix:-} ]] && trial_id="${trial_id}-${suffix}"
   run_trial "$trial_id" "$clock" "$util" "$density" "$padding" "$adjustment" "$strategy" || { [[ $? == 3 ]] && { status "deadline safety stop"; write_status STOPPED sweep deadline; refresh_summary; checkpoint; exit 0; }; die "trial failed unexpectedly"; }
 done 3<<< "$HUNT_ROWS"
 refresh_summary; write_status COMPLETE complete "hunt done"; checkpoint
