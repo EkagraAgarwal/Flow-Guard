@@ -21,3 +21,7 @@
 ## 2026-09-16 06:15Z hunt ledger correction (clock_hunt_16ns_v1)
 - First hunt launch chain was killed by tool-timeout cleanup after LibreLane had started trial 1 under its config dir (partial stage tree, no status/metrics). Relaunch then recorded FAILED/NO_METRICS for trial 1 purely from the immutability guard (produced residue), not from EDA evidence.
 - Removed that single NO_METRICS row from manifest+trials (no EDA evidence lost) and deleted the partial residue tree, so --resume retries trial 1 cleanly after trials 2-8. Original refusal preserved in this log entry.
+
+## 2026-09-16 06:25Z hunt launcher bug + fix
+- Hunt launcher exited COMPLETE after 1/8 trials: `docker run -i` inside run_trial consumed the while-read herestring stdin. Same latent pattern cannot hit the exhaustive for-loop launcher.
+- Fix: hunt rows via fd 3 (`read -u 3`), runner stdin from /dev/null. Trial 2 result stands (strongest config @16ns FEASIBLE, setup_ws 0.915 vs 1.915 @17ns). Relaunching --resume for remaining 7.
