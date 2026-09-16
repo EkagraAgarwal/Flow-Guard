@@ -30,3 +30,7 @@
 - clock_hunt_16ns_v1 8/8 COMPLETE: 7 feasible (ws 0.083-0.915), 1 TIMING_FAIL weakest (ws -0.137). One-sided (87.5%) -> probe 15.8 per plan; crit estimates predict ~5/8 feasible there.
 - All feasible rows: hold_ws ~0.11, routing 100, DRC 0, LVS/signoff true, missing [].
 - Launcher: clock-derived trial prefix (clock15p8-...).
+
+## 2026-09-16 07:00Z parser worst-corner verification (clock_hunt_16ns_v1)
+- trial clock16-u40-d52-p1-g0p05-sAREA_1: parsed setup_ws 0.915 == metrics top timing__setup__ws == min over 9 corners (limiting: max_ss_100C_1v60); raw nom_tt ws.max.rpt 8.536 matches that corner's metrics value exactly. Hold likewise (parsed 0.111 == min corner min_ff_n40C_1v95).
+- trial clock16-u30-d38-p2-g0p15-sAREA_1 (TIMING_FAIL): parsed -0.137 == worst corner (same max_ss corner), TNS -0.253, 2 violations. Units ns, positive=pass. Worst-corner convention confirmed both directions.
