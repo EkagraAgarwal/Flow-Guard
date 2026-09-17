@@ -63,3 +63,8 @@
 ## 2026-09-16 18:30Z true-shared-init support
 - 5-way build reviewed: per-method namespaces would each rerun init (40 runs, ~28G > disk). Added --shared-from NS (launcher) + --shared-trials (suggest CLI): methods train on shared ledger rows, run only 16 adaptive each. Total 8 + 5x16 = 88 runs.
 - Suite 35/35 on .venv/ml (incl. new shared-trials merge/exclusion test).
+
+## 2026-09-17 01:30Z PR attempt + cleanup + presentation prep
+- PR to main blocked: local token (EkagraAgarwal) is not a collaborator on Samprab06/Flow-Guard (GraphQL createPullRequest denied). Options: collaborator token, or fork + cross-fork PR. 44 commits / 56 files / +4879-195 ready on experiment/clock-exhaustive.
+- Main reviewed via separate worktree /home/ubuntu/FlowGuard-main @d44e3e2 (this checkout stays on experiment branch until EDA closes; switching mid-run would endanger the sourced launcher + per-trial module loads).
+- Cleanup: removed 5 stale *.pid files (PIDs dead/empty). *.log kept until comparison closes. results/* gitignored by design; quarantine/ retained as evidence.
