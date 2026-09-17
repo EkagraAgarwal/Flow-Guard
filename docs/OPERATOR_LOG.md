@@ -68,3 +68,6 @@
 - PR to main blocked: local token (EkagraAgarwal) is not a collaborator on Samprab06/Flow-Guard (GraphQL createPullRequest denied). Options: collaborator token, or fork + cross-fork PR. 44 commits / 56 files / +4879-195 ready on experiment/clock-exhaustive.
 - Main reviewed via separate worktree /home/ubuntu/FlowGuard-main @d44e3e2 (this checkout stays on experiment branch until EDA closes; switching mid-run would endanger the sourced launcher + per-trial module loads).
 - Cleanup: removed 5 stale *.pid files (PIDs dead/empty). *.log kept until comparison closes. results/* gitignored by design; quarantine/ retained as evidence.
+
+## 2026-09-17 01:45Z PR opened via fork
+- Forked to EkagraAgarwal/Flow-Guard (already in sync at 780a218), opened cross-fork PR Samprab06/Flow-Guard#4 (experiment/clock-exhaustive -> main). Direct PR blocked (not collaborator).
